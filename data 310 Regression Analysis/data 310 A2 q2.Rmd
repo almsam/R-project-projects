@@ -1,0 +1,26 @@
+```{r setup, include=FALSE}
+
+x <- c(1.8, 0.1, 0.2, 1.4, 2.4, 0.9, 0.9, 0.6, 0.2, 3.7)
+y <- c(2.0, 0.4, 1.9, 2.7, 3.2, 1.1, 1.5, 1.1, 0.8, 4.1)
+
+```
+
+```{r}
+
+x <- c(1.8, 0.1, 0.2, 1.4, 2.4, 0.9, 0.9, 0.6, 0.2, 3.7)
+y <- c(2.0, 0.4, 1.9, 2.7, 3.2, 1.1, 1.5, 1.1, 0.8, 4.1)
+
+model <- lm(y ~ x)
+plot(x, y)
+abline(model)
+
+```
+
+
+```{r}
+
+residuals <- model$residuals
+summary(residuals)
+
+```
+Residuals seem randomly scattered about 0, so model looks alright with only small skewing
