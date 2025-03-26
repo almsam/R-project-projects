@@ -1,0 +1,103 @@
+```{r setup, include=FALSE}
+
+angle <- c(1.3, 4.0, 2.7, 2.2, 3.6, 4.9, 0.9, 1.1, 3.1)
+distance <- c(0.43, 0.84, 0.58, 0.58, 0.70, 1.00, 0.27, 0.29, 0.63)
+
+```
+
+```{r}
+
+# 3A
+
+plot(angle, distance, xlab = "angle (degrees)", ylab = "dist (meters)", 
+     main = "distance traveled by toy car vs. ramp angle")
+
+```
+
+
+```{r}
+
+# 3b
+
+# y = β0 + β1*x
+
+x_mean <- mean(angle)
+y_mean <- mean(distance)
+
+Sxx <- sum((angle - x_mean)^2)
+Sxy <- sum((angle - x_mean) * (distance - y_mean))
+
+beta1 <- Sxy / Sxx
+beta0 <- y_mean - beta1 * x_mean
+
+cat("slope (beta 1):", beta1, "\n")
+cat("intercept (beta 0):", beta0, "\n")
+
+```
+```{r}
+
+# 3c
+
+n <- length(angle)
+df <- n - 2
+
+residuals <- distance - (beta0 + beta1 * angle)
+s <- sqrt(sum(residuals^2) / df) #standard err
+
+SE_beta1 <- s / sqrt(Sxx)
+SE_beta0 <- s * sqrt(1/n + (x_mean^2 / Sxx))
+
+alpha <- 0.05 # 95%
+t_value <- qt(1 - alpha/2, df)
+
+# confidence intervals
+CI_beta1 <- c(beta1 - t_value * SE_beta1, beta1 + t_value * SE_beta1)
+CI_beta0 <- c(beta0 - t_value * SE_beta0, beta0 + t_value * SE_beta0)
+
+cat("95% ci for slope (beta 1):", CI_beta1, "\n")
+cat("95% ci for intercept (beta 0):", CI_beta0, "\n")
+
+
+```
+```{r}
+
+# 3d
+
+n <- length(angle)
+df <- n - 2 #num degrees freedom
+
+residuals <- distance - (beta0 + beta1 * angle)
+s <- sqrt(sum(residuals^2) / df) #RSE
+
+SE_beta1 <- s / sqrt(Sxx)
+SE_beta0 <- s * sqrt(1/n + (x_mean^2 / Sxx))
+
+alpha <- 0.05 # t-value for 95% confidence interval
+t_value <- qt(1 - alpha/2, df)
+
+# CI
+CI_beta1 <- c(beta1 - t_value * SE_beta1, beta1 + t_value * SE_beta1)
+CI_beta0 <- c(beta0 - t_value * SE_beta0, beta0 + t_value * SE_beta0)
+
+cat("95% CI for Slope (beta 1):", CI_beta1, "\n")
+cat("95% CI for Intercept (beta 0):", CI_beta0, "\n")
+
+```
+
+```{r}
+
+x0 <- 2.5 #angle givin
+y_hat0 <- beta0 + beta1 * x0
+
+SE_CI <- s * sqrt(1/n + ((x0 - x_mean)^2 / Sxx))
+SE_PI <- s * sqrt(1 + 1/n + ((x0 - x_mean)^2 / Sxx))
+
+CI <- y_hat0 + c(-1, 1) * t_value * SE_CI
+PI <- y_hat0 + c(-1, 1) * t_value * SE_PI
+
+cat("95% CI for expected distance:", CI, "\n")
+cat("95% prediction interval for individual distance:", PI, "\n")
+
+
+```
+
