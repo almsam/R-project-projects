@@ -1,0 +1,68 @@
+
+```{r pressure, echo=FALSE}
+
+if (!require(DAAG)) install.packages("DAAG")
+library(DAAG)
+
+data(fossum)
+
+# 4A
+plot(fossum$totlngth, fossum$hdlngth, 
+     xlab = "total length (cm)", 
+     ylab = "head length (mm)", 
+     main = "head length vs total length")
+
+```
+```{r}
+
+# 4B
+model <- lm(hdlngth ~ totlngth, data = fossum)
+summary(model)
+
+# hdlngth =~ 49.97   +   0.48 * totlngth
+
+```
+
+
+```{r}
+# 4C
+anova(model)
+```
+
+
+```{r}
+
+# 4D
+
+# Null Hypothesis (H0): hdlngth is unrelated to totlngth (slope = 0).
+# Alternative Hypothesis (H1): hdlngth is related to totlngth (slope ≠ 0).
+
+# p-value: 7.501e-10
+
+
+# thus: a statistically significant relationship between head length (hdlngth) and total length (totlngth) exists
+
+```
+
+```{r}
+
+# 4E
+
+predict(model, newdata = data.frame(totlngth = 85), interval = "prediction", level = 0.95)
+
+```
+
+```{r}
+
+# 4F
+
+plot(model$fitted.values, model$residuals, 
+     xlab = "fitted values", 
+     ylab = "residuals", 
+     main = "residuals vs fitted values")
+abline(h = 0, col = "red", lty = 2)
+
+# they look fairly random
+
+```
+
