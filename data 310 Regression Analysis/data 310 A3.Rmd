@@ -1,0 +1,241 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
+
+# Data 310 A3 62197256 R PDF:
+
+setup:
+
+```{r setup}
+
+file_path <- "C:/Users/samia/OneDrive/Desktop/data 310/a3/table.bi.txt"
+df <- read.table(file_path, header = TRUE, sep = "\t", stringsAsFactors = FALSE)
+df <- na.omit(df)
+
+summary(df)
+
+```
+
+### Q4 3.1a:
+
+```{r}
+
+model <- lm(y ~ X2 + X7 + X8, data = df)
+summary(model)
+
+```
+y hat = -1.80837 + 0.003598x2 + 0.1939x7 - 0.004816x8
+
+
+
+### Q4 3.1b:
+
+```{r}
+
+model <- lm(y ~ X2 + X7 + X8, data = df)
+anova_result <- anova(model)
+print(anova_result)
+
+
+```
+
+### Q4 3.1d:
+
+```{r}
+
+##dfc <- df[complete.cases(df), ]
+
+#RSS <- sum(residuals(df)^2)
+#TSS <- sum((df$y[!is.na(df$y)] - mean(df$y[!is.na(df$y)]))^2)
+
+#R_squared <- 1 - (RSS / TSS)
+#R_squared
+
+#residuals(df)
+
+R_squared <- summary(model)$r.squared
+R_squared
+
+```
+
+```{r}
+
+n <- nrow(df)
+p <- length(coef(model)) - 1  # subtract 1 fro intercept
+
+R_squared_adj <- 1 - ((1 - R_squared) * (n - 1)) / (n - p - 1)
+R_squared_adj
+
+```
+
+R^2     = 0.7863069
+R^2 adj = 0.7595953
+
+
+
+### Q4 3.1e:
+
+
+```{r}
+
+full_model <- lm(y ~ X2 + X7 + X8, data = df)
+reduced_model <- lm(y ~ X2 + X8, data = df)
+anova(reduced_model, full_model)
+
+```
+
+
+
+
+
+
+
+
+
+
+### Q5 3.2:
+
+
+```{r}
+
+model <- lm(y ~ X2 + X7 + X8, data = df)
+y_obs <- df$y
+y_hat <- fitted(model)
+correlation <- cor(y_obs, y_hat)
+r_squared_from_correlation <- correlation^2
+model_summary <- summary(model)
+r_squared_from_model <- model_summary$r.squared
+# print results
+cat("Correlation coefficient:", correlation, "\n")
+cat("Squared correlation coefficient (r^2):", r_squared_from_correlation, "\n")
+cat("R^2 from model summary:", r_squared_from_model, "\n")
+
+```
+
+
+
+
+
+
+
+
+### Q6 3.3a:
+
+```{r}
+
+beta7 <- 0.193960
+se_beta7 <- 0.088233
+free <- 24
+
+t_critical <- qt(0.975, free)
+margin_of_error <- t_critical * se_beta7
+ci_lower <- beta7 - margin_of_error
+ci_upper <- beta7 + margin_of_error
+
+cat("95% CI for beta7: [", ci_lower, ", ", ci_upper, "]\n")
+
+
+```
+
+### Q6 3.3b:
+
+```{r}
+
+beta <- c(-1.808372, 0.003598, 0.193960, -0.004816)
+mse <- 2.911
+t_critical <- qt(0.975, df = 24)
+X <- model.matrix(lm(y ~ X2 + X7 + X8, data = df))
+new_X <- c(1, 2300, 56.0, 2100)
+
+X_inverse <- solve(t(X) %*% X)
+var_hat_y <- mse * (t(new_X) %*% X_inverse %*% new_X)
+y_hat <- sum(new_X * beta)
+margin_of_error <- t_critical * sqrt(var_hat_y)
+
+ci_lower <- y_hat - margin_of_error
+ci_upper <- y_hat + margin_of_error
+
+cat("Predicted y:", y_hat, "\n")
+cat("95% CI: [", ci_lower, ", ", ci_upper, "]\n")
+
+
+
+
+```
+
+
+
+
+
+
+### Q7 3.4a:
+
+```{r}
+
+model_x2_x8 <- lm(y ~ X2 + X8, data = df)
+summary(model_x2_x8)
+anova(model_x2_x8) #anova tests significance of regression
+
+
+```
+
+
+### Q7 3.4b:
+
+```{r}
+
+model <- lm(y ~ X2 + X8, data = df)
+
+RSS <- sum(residuals(model)^2)
+TSS <- sum((df$y - mean(df$y))^2)
+R_squared <- 1 - (RSS / TSS)
+
+n <- nrow(df)
+p <- length(coef(model)) - 1
+R_squared_adj <- 1 - ((RSS / (n - p - 1)) / (TSS / (n - 1)))
+
+cat("R-squared:", R_squared, "\n")
+cat("Adjusted R-squared:", R_squared_adj, "\n")
+
+```
+
+
+
+### Q7 3.4c:
+
+```{r}
+
+model <- lm(y ~ X2 + X8, data = df)
+beta_8 <- coef(summary(model))["X8", "Estimate"] #extract coef
+se_beta_8 <- coef(summary(model))["X8", "Std. Error"]
+
+# crit t value for 95% confidence
+t_crit <- qt(0.975, df.residual(model))
+ci_beta_8 <- c(beta_8 - t_crit * se_beta_8, beta_8 + t_crit * se_beta_8) #ci b8
+
+X2_value <- 56.0 #params given in q
+X8_value <- 2100
+X0 <- c(1, X2_value, X8_value)
+
+# predicted mean:
+y_hat <- sum(coef(model) * X0)
+
+sigma2 <- sum(residuals(model)^2) / df.residual(model)
+var_y_hat <- sigma2 * (t(X0) %*% solve(t(model.matrix(model)) %*% model.matrix(model)) %*% X0)
+
+# 95 CI for pred mean
+ci_mean <- c(y_hat - t_crit * sqrt(var_y_hat), y_hat + t_crit * sqrt(var_y_hat))
+
+# print
+list(
+  CI_beta_8 = ci_beta_8,
+  CI_mean_games = ci_mean
+)
+
+```
+
+
+
+
