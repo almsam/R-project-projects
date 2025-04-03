@@ -116,3 +116,72 @@ for (i in 1:4) {
 
 
 
+
+
+
+# Q5:
+
+# Q5c:
+
+set.seed(315)
+n <- 1000
+phi <- c(0.2, -0.3, 0.1, 0.4)  # AR(4) Coef
+sigma_e <- sqrt(4)  # SD of white noise
+
+# AR(4) process
+z_t <- arima.sim(n=n, model=list(ar=phi), sd=sigma_e)
+
+# and plot time
+par(mfrow=c(1,2))
+acf(z_t, main="Sample ACF of AR(4)", col="blue")  # ACF plot
+pacf(z_t, main="Sample PACF of AR(4)", col="red")  # PACF
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Q6:
+
+# Q6A:
+
+install.packages("RCMinification")
+library(RCMinification) 
+data(wolfRMNP)
+source("C:/Users/samia/OneDrive/Desktop/fourth year/data 315/wolfRMNP.R")
+
+# graph ACF and PACF
+par(mfrow=c(1,2))
+acf(wolfRMNP, main="ACF of Wolf Counts", col="blue")  # acf
+pacf(wolfRMNP, main="PACF of Wolf Counts", col="red")  # p acf
+
+
+
+
+# Q6B:
+
+p <- 1
+ar_model <- arima(wolfRMNP, order=c(p,0,0), method="ML")
+summary(ar_model)
+
+# Q6C:
+
+par(mfrow=c(2,2))
+plot(ar_model$residuals, type="o", main="Residuals of AR Model", col="blue")
+acf(ar_model$residuals, main="ACF of Residuals", col="red")  # I expect no autocorrelation
+pacf(ar_model$residuals, main="PACF of Residuals", col="purple")
+qqnorm(ar_model$residuals); qqline(ar_model$residuals, col="red")
+
+
+
+
+
+
+
