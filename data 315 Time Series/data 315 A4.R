@@ -222,3 +222,53 @@ x0.lm <- lm(x0 ~ z0)
 summary(x0.lm)
 
 
+
+# Q8E:
+
+alpha_beta_hat <- coef(z.AR2)[2]
+beta_hat <- coef(x0.lm)[2]  # solve for B
+alpha_hat <- alpha_beta_hat / beta_hat
+alpha_hat
+beta_hat
+alpha_beta_hat
+
+# Q8F:
+
+muX_hat <- coef(x0.lm)[1]
+muX_hat
+
+
+
+
+
+
+
+# Q8G:
+
+install.packages("forecast")
+library(forecast)
+
+# forecast z_t for 20 years
+z_forecast <- forecast(z.AR2, h=20)
+plot(z_forecast, main="20-Year Forecast of z_t") #plot
+
+#zAR2pred <- z_forecast$pred
+zAR2pred <- z_forecast$mean
+zAR2pred
+
+
+
+# Q8H:
+
+par(mfrow=c(3,1))  # set layout to 1 row, 3 columns
+
+# plot original zt
+plot(z, type="l", col="blue", ylim=c(0,20), main="Original z_t", xlab="Time", ylab="z")
+
+# new observations (hat)
+znew <- rnorm(20, mean=mean(z), sd=sd(z))
+plot(znew, type="l", col="red", ylim=c(0,20), main="New Observations", xlab="Time", ylab="z")
+
+# graph AR(2) prediction
+plot(zAR2pred, type="l", col="green", ylim=c(0,20), main="AR(2) Forecasts", xlab="Time", ylab="z")
+
