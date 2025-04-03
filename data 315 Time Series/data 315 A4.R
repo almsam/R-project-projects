@@ -185,3 +185,40 @@ qqnorm(ar_model$residuals); qqline(ar_model$residuals, col="red")
 
 
 
+
+
+
+# Q8:
+
+# Q8C:
+
+#source("zx.R")
+source("C:/Users/samia/OneDrive/Desktop/fourth year/data 315/zx.R")
+z <- zx$z  # read z series
+
+# graph ACF n PACF
+par(mfrow=c(2,1))
+
+acf(z, main="ACF of z_t")
+pacf(z, main="PACF of z_t")
+
+# time for our AR(2) model
+z.AR2 <- arima(z, order=c(2,0,0))
+summary(z.AR2)
+
+
+
+# Q8D:
+
+x <- zx$x
+n <- length(z)
+
+muZhat <- coef(z.AR2)[3]
+z0 <- z - muZhat
+z0 <- z0[-n]
+x0 <- x[2:n]
+
+x0.lm <- lm(x0 ~ z0)
+summary(x0.lm)
+
+
