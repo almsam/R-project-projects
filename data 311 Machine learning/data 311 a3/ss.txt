@@ -1,0 +1,33 @@
+df <- read.csv("~/data311lab2/myopiacomma.csv")
+  ## all occurances of ";" in csv replaced with ","
+  ## this is a valid solution as the format is comma seperated value, not semi colon seperated value
+
+summary(df)
+
+str(df)
+
+class(df)
+
+head(df)
+
+max(df$STUDYYEAR)
+min(df$STUDYYEAR)
+
+
+
+
+
+
+set.seed(19651)
+n = nrow(df)
+train <- sample(1:n, n*.6)
+test <- setdiff(1:n, train)
+training_data <- df[train, ]
+testing_data <- df[test, ]
+
+
+
+
+
+
+logreg1 <- glm(MYOPIC ~ SPHEQ + AL + ACD, data = training_data, family = binomial)
