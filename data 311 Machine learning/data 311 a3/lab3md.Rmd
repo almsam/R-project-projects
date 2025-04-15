@@ -1,0 +1,961 @@
+---
+title: "data311lab3"
+output: html_document
+date: "2023-11-29"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+## 1:
+
+```{r}
+
+df <- read.csv("~/data311lab2/myopiacomma.csv")
+  ## all occurances of ";" in csv replaced with ","
+  ## this is a valid solution as the format is comma seperated value, not semi colon seperated value
+
+summary(df)
+
+str(df)
+
+class(df)
+
+head(df)
+
+max(df$STUDYYEAR)
+min(df$STUDYYEAR)
+
+set.seed(19651)
+n = nrow(df)
+train <- sample(1:n, n*.6)
+test <- setdiff(1:n, train)
+training_data <- df[train, ]
+testing_data <- df[test, ]
+
+
+logreg1 <- glm(MYOPIC ~ SPHEQ + AL + ACD, data = training_data, family = binomial)
+
+```
+
+## 2:
+
+```{r}
+
+beta.est <- function(df, inde2) {
+  model <- glm(MYOPIC ~ SPHEQ + AL + ACD, data=df, family = binomial)
+  co <- coef(model)
+  
+  b <- testing_data[inde2, c(6, 7, 8)]
+  
+  out = co[1] + (b[, 1]*co[2]) + (b[, 2]*co[3]) + (b[, 3]*co[4])
+  return(out)
+}
+
+beta.est(df, 4)
+```
+
+## 3:
+
+```{r}
+
+##install.packages("boot")
+library(boot)
+
+set.seed(62256099)
+
+boot_results <- boot(df, beta.est, R=1000)
+
+```
+
+## 4:
+
+```{r}
+
+print(summary(boot_results))
+
+```
+
+```{r}
+
+##hist(boot_results$t[, 2], main = "al:", xlab = "al")
+##hist(boot_results$t[, 3], main = "acd:", xlab = "acd")
+hist(boot_results$t[, 1], main = "bootstrap estimates for spheq:", xlab = "spheq")
+
+##, breaks = 222)
+
+```
+
+```{r}
+
+hist(boot_results$t[, 2], main = "bootstrap estimates for al:", xlab = "al")
+##hist(boot_results$t[, 3], main = "acd:", xlab = "acd")
+
+```
+
+```{r}
+
+hist(boot_results$t[, 3], main = "bootstrap estimates for acd:", xlab = "acd")
+
+```
+
+## 5:
+
+```{r}
+
+model <- glm(MYOPIC ~ SPHEQ + AL + ACD, data=df, family = binomial)
+coef(model)
+
+```
+it seems the mean of the standard error for SPHEQ is very close to the coeficient the glm provides, but is slightly more then the coeficient the glm provides for al & acd
+
+############################################################################
+
+## trees:
+
+```{r}
+
+##install.packages("tree")
+##install.packages("randomForest")
+##install.packages("gbm")
+library(tree)
+library(randomForest)
+library(gbm)
+
+##install.packages("rsample")
+library(rsample)
+
+##install.packages("ISLR")
+##install.packages("rpart")
+##install.packages("rpart.plot")
+library(ISLR)
+library(rpart)
+library(rpart.plot)
+
+print("import section done")
+
+```
+
+## 5:
+
+```{r}
+
+salaries <- read.csv("~/data311lab3/datasalaries.csv")
+
+summary(salaries)
+
+```
+
+```{r}
+
+salaries$company = as.factor(salaries$company)
+salaries$gender = as.factor(salaries$gender)
+salaries$Race = as.factor(salaries$Race)
+salaries$Education = as.factor(salaries$Education)
+
+summary(salaries)
+
+```
+
+
+## 6:
+
+```{r}
+
+set.seed(21321)
+
+dat_split <- initial_split(salaries, prop = 0.75)
+
+training_data <- training(dat_split)
+test_data <- testing(dat_split)
+
+```
+
+## 7:
+
+```{r}
+
+tree_model <- tree(totalyearlycompensation ~ ., data = training_data)
+
+```
+
+## 8:
+
+```{r}
+
+plot(tree_model)
+text(tree_model, pretty = 0, cex = 0.6)
+
+```
+
+## 9:
+
+it seems Apple & Google have a higher amount of compensation
+
+the value all the way on the right also seems to be of note as the tree claims 20 years of exp will pay less then 17 years
+
+
+## 10:
+
+```{r}
+
+set.seed(21321)
+
+cv_tree <- cv.tree(tree_model, FUN = prune.tree)
+
+plot(cv_tree$size, cv_tree$dev, xlab="Size", ylab="Deviance", main="Deviance vs Tree size")
+
+```
+
+CV suggests 2-3 terminal nodes as that is where the elbow of the plot is
+
+## 11:
+
+```{r}
+
+pt <- prune.tree(tree_model, best=6)  
+
+plot(pt)
+text(pt, pretty = 0, cex = 0.6)
+
+```
+
+
+```{r}
+
+##pt <- prune.tree(tree_model, best=4)
+
+newdat <- data.frame(gender="Male", Race="Hispanic", Education="Bachelor's Degree", yearsofexperience=10, yearsatcompany=1, company="Apple")
+
+newdat$gender <- factor(newdat$gender, levels = levels(training_data$GENDER))
+newdat$Race <- factor(newdat$Race, levels = levels(training_data$Race))
+newdat$Education <- factor(newdat$Education, levels = levels(training_data$Education))
+newdat$company <- factor(newdat$company, levels = levels(training_data$company))
+
+predict_salary <- predict(pt, newdata=newdat, type="vector")
+
+print(predict_salary)
+
+```
+
+
+
+## 12:
+
+```{r}
+
+test_pred <- predict(pt, newdata = test_data)
+
+me <- mean((test_pred - test_data$totalyearlycompensation))
+mse <- me*me
+
+msecv <- cv_tree$dev[which.min(cv_tree$dev)]
+
+print(paste(mse, "   ", msecv))
+
+```
+
+one mse uses the full tree, the other uses the pruned tree - so the different errors come from the specific branches in the tree changing the error
+
+
+
+
+
+```{r}
+
+final_mse_tree <- mse
+
+final_mse_cv <- msecv
+
+```
+
+############################################################
+
+
+## 13:
+
+```{r}
+
+set.seed(53453)
+
+rf <- randomForest(totalyearlycompensation ~ ., data = training_data, ntree=500, importance=TRUE)
+
+```
+
+## 14:
+
+```{r}
+
+test_pred <- predict(rf, newdata = test_data)
+
+me <- mean((test_pred - test_data$totalyearlycompensation))
+mse <- me*me
+
+oob <- rf$mse[500]
+
+print(paste(mse, "   ", oob))
+
+```
+
+the mse is calculated using the data designated testdata
+while the OOB mse is the overall avg squared error from the random forest
+
+## 15:
+
+```{r}
+
+importance(rf)
+
+```
+the most important predictor seems to be which company followed closely by # of years of experience
+
+
+
+
+
+```{r}
+
+final_mse_bag <- mse
+
+final_mse_oob1 <- oob
+
+```
+
+############################################################
+
+## 13:
+
+```{r}
+
+set.seed(88896)
+
+rf <- randomForest(totalyearlycompensation ~ ., data = training_data, ntree=500, importance=TRUE)
+
+```
+
+## 14:
+
+```{r}
+
+test_pred <- predict(rf, newdata = test_data)
+
+me <- mean((test_pred - test_data$totalyearlycompensation))
+mse <- me*me
+
+oob <- rf$mse[500]
+
+print(paste(mse, "   ", oob))
+
+```
+
+## 15:
+
+```{r}
+
+importance(rf)
+
+```
+the most important predictor seems to be which company followed closely by # of years of experience - both of which seemed to take a bigger chunk of the pie then the first 15
+
+
+
+
+
+```{r}
+
+final_mse_forest <- mse
+
+final_mse_oob2 <- oob
+
+```
+
+############################################################
+
+## 16:
+
+```{r}
+
+install.packages("gbm")
+library(gbm)
+set.seed(47484)
+
+```
+
+```{r}
+
+bm <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 5000, interaction.depth = 4)##importance=TRUE)
+
+##bm <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 2501, interaction.depth = 1)##importance=TRUE)
+
+```
+
+## 17:
+
+```{r}
+
+test_pred <- predict(bm, newdata = test_data, n.trees = 5000)
+
+me <- mean((test_pred - test_data$totalyearlycompensation))
+mse <- me*me
+
+##oob <- rf$mse[500]
+
+##print(paste(mse, "   ", oob))
+
+mse
+
+```
+
+## 18:
+
+```{r}
+
+final_mse_boost <- mse
+
+```
+
+```{r}
+
+final_mse <- c(final_mse_bag, final_mse_boost, final_mse_forest, final_mse_tree)
+
+print(final_mse)
+
+```
+
+```{r}
+
+final_mse <- c(final_mse_bag, final_mse_boost, final_mse_forest, final_mse_tree)
+final_mse_log <- c(log(final_mse_bag, base=10), log(final_mse_boost, base=10), log(final_mse_forest, base=10), log(final_mse_tree, base=10))
+
+table <- matrix(final_mse, ncol=4, byrow=TRUE)
+
+colnames(table) <- c("bagging", "      boosting", "     random forrest", "tree")
+rownames(table) <- c("mse")##, "mse log(10)")
+
+table <- as.table(table)
+
+table
+
+```
+
+```{r}
+
+final_mse <- c(final_mse_bag, final_mse_boost, final_mse_forest, final_mse_tree)
+final_mse_log <- c(log(final_mse_bag, base=10), log(final_mse_boost, base=10), log(final_mse_forest, base=10), log(final_mse_tree, base=10))
+
+table <- matrix(final_mse_log, ncol=4, byrow=TRUE)
+
+colnames(table) <- c("bagging", "      boosting", "     random forrest", "tree")
+rownames(table) <- c("mse log(10)")
+
+table <- as.table(table)
+
+table
+
+```
+it seems the best model was tree followed closely by boosting, RF was worse & bagging was yet slightly worse
+
+
+## 19:
+
+```{r}
+
+final_extra_mse <- c(final_mse_cv, final_mse_oob1, final_mse_oob2)
+
+print(final_extra_mse)
+
+```
+
+```{r}
+
+table <- matrix(final_extra_mse, ncol=3, byrow=TRUE)
+
+colnames(table) <- c("LOOCV", "OOB 1", "OOB 2")
+rownames(table) <- "mse"##c("mse", "ss")
+##q12 tree, q15 bag, q15 RF
+
+table <- as.table(table)
+
+table
+
+```
+
+```{r}
+
+final_log <- c(log(final_mse_cv, base=10), log(final_mse_oob1, base=10), log(final_mse_oob2, base=10))
+
+table <- matrix(final_log, ncol=3, byrow=TRUE)
+
+colnames(table) <- c("LOOCV", "OOB 1", "OOB 2")
+rownames(table) <- "mse log(10)"##c("mse", "ss")
+##q12 tree, q15 bag, q15 RF
+
+table <- as.table(table)
+
+table
+
+```
+
+this suggests I should be more skeptical of the initial regression tree tree due to the insanely high error according to LOOCV (which is nearly 10^14)
+
+## 20:
+
+```{r}
+
+set.seed(47484)
+
+depth1 <- c(1, 2, 3, 4, 5, 6)
+depth11 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 250, interaction.depth = 1)
+depth12 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 500, interaction.depth = 1)
+depth13 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 1000, interaction.depth = 1)
+depth14 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 3000, interaction.depth = 1)
+depth15 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 5000, interaction.depth = 1)
+depth16 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 10000, interaction.depth = 1)
+
+depth2 <- c(1, 2, 3, 4, 5, 6)
+depth21 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 250, interaction.depth = 2)
+depth22 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 500, interaction.depth = 2)
+depth23 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 1000, interaction.depth = 2)
+depth24 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 3000, interaction.depth = 2)
+depth25 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 5000, interaction.depth = 2)
+depth26 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 10000, interaction.depth = 2)
+
+i <- 3
+depth3 <- c(1, 2, 3, 4, 5, 6)
+depth31 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 250, interaction.depth = i)
+depth32 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 500, interaction.depth = i)
+depth33 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 1000, interaction.depth = i)
+depth34 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 3000, interaction.depth = i)
+depth35 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 5000, interaction.depth = i)
+depth36 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 10000, interaction.depth = i)
+
+i <- 4
+depth4 <- c(1, 2, 3, 4, 5, 6)
+depth41 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 250, interaction.depth = i)
+depth42 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 500, interaction.depth = i)
+depth43 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 1000, interaction.depth = i)
+depth44 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 3000, interaction.depth = i)
+depth45 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 5000, interaction.depth = i)
+depth46 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 10000, interaction.depth = i)
+
+i <- 5
+depth5 <- c(1, 2, 3, 4, 5, 6)
+depth51 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 250, interaction.depth = i)
+depth52 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 500, interaction.depth = i)
+depth53 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 1000, interaction.depth = i)
+depth54 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 3000, interaction.depth = i)
+depth55 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 5000, interaction.depth = i)
+depth56 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 10000, interaction.depth = i)
+
+i <- 6
+depth6 <- c(1, 2, 3, 4, 5, 6)
+depth61 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 250, interaction.depth = i)
+depth62 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 500, interaction.depth = i)
+depth63 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 1000, interaction.depth = i)
+depth64 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 3000, interaction.depth = i)
+depth65 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 5000, interaction.depth = i)
+depth66 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 10000, interaction.depth = i)
+
+##depth <- c(depth1, depth2, depth3, depth4, depth5, depth6)
+
+```
+
+```{r}
+
+##test_pred <- predict(bm, newdata = test_data, n.trees = 5000)
+
+##me <- mean((test_pred - test_data$totalyearlycompensation))
+##mse <- me*me
+
+mse1 <- c(1, 2, 3, 4, 5, 6)
+mse1[1] <- predict(depth11, newdata = test_data, n.trees = 250)
+mse1[2] <- predict(depth12, newdata = test_data, n.trees = 500)
+mse1[3] <- predict(depth13, newdata = test_data, n.trees = 1000)
+mse1[4] <- predict(depth14, newdata = test_data, n.trees = 3000)
+mse1[5] <- predict(depth15, newdata = test_data, n.trees = 5000)
+mse1[6] <- predict(depth16, newdata = test_data, n.trees = 10000)
+
+mse2 <- c(1, 2, 3, 4, 5, 6)
+mse2[1] <- predict(depth21, newdata = test_data, n.trees = 250)
+mse2[2] <- predict(depth22, newdata = test_data, n.trees = 500)
+mse2[3] <- predict(depth23, newdata = test_data, n.trees = 1000)
+mse2[4] <- predict(depth24, newdata = test_data, n.trees = 3000)
+mse2[5] <- predict(depth25, newdata = test_data, n.trees = 5000)
+mse2[6] <- predict(depth26, newdata = test_data, n.trees = 10000)
+
+mse3 <- c(1, 2, 3, 4, 5, 6)
+mse3[1] <- predict(depth31, newdata = test_data, n.trees = 250)
+mse3[2] <- predict(depth32, newdata = test_data, n.trees = 500)
+mse3[3] <- predict(depth33, newdata = test_data, n.trees = 1000)
+mse3[4] <- predict(depth34, newdata = test_data, n.trees = 3000)
+mse3[5] <- predict(depth35, newdata = test_data, n.trees = 5000)
+mse3[6] <- predict(depth36, newdata = test_data, n.trees = 10000)
+
+mse4 <- c(1, 2, 3, 4, 5, 6)
+mse4[1] <- predict(depth41, newdata = test_data, n.trees = 250)
+mse4[2] <- predict(depth42, newdata = test_data, n.trees = 500)
+mse4[3] <- predict(depth43, newdata = test_data, n.trees = 1000)
+mse4[4] <- predict(depth44, newdata = test_data, n.trees = 3000)
+mse4[5] <- predict(depth45, newdata = test_data, n.trees = 5000)
+mse4[6] <- predict(depth46, newdata = test_data, n.trees = 10000)
+
+mse5 <- c(1, 2, 3, 4, 5, 6)
+mse5[1] <- predict(depth51, newdata = test_data, n.trees = 250)
+mse5[2] <- predict(depth52, newdata = test_data, n.trees = 500)
+mse5[3] <- predict(depth53, newdata = test_data, n.trees = 1000)
+mse5[4] <- predict(depth54, newdata = test_data, n.trees = 3000)
+mse5[5] <- predict(depth55, newdata = test_data, n.trees = 5000)
+mse5[6] <- predict(depth56, newdata = test_data, n.trees = 10000)
+
+mse6 <- c(1, 2, 3, 4, 5, 6)
+mse6[1] <- predict(depth61, newdata = test_data, n.trees = 250)
+mse6[2] <- predict(depth62, newdata = test_data, n.trees = 500)
+mse6[3] <- predict(depth63, newdata = test_data, n.trees = 1000)
+mse6[4] <- predict(depth64, newdata = test_data, n.trees = 3000)
+mse6[5] <- predict(depth65, newdata = test_data, n.trees = 5000)
+mse6[6] <- predict(depth66, newdata = test_data, n.trees = 10000)
+
+##me <- (mean((test_pred - test_data$totalyearlycompensation)) ^ 2)
+
+mse1[1] <- (mean((mse1[1] - test_data$totalyearlycompensation)) ^ 2)
+mse1[2] <- (mean((mse1[2] - test_data$totalyearlycompensation)) ^ 2)
+mse1[3] <- (mean((mse1[3] - test_data$totalyearlycompensation)) ^ 2)
+mse1[4] <- (mean((mse1[4] - test_data$totalyearlycompensation)) ^ 2)
+mse1[5] <- (mean((mse1[5] - test_data$totalyearlycompensation)) ^ 2)
+mse1[6] <- (mean((mse1[6] - test_data$totalyearlycompensation)) ^ 2)
+
+mse2[1] <- (mean((mse2[1] - test_data$totalyearlycompensation)) ^ 2)
+mse2[2] <- (mean((mse2[2] - test_data$totalyearlycompensation)) ^ 2)
+mse2[3] <- (mean((mse2[3] - test_data$totalyearlycompensation)) ^ 2)
+mse2[4] <- (mean((mse2[4] - test_data$totalyearlycompensation)) ^ 2)
+mse2[5] <- (mean((mse2[5] - test_data$totalyearlycompensation)) ^ 2)
+mse2[6] <- (mean((mse2[6] - test_data$totalyearlycompensation)) ^ 2)
+
+mse3[1] <- (mean((mse3[1] - test_data$totalyearlycompensation)) ^ 2)
+mse3[2] <- (mean((mse3[2] - test_data$totalyearlycompensation)) ^ 2)
+mse3[3] <- (mean((mse3[3] - test_data$totalyearlycompensation)) ^ 2)
+mse3[4] <- (mean((mse3[4] - test_data$totalyearlycompensation)) ^ 2)
+mse3[5] <- (mean((mse3[5] - test_data$totalyearlycompensation)) ^ 2)
+mse3[6] <- (mean((mse3[6] - test_data$totalyearlycompensation)) ^ 2)
+
+mse4[1] <- (mean((mse4[1] - test_data$totalyearlycompensation)) ^ 2)
+mse4[2] <- (mean((mse4[2] - test_data$totalyearlycompensation)) ^ 2)
+mse4[3] <- (mean((mse4[3] - test_data$totalyearlycompensation)) ^ 2)
+mse4[4] <- (mean((mse4[4] - test_data$totalyearlycompensation)) ^ 2)
+mse4[5] <- (mean((mse4[5] - test_data$totalyearlycompensation)) ^ 2)
+mse4[6] <- (mean((mse4[6] - test_data$totalyearlycompensation)) ^ 2)
+
+mse5[1] <- (mean((mse5[1] - test_data$totalyearlycompensation)) ^ 2)
+mse5[2] <- (mean((mse5[2] - test_data$totalyearlycompensation)) ^ 2)
+mse5[3] <- (mean((mse5[3] - test_data$totalyearlycompensation)) ^ 2)
+mse5[4] <- (mean((mse5[4] - test_data$totalyearlycompensation)) ^ 2)
+mse5[5] <- (mean((mse5[5] - test_data$totalyearlycompensation)) ^ 2)
+mse5[6] <- (mean((mse5[6] - test_data$totalyearlycompensation)) ^ 2)
+
+mse6[1] <- (mean((mse6[1] - test_data$totalyearlycompensation)) ^ 2)
+mse6[2] <- (mean((mse6[2] - test_data$totalyearlycompensation)) ^ 2)
+mse6[3] <- (mean((mse6[3] - test_data$totalyearlycompensation)) ^ 2)
+mse6[4] <- (mean((mse6[4] - test_data$totalyearlycompensation)) ^ 2)
+mse6[5] <- (mean((mse6[5] - test_data$totalyearlycompensation)) ^ 2)
+mse6[6] <- (mean((mse6[6] - test_data$totalyearlycompensation)) ^ 2)
+
+
+logmse1 <- c(1, 2, 3, 4, 5, 6)
+logmse2 <- c(1, 2, 3, 4, 5, 6)
+logmse3 <- c(1, 2, 3, 4, 5, 6)
+logmse4 <- c(1, 2, 3, 4, 5, 6)
+logmse5 <- c(1, 2, 3, 4, 5, 6)
+logmse6 <- c(1, 2, 3, 4, 5, 6)
+
+
+logmse1[1] <- log(mse1[1], base=10)
+logmse1[2] <- log(mse1[2], base=10)
+logmse1[3] <- log(mse1[3], base=10)
+logmse1[4] <- log(mse1[4], base=10)
+logmse1[5] <- log(mse1[5], base=10)
+logmse1[6] <- log(mse1[6], base=10)
+
+logmse2[1] <- log(mse2[1], base=10)
+logmse2[2] <- log(mse2[2], base=10)
+logmse2[3] <- log(mse2[3], base=10)
+logmse2[4] <- log(mse2[4], base=10)
+logmse2[5] <- log(mse2[5], base=10)
+logmse2[6] <- log(mse2[6], base=10)
+
+logmse3[1] <- log(mse3[1], base=10)
+logmse3[2] <- log(mse3[2], base=10)
+logmse3[3] <- log(mse3[3], base=10)
+logmse3[4] <- log(mse3[4], base=10)
+logmse3[5] <- log(mse3[5], base=10)
+logmse3[6] <- log(mse3[6], base=10)
+
+logmse4[1] <- log(mse4[1], base=10)
+logmse4[2] <- log(mse4[2], base=10)
+logmse4[3] <- log(mse4[3], base=10)
+logmse4[4] <- log(mse4[4], base=10)
+logmse4[5] <- log(mse4[5], base=10)
+logmse4[6] <- log(mse4[6], base=10)
+
+logmse5[1] <- log(mse5[1], base=10)
+logmse5[2] <- log(mse5[2], base=10)
+logmse5[3] <- log(mse5[3], base=10)
+logmse5[4] <- log(mse5[4], base=10)
+logmse5[5] <- log(mse5[5], base=10)
+logmse5[6] <- log(mse5[6], base=10)
+
+logmse6[1] <- log(mse6[1], base=10)
+logmse6[2] <- log(mse6[2], base=10)
+logmse6[3] <- log(mse6[3], base=10)
+logmse6[4] <- log(mse6[4], base=10)
+logmse6[5] <- log(mse6[5], base=10)
+logmse6[6] <- log(mse6[6], base=10)
+
+
+mse1
+mse2
+mse3
+mse4
+mse5
+mse6
+
+logmse1
+logmse2
+logmse3
+logmse4
+logmse5
+logmse6
+
+
+table <- matrix(c(mse1, mse2, mse3, mse4, mse5, mse6), ncol=6, byrow=TRUE)
+
+colnames(table) <- c("250", "500", "1000", "3000", "5000", "10000")
+rownames(table) <- 1:6
+##q12 tree, q15 bag, q15 RF
+
+table <- as.table(table)
+
+table
+
+##mse5[2]
+
+```
+
+```{r}
+
+table <- matrix(c(logmse1, logmse2, logmse3, logmse4, logmse5, logmse6), ncol=6, byrow=TRUE)
+
+colnames(table) <- c("250", "500", "1000", "3000", "5000", "10000")
+rownames(table) <- 1:6
+##q12 tree, q15 bag, q15 RF
+
+table <- as.table(table)
+
+table
+
+logmse5[2]
+
+```
+
+a model with a depth of 5 & 500 trees seems best
+
+```{r}
+
+
+i <- 5
+depth5 <- c(1, 2, 3, 4, 5, 6)
+depth51 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 350, interaction.depth = i)
+depth52 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 400, interaction.depth = i)
+depth53 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 450, interaction.depth = i)
+depth54 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 500, interaction.depth = i)
+depth55 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 550, interaction.depth = i)
+depth56 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 600, interaction.depth = i)
+
+##depth52 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 500, interaction.depth = i)
+
+mse5 <- c(1, 2, 3, 4, 5, 6)
+mse5[1] <- predict(depth51, newdata = test_data, n.trees = 350)
+mse5[2] <- predict(depth52, newdata = test_data, n.trees = 400)
+mse5[3] <- predict(depth53, newdata = test_data, n.trees = 450)
+mse5[4] <- predict(depth54, newdata = test_data, n.trees = 500)
+mse5[5] <- predict(depth55, newdata = test_data, n.trees = 550)
+mse5[6] <- predict(depth56, newdata = test_data, n.trees = 600)
+
+mse5[1] <- (mean((mse5[1] - test_data$totalyearlycompensation)) ^ 2)
+mse5[2] <- (mean((mse5[2] - test_data$totalyearlycompensation)) ^ 2)
+mse5[3] <- (mean((mse5[3] - test_data$totalyearlycompensation)) ^ 2)
+mse5[4] <- (mean((mse5[4] - test_data$totalyearlycompensation)) ^ 2)
+mse5[5] <- (mean((mse5[5] - test_data$totalyearlycompensation)) ^ 2)
+mse5[6] <- (mean((mse5[6] - test_data$totalyearlycompensation)) ^ 2)
+
+logmse5 <- c(1, 2, 3, 4, 5, 6)
+
+mse5[4]
+
+logmse5[1] <- log(mse5[1], base=10)
+logmse5[2] <- log(mse5[2], base=10)
+logmse5[3] <- log(mse5[3], base=10)
+logmse5[4] <- log(mse5[4], base=10)
+logmse5[5] <- log(mse5[5], base=10)
+logmse5[6] <- log(mse5[6], base=10)
+
+table <- matrix(c(mse5), ncol=6, byrow=TRUE)
+
+colnames(table) <- c("350", "400", "450", "500", "550", "600")
+rownames(table) <- c("mse")
+##q12 tree, q15 bag, q15 RF
+
+table <- as.table(table)
+
+table
+
+table <- matrix(c(logmse5), ncol=6, byrow=TRUE)
+
+colnames(table) <- c("350", "400", "450", "500", "550", "600")
+rownames(table) <- c("logmse")
+##q12 tree, q15 bag, q15 RF
+
+table <- as.table(table)
+
+table
+
+```
+
+350 trees seems to produce the smallest error
+
+```{r}
+
+
+i <- 5
+depth5 <- c(1, 2, 3, 4, 5, 6)
+depth51 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 300, interaction.depth = i)
+depth52 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 320, interaction.depth = i)
+depth53 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 340, interaction.depth = i)
+depth54 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 360, interaction.depth = i)
+depth55 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 380, interaction.depth = i)
+depth56 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 400, interaction.depth = i)
+
+##depth52 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 500, interaction.depth = i)
+
+mse5 <- c(1, 2, 3, 4, 5, 6)
+mse5[1] <- predict(depth51, newdata = test_data, n.trees = 300)
+mse5[2] <- predict(depth52, newdata = test_data, n.trees = 320)
+mse5[3] <- predict(depth53, newdata = test_data, n.trees = 340)
+mse5[4] <- predict(depth54, newdata = test_data, n.trees = 360)
+mse5[5] <- predict(depth55, newdata = test_data, n.trees = 380)
+mse5[6] <- predict(depth56, newdata = test_data, n.trees = 400)
+
+mse5[1] <- (mean((mse5[1] - test_data$totalyearlycompensation)) ^ 2)
+mse5[2] <- (mean((mse5[2] - test_data$totalyearlycompensation)) ^ 2)
+mse5[3] <- (mean((mse5[3] - test_data$totalyearlycompensation)) ^ 2)
+mse5[4] <- (mean((mse5[4] - test_data$totalyearlycompensation)) ^ 2)
+mse5[5] <- (mean((mse5[5] - test_data$totalyearlycompensation)) ^ 2)
+mse5[6] <- (mean((mse5[6] - test_data$totalyearlycompensation)) ^ 2)
+
+logmse5 <- c(1, 2, 3, 4, 5, 6)
+
+mse5[4]
+
+logmse5[1] <- log(mse5[1], base=10)
+logmse5[2] <- log(mse5[2], base=10)
+logmse5[3] <- log(mse5[3], base=10)
+logmse5[4] <- log(mse5[4], base=10)
+logmse5[5] <- log(mse5[5], base=10)
+logmse5[6] <- log(mse5[6], base=10)
+
+table <- matrix(c(mse5), ncol=6, byrow=TRUE)
+
+colnames(table) <- c("300", "320", "340", "360", "380", "400")
+rownames(table) <- c("mse")
+##q12 tree, q15 bag, q15 RF
+
+table <- as.table(table)
+
+table
+
+table <- matrix(c(logmse5), ncol=6, byrow=TRUE)
+
+colnames(table) <- c("300", "320", "340", "360", "380", "400")
+rownames(table) <- c("logmse")
+##q12 tree, q15 bag, q15 RF
+
+table <- as.table(table)
+
+table
+
+```
+
+
+320 trees seems to produce the smallest error
+
+
+```{r}
+
+
+i <- 5
+depth5 <- c(1, 2, 3, 4, 5, 6)
+depth51 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 300, interaction.depth = i)
+depth52 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 310, interaction.depth = i)
+depth53 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 320, interaction.depth = i)
+depth54 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 330, interaction.depth = i)
+depth55 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 340, interaction.depth = i)
+depth56 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 350, interaction.depth = i)
+
+##depth52 <- gbm(totalyearlycompensation ~ ., data = training_data, distribution = "gaussian", n.trees = 500, interaction.depth = i)
+
+mse5 <- c(1, 2, 3, 4, 5, 6)
+mse5[1] <- predict(depth51, newdata = test_data, n.trees = 300)
+mse5[2] <- predict(depth52, newdata = test_data, n.trees = 310)
+mse5[3] <- predict(depth53, newdata = test_data, n.trees = 320)
+mse5[4] <- predict(depth54, newdata = test_data, n.trees = 330)
+mse5[5] <- predict(depth55, newdata = test_data, n.trees = 340)
+mse5[6] <- predict(depth56, newdata = test_data, n.trees = 350)
+
+mse5[1] <- (mean((mse5[1] - test_data$totalyearlycompensation)) ^ 2)
+mse5[2] <- (mean((mse5[2] - test_data$totalyearlycompensation)) ^ 2)
+mse5[3] <- (mean((mse5[3] - test_data$totalyearlycompensation)) ^ 2)
+mse5[4] <- (mean((mse5[4] - test_data$totalyearlycompensation)) ^ 2)
+mse5[5] <- (mean((mse5[5] - test_data$totalyearlycompensation)) ^ 2)
+mse5[6] <- (mean((mse5[6] - test_data$totalyearlycompensation)) ^ 2)
+
+logmse5 <- c(1, 2, 3, 4, 5, 6)
+
+mse5[4]
+
+logmse5[1] <- log(mse5[1], base=10)
+logmse5[2] <- log(mse5[2], base=10)
+logmse5[3] <- log(mse5[3], base=10)
+logmse5[4] <- log(mse5[4], base=10)
+logmse5[5] <- log(mse5[5], base=10)
+logmse5[6] <- log(mse5[6], base=10)
+
+table <- matrix(c(mse5), ncol=6, byrow=TRUE)
+
+colnames(table) <- c("300", "310", "320", "330", "340", "350")
+rownames(table) <- c("mse")
+##q12 tree, q15 bag, q15 RF
+
+table <- as.table(table)
+
+table
+
+table <- matrix(c(logmse5), ncol=6, byrow=TRUE)
+
+colnames(table) <- c("300", "310", "320", "330", "340", "350")
+rownames(table) <- c("logmse")
+##q12 tree, q15 bag, q15 RF
+
+table <- as.table(table)
+
+table
+
+```
+
+
+
+
+320 trees +/- looks like the best
+
+
