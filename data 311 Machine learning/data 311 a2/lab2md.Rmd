@@ -1,0 +1,361 @@
+---
+title: "data 311 lab 2"
+output: html_document
+date: "2023-10-28"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#### EDA pre process
+
+## q1
+
+```{r}
+
+df <- read.csv("~/data311lab2/myopiacomma.csv")
+  ## all occurances of ";" in csv replaced with ","
+  ## this is a valid solution as the format is comma seperated value, not semi colon seperated value
+
+summary(df)
+
+str(df)
+
+class(df)
+
+head(df)
+
+max(df$STUDYYEAR)
+min(df$STUDYYEAR)
+
+```
+
+## q2
+
+```{r}
+
+ans <- subset(df, AGE < 18 & MYOPIC == 1)
+
+str(ans)
+
+```
+```{r}
+
+nrow(df)
+nrow(ans)
+
+print(paste(nrow(df), ", ", nrow(ans), "; 81/618 = ", 81/618, " = ", 8100/618, "%"))
+
+```
+
+
+## str(ans) has 81 entries, str(df) has 618 entries - so 81/618 kids, or 13% of the sample, are myopic as of 5 years post follow up
+
+## q3
+
+```{r}
+
+df$PARENTMY <- ifelse(df$MOMMY == 1 | df$DADMY ==1, 1, 0)
+str(df$PARENTMY)
+sum(df$PARENTMY)
+
+```
+
+## 466 kids in the sample had 1 or 2 myopic parents
+
+## q4
+
+```{r}
+
+set.seed(19651)
+n = nrow(df)
+train <- sample(1:n, n*.6)
+test <- setdiff(1:n, train)
+training_data <- df[train, ]
+testing_data <- df[test, ]
+
+```
+
+#### logistic regression
+
+## q5
+
+```{r}
+
+logreg1 <- glm(MYOPIC ~ SPHEQ + AL + ACD, data = training_data, family = binomial)
+logreg2 <- glm(MYOPIC ~ SPHEQ + AL + ACD + PARENTMY, data = training_data, family = binomial)
+logreg3 <- glm(MYOPIC ~ SPHEQ + AL + ACD + PARENTMY + READHR + COMPHR + TVHR, data = training_data, family = binomial)
+
+```
+
+## q6
+
+```{r}
+
+summary(logreg2)
+
+```
+
+## kids with 1 or more myopic parents were noticibly more likely to develop myopia within 5 years
+## (residual = 1.4669 for a binary 1/0)
+
+## q7
+
+```{r}
+
+summary(logreg1)
+
+```
+```{r}
+
+summary(logreg3)
+
+```
+```{r}
+
+coef(logreg1)
+coef(logreg2)
+coef(logreg3)
+
+```
+## due to the sizes of the z value, the statistically significant terms are PARENTMY, AL, & SPHEQ
+## as they (along with ACD) have the largest in magnitude z values
+## COMPHR isn't as significant as the first 4, & the remaining are even smaller
+
+## therefore logreg2 seems to be the most appropriate
+
+## q8
+
+```{r}
+
+pred1 <- predict(logreg1, newdata = testing_data, type = "response")
+cmm1 <- table(testing_data$MYOPIC, ifelse(pred1 > 0.5, 1, 0))
+print(cmm1)
+
+pred2 <- predict(logreg2, newdata = testing_data, type = "response")
+cmm2 <- table(testing_data$MYOPIC, ifelse(pred2 > 0.5, 1, 0))
+print(cmm2)
+
+pred3 <- predict(logreg3, newdata = testing_data, type = "response")
+cmm3 <- table(testing_data$MYOPIC, ifelse(pred3 > 0.5, 1, 0))
+print(cmm3)
+
+## TN FN
+## FP TP
+
+```
+```{r}
+
+print(c(cmm1, cmm2, cmm3))
+
+fnm1 <- cmm1[2, 1]
+fnm2 <- cmm2[2, 1]
+fnm3 <- cmm3[2, 1]
+
+print(fnm1)
+print(fnm2)
+print(fnm3)
+
+```
+
+## cmm3 made the fewest number of false negative predictions (19)
+
+## q9
+
+```{r}
+
+##install.packages("Metrics")
+library(Metrics)
+
+pred91 <- predict(logreg1, newdata = testing_data, type = "response")
+## llm1 <- logLoss(pred91, testing_data$MYOPIC)
+llm1 <- logLoss(testing_data$MYOPIC, pred91)
+print(llm1)
+
+pred92 <- predict(logreg2, newdata = testing_data, type = "response")
+## llm2 <- logLoss(pred92, testing_data$MYOPIC)
+llm2 <- logLoss(testing_data$MYOPIC, pred92)
+print(llm2)
+
+pred93 <- predict(logreg3, newdata = testing_data, type = "response")
+## llm3 <- logLoss(pred93, testing_data$MYOPIC)
+llm3 <- logLoss(testing_data$MYOPIC, pred93)
+print(llm3)
+
+
+## print(llm1)
+## print(llm2)
+## print(llm3)
+
+print(paste(" "))
+
+print(c(llm1, llm2, llm3))
+
+
+```
+## LL1: 0.2569938
+## LL2: 0.252924
+## LL3: 0.2598012
+
+
+#### LDA and QDA
+
+## q9 b
+
+```{r}
+
+## logreg1 <- glm(MYOPIC ~ SPHEQ + AL + ACD, data = training_data, family = binomial)
+## logreg2 <- glm(MYOPIC ~ SPHEQ + AL + ACD + PARENTMY, data = training_data, family = binomial)
+## logreg3 <- glm(MYOPIC ~ SPHEQ + AL + ACD + PARENTMY + READHR + COMPHR + TVHR, data = training_data, family = binomial)
+
+## install.packages("MASS")
+library(MASS)
+
+lda1 <- lda(MYOPIC ~ SPHEQ + AL + ACD, data = training_data)
+lda2 <- lda(MYOPIC ~ SPHEQ + AL + ACD + PARENTMY, data = training_data)
+lda3 <- lda(MYOPIC ~ SPHEQ + AL + ACD + PARENTMY + READHR + COMPHR + TVHR, data = training_data)
+
+summary(lda1)
+summary(lda2)
+summary(lda3)
+
+## summary(c(lda1, lda2, lda3))
+## summary(lda1, lda2, lda3)
+
+```
+
+
+## q10
+
+```{r}
+
+## install.packages("MASS")
+## library(MASS)
+
+qda1 <- qda(MYOPIC ~ SPHEQ + AL + ACD, data = training_data)
+qda2 <- qda(MYOPIC ~ SPHEQ + AL + ACD + PARENTMY, data = training_data)
+qda3 <- qda(MYOPIC ~ SPHEQ + AL + ACD + PARENTMY + READHR + COMPHR + TVHR, data = training_data)
+
+summary(qda1)
+summary(qda2)
+summary(qda3)
+
+```
+
+## q11
+
+```{r}
+
+rownum <- nrow(testing_data)
+
+alda1 <- sum(predict(lda1, newdata = testing_data)$class == testing_data$MYOPIC) / rownum
+alda2 <- sum(predict(lda2, newdata = testing_data)$class == testing_data$MYOPIC) / rownum
+alda3 <- sum(predict(lda3, newdata = testing_data)$class == testing_data$MYOPIC) / rownum
+
+aqda1 <- sum(predict(qda1, newdata = testing_data)$class == testing_data$MYOPIC) / rownum
+aqda2 <- sum(predict(qda2, newdata = testing_data)$class == testing_data$MYOPIC) / rownum
+aqda3 <- sum(predict(qda3, newdata = testing_data)$class == testing_data$MYOPIC) / rownum
+
+print(paste("accuracy lda1: ", alda1))
+print(paste("accuracy lda2: ", alda2))
+print(paste("accuracy lda3: ", alda3))
+
+print(paste(" "))
+
+print(paste("accuracy qda1: ", aqda1))
+print(paste("accuracy qda2: ", aqda2))
+print(paste("accuracy qda3: ", aqda3))
+
+```
+## accuracy lda1:  0.895161290322581
+## accuracy lda2:  0.903225806451613
+## accuracy lda3:  0.891129032258065
+
+## accuracy qda1:  0.895161290322581
+## accuracy qda2:  0.887096774193548
+## accuracy qda3:  0.866935483870968
+
+## lda2 has the only accuacy rating over 0.9
+## so lda2 is therefore the most accurate
+
+
+## q12
+
+```{r}
+
+dislda2 <- predict(lda2, newdata = testing_data, type = "scores")
+
+summary(dislda2)
+
+##dislda2
+
+```
+
+
+#### KNN
+
+## q8c
+
+```{r}
+
+set.seed(3952538)
+
+library(class)
+
+k_vars <- c(2, 7, 13, 18, 23, 29, 34, 39, 45, 50)
+
+q <- 0
+
+crosvalerrors <- sapply(k_vars, function(k) {
+  
+  set.seed(3952538)
+  
+  crosvalerror <- (knn.cv(train = training_data[, c("SPHEQ", "AL", "ACD")], cl = training_data$MYOPIC, k = k))
+  
+  crosvalerror <- ifelse(crosvalerror == 0, 1, ifelse(crosvalerror == 1, 0, crosvalerror))
+  
+  ##print(crosvalerror)
+  
+  return(crosvalerror)
+  
+})
+
+prin <- k_vars[which.min(crosvalerrors)]
+
+print(paste("optimal value of k is: ", prin))
+
+## k_vars[which.min(crosvalerrors)]
+## crosvalerrors
+## k_vars
+## which.min(crosvalerrors)
+## crosvalerrors
+
+```
+
+## q9c
+
+```{r}
+
+k <- 18
+
+knn_mod <- knn(train = training_data[, c("SPHEQ", "AL", "ACD")], test = testing_data[, c("SPHEQ", "AL", "ACD")], cl = training_data$MYOPIC, k = k)
+
+fin_error <- mean(knn_mod != testing_data$MYOPIC)
+
+print(paste("error is: ", fin_error))
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
