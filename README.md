@@ -10,5 +10,6 @@ Enjoy Y'ALL!
 This was a course on classical machine learning - Applied Regression Analysis - where we learnt how to derive the linear regression algorithm from scratch & how to use it in the world
 
 ### Data 311
+This course covered the entire tip of the machine learning iceberg - we covered decision trees, neural networks, regression, component analysis, & clustering
 
 ### Data 310
