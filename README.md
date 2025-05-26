@@ -19,6 +19,8 @@ Check out my work being applied here: [*github.com/almsam/data-analysis-project-
 ### Data 315
 An extension for 310 - this course showed my cohort & I how to analyze a time series of data. From white noise to Moving Average & Auto Regression, & even ARMA, ARiMA, & sARiMA - we learnt how to model seasonal data of many kinds
 
+Stay tuned, as someday I will add my applications of these algorithms to my [*Python Library from data 310*](https://github.com/almsam/Numerical-Analysis-code)
+
 ## Software Licence:
 
 > MIT License
