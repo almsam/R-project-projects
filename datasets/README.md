@@ -13,3 +13,5 @@ Here are the Datasets used at a glance
 ### `myopiacomma.csv`
 - Same as `myopia.csv`, but comma-delimited for compatibility.
 
+### `possum.csv`
+- Ecological data on possums; used for biological/statistical modeling.
