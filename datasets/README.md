@@ -26,6 +26,8 @@ Here are the Datasets used at a glance
 
 ### `wolfRMNP.R`
 - R script analyzing wolf data, likely from Rocky Mountain National Park.
+- See the data 315 directory for info
 
 ### `zx.R`
 - General R script; purpose varies—check code for details.
+- See the data 315 directory for info
