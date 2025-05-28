@@ -6,15 +6,19 @@ Here are the Datasets used at a glance
 
 ### `datasalaries.csv`
 - Salary data; likely includes job titles, salaries, experience, etc.
+- See the data 311 directory for info
 
 ### `myopia.csv`
 - Myopia-related data in CSV format; used for classification or medical analysis.
+- See the data 311 directory for info
 
 ### `myopiacomma.csv`
 - Same as `myopia.csv`, but comma-delimited for compatibility.
+- See the data 311 directory for info
 
 ### `possum.csv`
 - Ecological data on possums; used for biological/statistical modeling.
+- See the data 311 directory for info
 
 ### `table.bi.txt`
 - Text table, possibly with summary stats or binary classification results.
