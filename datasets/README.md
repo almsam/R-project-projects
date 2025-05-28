@@ -6,3 +6,10 @@ Here are the Datasets used at a glance
 
 ### `datasalaries.csv`
 - Salary data; likely includes job titles, salaries, experience, etc.
+
+### `myopia.csv`
+- Myopia-related data in CSV format; used for classification or medical analysis.
+
+### `myopiacomma.csv`
+- Same as `myopia.csv`, but comma-delimited for compatibility.
+
