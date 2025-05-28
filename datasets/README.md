@@ -18,6 +18,7 @@ Here are the Datasets used at a glance
 
 ### `table.bi.txt`
 - Text table, possibly with summary stats or binary classification results.
+- See the data 310 directory for info
 
 ### `wolfRMNP.R`
 - R script analyzing wolf data, likely from Rocky Mountain National Park.
