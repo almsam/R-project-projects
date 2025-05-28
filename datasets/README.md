@@ -4,6 +4,10 @@ Here are the Datasets used at a glance
 
 ## Dataset & Script Overview
 
+### `table.bi.txt`
+- Text table, possibly with summary stats or binary classification results.
+- See the data 310 directory for info
+
 ### `datasalaries.csv`
 - Salary data; likely includes job titles, salaries, experience, etc.
 - See the data 311 directory for info
@@ -19,10 +23,6 @@ Here are the Datasets used at a glance
 ### `possum.csv`
 - Ecological data on possums; used for biological/statistical modeling.
 - See the data 311 directory for info
-
-### `table.bi.txt`
-- Text table, possibly with summary stats or binary classification results.
-- See the data 310 directory for info
 
 ### `wolfRMNP.R`
 - R script analyzing wolf data, likely from Rocky Mountain National Park.
