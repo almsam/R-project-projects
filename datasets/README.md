@@ -15,3 +15,6 @@ Here are the Datasets used at a glance
 
 ### `possum.csv`
 - Ecological data on possums; used for biological/statistical modeling.
+
+### `table.bi.txt`
+- Text table, possibly with summary stats or binary classification results.
