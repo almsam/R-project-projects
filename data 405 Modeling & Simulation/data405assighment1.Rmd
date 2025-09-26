@@ -82,3 +82,7 @@ unirand2(10, 42)
 
 ```
 
+## Q2 discussion:
+
+For maximal cycle length: 'a' must be a primitive root modulo 'm', & since 170
+is not a primitive root modulo on 30323, this generator also does NOT achieve maximal cycle length
