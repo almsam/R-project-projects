@@ -185,3 +185,19 @@ results
 ```
 
 ## Q4 discussion:
+
+Results for small m (2–3):
+
+m=2: p=0.3067
+p=0.3067 --- no evidence against uniformity.
+
+m=3: p=0.4833
+p=0.4833 --- again, no problem.
+
+m>=4: p=1
+p=1 --- the test is not valid here due to insufficient sample size for the number of bins
+
+
+The test works fine for low dimensions (m=2,3) where the sample size is sufficient
+
+for higher dimensions (m ≥ 4), with only 1000 samples, the test likely isn't valid
