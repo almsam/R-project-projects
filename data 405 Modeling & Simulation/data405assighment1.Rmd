@@ -71,4 +71,14 @@ unirand2 <- function(n, s) {
     return(u)
 }
 
+# s is for seed, n is for number, m is for modulo, a is for multiplier, x is for raw sequence, u is for normalized sequence
+
 ```
+
+```{r}
+
+# 10 uniforms using unirand1 with seed = 13
+unirand2(10, 42)
+
+```
+
