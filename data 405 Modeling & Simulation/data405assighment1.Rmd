@@ -104,6 +104,12 @@ unirand3 <- function(n, s1, s2) {
 ```{r}
 
 # 10 uniforms using unirand3 with seed = 67
-unirand3(10, 67)
+unirand3(10, 13, 4200)
 
 ```
+
+## Q3 discussion:
+
+When seeds are s1 = 13 and s2 = 4200, the cycle length exceeds 300000,
+
+
