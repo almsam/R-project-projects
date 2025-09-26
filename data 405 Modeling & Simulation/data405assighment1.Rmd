@@ -1,6 +1,8 @@
 ---
 title: "data405a1"
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 date: "2025-9-25"
 ---
 
@@ -200,4 +202,4 @@ p=1 --- the test is not valid here due to insufficient sample size for the numbe
 
 The test works fine for low dimensions (m=2,3) where the sample size is sufficient
 
-for higher dimensions (m ≥ 4), with only 1000 samples, the test likely isn't valid
+for higher dimensions (m >= 4), with only 1000 samples, the test likely isn't valid
