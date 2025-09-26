@@ -86,3 +86,17 @@ unirand2(10, 42)
 
 For maximal cycle length: 'a' must be a primitive root modulo 'm', & since 170
 is not a primitive root modulo on 30323, this generator also does NOT achieve maximal cycle length
+
+## Q3 code:
+
+```{r}
+
+unirand3 <- function(n, s1, s2) {
+    u1 <- unirand(n, s1)
+    u2 <- unirand2(n, s2)
+
+    u <- u1 + u2 - floor(u1 + u2)  # I believe this is [0,1)
+    return(u)
+}
+
+```
