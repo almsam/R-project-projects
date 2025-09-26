@@ -134,4 +134,25 @@ summary(fit)
 
 ```
 
-an intercept close to 0.5 & a slope close to 0 indicates independence
+an intercept close to 0.5 & a slope close to 0 indicates uniform distributed data (0.48 & 0.03 respectively)
+
+but just to be sure, lets up sample from 1000 to 10,000 and check again:
+
+```{r}
+
+u <- unirand3(10000, 13, 9162)
+plot(u[-10000], u[-1], main="bigger lag plot of unirand3")
+
+# lagged version
+u_lag <- u[-length(u)]       # u[1 ... n-1]
+u_now <- u[-1]               # u[2 ..... n]
+
+# lin reg
+fit <- lm(u_now ~ u_lag)
+
+summary(fit)
+
+```
+
+slope & intercept of 0.499 & -0.006 respectively show these numbers converge to 0.5 & 0 - indicating uniform distribution
+(as what little varrience from 0.5 & 0 is within acceptable noise levels, or simply a corner missing a data point)S
