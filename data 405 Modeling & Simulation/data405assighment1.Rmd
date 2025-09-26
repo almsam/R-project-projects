@@ -5,12 +5,31 @@ date: "2025-9-25"
 ---
 
 
-## Data 405 Assignment 1
+# Data 405 Assignment 1
 
-## q 1:
+## Q1 code:
 
 ```{r}
 
+unirand <- function(n, s) {
+    # moduluo & multiplier variables
+    m <- 30307
+    a <- 172
+
+    x <- integer(n)   # raw sequence
+    u <- numeric(n)   # normalized seq
+
+    x[1] <- (a * s) %% m
+    u[1] <- x[1] / m
+
+    if (n > 1) {
+        for (i in 2:n) {
+            x[i] <- (a * x[i-1]) %% m
+            u[i] <- x[i] / m
+        }
+    }
+    return(u)
+}
+
 
 ```
-
