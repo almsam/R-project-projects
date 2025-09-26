@@ -155,4 +155,33 @@ summary(fit)
 ```
 
 slope & intercept of 0.499 & -0.006 respectively show these numbers converge to 0.5 & 0 - indicating uniform distribution
-(as what little varrience from 0.5 & 0 is within acceptable noise levels, or simply a corner missing a data point)S
+(as what little varrience from 0.5 & 0 is within acceptable noise levels, or simply a corner missing a data point)
+
+## Q4 code:
+
+```{r}
+
+set.seed(67)
+u <- unirand3(1000, 13, 9162) # 1000 from uni rand 3
+
+random_forest_test <- function(u, m, bins = 5) {
+    n <- length(u) - m + 1
+    tuples <- embed(u, m)  # form overlapping m-tuples on each
+    # then we partition cube into bins^m cells
+    cuts <- lapply(1:m, function(i) cut(tuples[,i], breaks=bins, labels=FALSE))
+    idx <- do.call(paste, c(cuts, sep="-"))
+    freq <- table(idx)
+
+    # also a chi-square test for uniformity
+    chisq.test(freq)
+}
+
+# dimension m=10 limit
+results <- lapply(2:10, function(m) random_forest_test(u, m))
+names(results) <- paste0("m=", 2:10)
+results
+
+
+```
+
+## Q4 discussion:
