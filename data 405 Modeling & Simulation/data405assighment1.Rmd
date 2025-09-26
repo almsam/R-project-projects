@@ -77,7 +77,7 @@ unirand2 <- function(n, s) {
 
 ```{r}
 
-# 10 uniforms using unirand1 with seed = 13
+# 10 uniforms using unirand2 with seed = 13
 unirand2(10, 42)
 
 ```
@@ -98,5 +98,12 @@ unirand3 <- function(n, s1, s2) {
     u <- u1 + u2 - floor(u1 + u2)  # I believe this is [0,1)
     return(u)
 }
+
+```
+
+```{r}
+
+# 10 uniforms using unirand3 with seed = 67
+unirand3(10, 67)
 
 ```
