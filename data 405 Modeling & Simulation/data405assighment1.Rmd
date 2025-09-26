@@ -1,0 +1,16 @@
+---
+title: "data405a1"
+output: pdf_document
+date: "2025-9-25"
+---
+
+
+## Data 405 Assignment 1
+
+## q 1:
+
+```{r}
+
+
+```
+
