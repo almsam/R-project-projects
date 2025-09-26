@@ -1,6 +1,6 @@
 ---
 title: "data405a1"
-output: pdf_document
+output: html_document
 date: "2025-9-25"
 ---
 
