@@ -116,3 +116,22 @@ When seeds are s1 = 13 and s2 = 9162, the cycle length exceeds 300000:
  - thus: cycle length >>> 300,000
 
 The resulting numbers look to be approximately uniformly distributed on [0,1)
+
+To check independence, we can lag plot & use a linear model:
+```{r}
+
+u <- unirand3(1000, 13, 9162)
+plot(u[-1000], u[-1], main="lag plot of unirand3")
+
+# lagged version
+u_lag <- u[-length(u)]       # u[1 ... n-1]
+u_now <- u[-1]               # u[2 ..... n]
+
+# lin reg
+fit <- lm(u_now ~ u_lag)
+
+summary(fit)
+
+```
+
+an intercept close to 0.5 & a slope close to 0 indicates independence
