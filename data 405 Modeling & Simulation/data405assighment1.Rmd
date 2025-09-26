@@ -104,12 +104,15 @@ unirand3 <- function(n, s1, s2) {
 ```{r}
 
 # 10 uniforms using unirand3 with seed = 67
-unirand3(10, 13, 4200)
+unirand3(10, 13, 9162)
 
 ```
 
 ## Q3 discussion:
 
-When seeds are s1 = 13 and s2 = 4200, the cycle length exceeds 300000,
+When seeds are s1 = 13 and s2 = 9162, the cycle length exceeds 300000:
+ - suppose m1-1 = 30306 and m2-1 = 30322 are the periods of the two individual generators,
+ - the LCM will l be 459,469,266 (source https://www.calculatorsoup.com/calculators/math/lcm.php)
+ - thus: cycle length >>> 300,000
 
-
+The resulting numbers look to be approximately uniformly distributed on [0,1)
