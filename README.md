@@ -21,6 +21,8 @@ An extension for 310 - this course showed my cohort & I how to analyze a time se
 
 Stay tuned, as someday I will add my applications of these algorithms to my [*Python Library from data 310*](https://github.com/almsam/Numerical-Analysis-code)
 
+### Data 405
+
 ## Software Licence:
 
 ```
