@@ -11,6 +11,7 @@ The first data course I took was a simple data visualization in Python course. T
 
 However: the course project can be seen here: [*https://github.com/almsam/DATA-301-analysis-project*](https://github.com/almsam/DATA-301-analysis-project)
 
+And a remastered version of the project can be seen here: [*github.com/almsam/data-analysis-project-remastered*](https://github.com/almsam/data-analysis-project-remastered)
 
 ### Data 310
 This was a course on classical machine learning - Applied Regression Analysis - where we learnt how to derive the linear regression algorithm from scratch & how to use it in the world
