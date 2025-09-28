@@ -7,7 +7,9 @@ Enjoy Y'ALL!
 ## Course details
 
 ### Data 301 (not included)
+The first data course I took was a simple data visualization in Python course. The course won't be included in this repo as none of the course was conducted in R.
 
+However: the course project can be seen here:
 
 
 ### Data 310
