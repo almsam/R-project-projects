@@ -24,6 +24,7 @@ Stay tuned, as someday I will add my applications of these algorithms to my [*Py
 ## Software Licence:
 
 ```
+``` {text}
 MIT License
 
 Copyright (c) 2025-2026 Samira Almuallim
