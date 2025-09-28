@@ -6,6 +6,10 @@ Enjoy Y'ALL!
 
 ## Course details
 
+### Data 301 (not included)
+
+
+
 ### Data 310
 This was a course on classical machine learning - Applied Regression Analysis - where we learnt how to derive the linear regression algorithm from scratch & how to use it in the world
 
