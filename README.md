@@ -30,7 +30,7 @@ An extension for 310 - this course showed my cohort & I how to analyze a time se
 Stay tuned, as someday I will add my applications of these algorithms to my [*Python Library from data 310*](https://github.com/almsam/Numerical-Analysis-code)
 
 ### Data 405
-After learning basic & intermediate statistics, this course on simulation & modeling browses through a wide variety of statistical models in tandem with random number generation
+After learning basic & intermediate statistics, this course on simulation & modeling browses through a wide variety of statistical models in tandem with random number generation. Think stochastic processes, Monte Carlo simulations, & Markov Chains - as well as poison & normal distributions
 
 
 ## Software Licence:
