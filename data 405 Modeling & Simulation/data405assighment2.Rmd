@@ -1,0 +1,19 @@
+---
+title: "Data 405 Assignment 2 2025W"
+output:
+  pdf_document: default
+  html_document: default
+date: "2025-10-21"
+---
+
+
+# Data 405 Assignment 2
+
+## Q1 code:
+
+```{r}
+
+
+```
+
+## Q1 discussion:
