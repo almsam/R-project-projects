@@ -1,8 +1,8 @@
 ---
 title: "Data 405 Assignment 2 2025W"
 output:
-  pdf_document: default
   html_document: default
+  pdf_document: default
 date: "2025-10-21"
 ---
 
