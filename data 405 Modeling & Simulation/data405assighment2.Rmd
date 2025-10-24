@@ -206,3 +206,18 @@ legend("topright", legend = c("Simulated (hist)", "Theoretical pdf"),
 
 The graph is shaped like " _/-. " because the function is defined differently above y = 1 & y between 0&1 -- hence the piecewise
 
+
+
+## Q5 code:
+
+```{r}
+
+```
+
+## Q5 plot:
+
+```{r}
+
+```
+
+
