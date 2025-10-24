@@ -225,7 +225,6 @@ rmyH <- function(n) {
 ```
 
 
-
 ```{r}
 
 rmyW <- function(n, a, b, p) {
@@ -249,6 +248,33 @@ rmyW <- function(n, a, b, p) {
 
 ```{r}
 
+set.seed(123)
+W1 <- rmyW(10000, a = 1, b = 3, p = 0.5)
+
+hist(W1, breaks = 50, freq = FALSE, col = "skyblue",
+     main = "Histogram of W (a=1, b=3, p=0.5)",
+     xlab = "W")
+
+# overlay pdf curve
+curve(0.5 * abs(x - 1) * exp(-(x - 1)^2) +
+      0.5 * abs(x - 3) * exp(-(x - 3)^2),
+      add = TRUE, col = "red", lwd = 2)
+
+
 ```
 
+```{r}
 
+set.seed(456)
+W2 <- rmyW(10000, a = 1, b = 0.5, p = 0.3)
+
+hist(W2, breaks = 50, freq = FALSE, col = "lightgreen",
+     main = "Histogram of W (a=1, b=0.5, p=0.3)",
+     xlab = "W")
+
+curve(0.3 * abs(x - 1) * exp(-(x - 1)^2) +
+      0.7 * abs(x - 0.5) * exp(-(x - 0.5)^2),
+      add = TRUE, col = "darkgreen", lwd = 2)
+
+
+```
