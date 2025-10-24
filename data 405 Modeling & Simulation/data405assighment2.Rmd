@@ -9,7 +9,7 @@ date: "2025-10-21"
 
 # Data 405 Assignment 2
 
-## Q1 code:
+## Q1a code:
 
 ```{r}
 
@@ -33,4 +33,6 @@ print(sim_results)
 
 ```
 
-## Q1 discussion:
+## Q1b discussion:
+
+Taking the sqrt compresses larger counts and reduces the dependence of variance on the mean. This is called 'variance stabilization' for count data — after transformation the variance becomes roughly constant across levels of the mean, - which makes many statistical methods (ANOVA, ANCoVA, & lin reg) more appropriate
