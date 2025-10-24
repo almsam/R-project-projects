@@ -88,13 +88,21 @@ F(x) = int(0, x)(3t^2)dt = t^3 (0, x) = x^3
 
 ## Q3b code:
 
+inverse func: instead of u = x^(3) we use x = u^(1/3)
+
 
 ```{r}
 
-
+rmyX <- function(n) {
+  u <- runif(n)
+  x <- u^(1/3)
+  return(x)
+}
 
 ```
 
+
+E[x] = int(0, 1)(x * 3x^2)dx = 3 * int(0, 1)(x^3)dx = 3 * x^4 /4 (0, 1) = 3* 1/4 - 0 = 3/4 = 0.75
 
 
 
