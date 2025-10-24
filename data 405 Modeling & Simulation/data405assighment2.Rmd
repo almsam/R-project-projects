@@ -210,9 +210,40 @@ The graph is shaped like " _/-. " because the function is defined differently ab
 
 ## Q5 code:
 
+reverse func is X = sqrt{ -ln(1-2U) }
+
 ```{r}
 
+rmyH <- function(n) {
+  u <- runif(n)
+  x <- sqrt(-log(1 - 2 * u))
+  sign <- sample(c(-1, 1), n, replace = TRUE) #random even odd since h(x) is symetric
+  return(sign * x)
+}
+
+
 ```
+
+
+
+```{r}
+
+rmyW <- function(n, a, b, p) {
+  # choose which component
+  component <- rbinom(n, 1, p)
+  
+  # sample from h(x)
+  w <- rmyH(n)
+  
+  # shift depending on mixture
+  w[component == 1] <- w[component == 1] + a
+  w[component == 0] <- w[component == 0] + b
+  
+  return(w)
+}
+
+```
+
 
 ## Q5 plot:
 
