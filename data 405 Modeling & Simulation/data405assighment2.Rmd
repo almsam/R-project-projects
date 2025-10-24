@@ -13,6 +13,23 @@ date: "2025-10-21"
 
 ```{r}
 
+set.seed(12345)
+n <- 10000
+lambdas <- c(5, 25, 125, 625)
+
+sim_results <- data.frame(lambda = lambdas, E_X = NA_real_, E_sqrtX = NA_real_, Var_sqrtX = NA_real_, Var_X = NA_real_)
+
+for (i in seq_along(lambdas)) {
+    lam <- lambdas[i]
+    P <- rpois(n, lambda = lam)
+    sim_results$E_X[i]       <- mean(P)
+    sim_results$E_sqrtX[i]   <- mean(sqrt(P))
+    sim_results$Var_sqrtX[i] <- var(sqrt(P))
+    sim_results$Var_X[i]     <- var(P)
+}
+
+print(sim_results)
+
 
 ```
 
