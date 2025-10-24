@@ -36,3 +36,31 @@ print(sim_results)
 ## Q1b discussion:
 
 Taking the sqrt compresses larger counts and reduces the dependence of variance on the mean. This is called 'variance stabilization' for count data — after transformation the variance becomes roughly constant across levels of the mean, - which makes many statistical methods (ANOVA, ANCoVA, & lin reg) more appropriate
+
+
+
+## Q2a code:
+
+
+since u = 1-(e^(-x^2)), we can use algebra to find x=sqrt{-ln(1-u)}
+
+thus:
+
+```{r}
+
+rmyV <- function(n) {
+  u <- runif(n)  # uniform rands on (0,1)
+  v <- sqrt(-log(1 - u))
+  return(v)
+}
+
+```
+
+
+
+
+
+
+
+
+
