@@ -81,6 +81,32 @@ legend("topright", legend = c("Simulated", "Theoretical PDF"),
 
 
 
+## Q3a discussion:
+
+F(x) = int(0, x)(3t^2)dt = t^3 (0, x) = x^3
+
+
+## Q3b code:
+
+
+```{r}
+
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
