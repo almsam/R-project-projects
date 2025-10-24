@@ -278,3 +278,10 @@ curve(0.3 * abs(x - 1) * exp(-(x - 1)^2) +
 
 
 ```
+
+
+trimodal & bimodal spectrums respectively
+
+for (a=1, b=3, p=0.5) (blue), we see two clear dips near 1 and 3
+& for (a=1, b=0.5, p=0.3), we only see 2 modes with a dip slightly below 0.5
+
