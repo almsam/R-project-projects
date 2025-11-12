@@ -274,3 +274,17 @@ So the MLE is
 \]
 
 -
+
+##### Q8b: Lets estimate beta given sample (9,5,7)
+
+\[ \bar X = \frac{9+5+7}{3}=7,\qquad \alpha=2  \]
+
+so:
+\[\boxed
+{\hat\beta = \bar X/\alpha = 7/2 = 3.5.}\]
+
+---
+
+## Q9:
+
+##### Using my R code:
