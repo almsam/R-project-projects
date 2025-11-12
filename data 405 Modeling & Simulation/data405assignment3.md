@@ -52,3 +52,29 @@ So the probability that both components last at least 1 unit of time is
 ---
 
 ## Q2:
+
+##### Lets compute the following:
+\[
+f_X(x)=\int_{0}^{\infty} f(x,y),dy=\int_{0}^{\infty} x e^{-x(1+y)},dy.
+\]
+
+First lets factor (x e^{-x}):
+\[
+f_X(x)=x e^{-x}\int_0^\infty e^{-x y},dy
+= x e^{-x}\cdot\frac{1}{x}
+= e^{-x},\qquad x\ge0.
+\]
+
+so our answer should end up as:
+\[ \boxed
+{f_X(x)=e^{-x},; x\ge0,} \]
+which is an \[(\mathrm{Exp}(1)) \] density function
+
+
+Thusly, the marginal density of X is:
+
+\[
+f_X(x)=\int_{0}^{\infty} x e^{-x(1+y)},dy.
+\]
+
+---
