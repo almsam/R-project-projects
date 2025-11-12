@@ -243,3 +243,34 @@ lines(xgrid, 1 / xgrid, lwd = 2)
 ---
 
 ## Q8:
+
+
+##### Q8a: Lets get a formula to get beta's MLE given alpha
+
+The density (scale parametrization) is
+\[
+f(x;\alpha,\beta)=\frac{x^{\alpha-1}e^{-x/\beta}}{\Gamma(\alpha),\beta^\alpha},\qquad x>0.
+\]
+
+Log-likelihood for a sample (x_1,\dots,x_n) with known (\alpha):
+
+\[
+\ell(\beta)=\sum_{i=1}^n\Big[(\alpha-1)\ln x_i - \ln\Gamma
+(\alpha) -\alpha\ln\beta - \frac{x_i}{\beta}\Big]
+= -n\alpha\ln\beta - \frac{1}{\beta}\sum_{i=1}^n x_i + \text{const.}
+\]
+
+Differentiate w.r.t. (beta) and set to zero:
+
+\[
+\frac{d\ell}{d\beta} = -\frac{n\alpha}{\beta} + \frac{\sum x_i}{\beta^2}=0
+\quad\Rightarrow\quad \sum_{i=1}^n x_i = n\alpha\hat\beta
+\]
+
+So the MLE is
+
+\[
+\boxed{\hat\beta = \frac{1}{n\alpha}\sum_{i=1}^n x_i = \frac{\bar X}{\alpha}.}
+\]
+
+-
