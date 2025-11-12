@@ -78,3 +78,37 @@ f_X(x)=\int_{0}^{\infty} x e^{-x(1+y)},dy.
 \]
 
 ---
+
+## Q3:
+
+By definition,
+\[
+f_{Y\mid X}(y\mid x)=\frac{f(x,y)}{f_X(x)}
+=\frac{x e^{-x(1+y)}}{e^{-x}}
+= x e^{-x y},\qquad y\ge0.
+\]
+
+So
+\[\boxed
+{f_{Y\mid X}(y\mid x)=x e^{-x y},; y\ge0.}
+\]
+
+Now we compute the conditional expectation:
+
+\[
+\mathbb{E}[Y\mid X=x]=\int_0^\infty y , x e^{-x y},dy
+= x\int_0^\infty y e^{-x y},dy.
+\]
+
+Use the known integral \[(\displaystyle\int_0^\infty y e^{-a y},dy=\frac{1}{a^2})\] for (a>0). Here (a=x), so
+
+\[
+\mathbb{E}[Y\mid X=x]=x\cdot\frac{1}{x^2}=\frac{1}{x}
+\]
+
+Thus
+\[ \boxed
+{\mathbb{E}[Y\mid X=x]=\dfrac{1}{x}.}
+\]
+
+---
