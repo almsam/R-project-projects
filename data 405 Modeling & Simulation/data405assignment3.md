@@ -288,3 +288,39 @@ so:
 ## Q9:
 
 ##### Using my R code:
+
+```r
+set.seed(2025)
+
+# known alpha
+alpha <- 2
+# observed sample
+obs <- c(9,5,7)
+n <- length(obs)
+
+# observed mle
+beta_hat_obs <- mean(obs) / alpha  # 3.5
+
+# simulate nsim samples of size n from Gamma(alpha, beta_hat_obs)
+nsim <- 1000
+beta_hats <- numeric(nsim)
+for (i in 1:nsim) {
+  samp <- rgamma(n, shape = alpha, scale = beta_hat_obs)
+  beta_hats[i] <- mean(samp) / alpha
+}
+
+# estimate probability P(beta_hat >= observed)
+p_ge <- mean(beta_hats >= beta_hat_obs)
+
+# summary
+cat("Observed beta_hat:", beta_hat_obs, "\n")
+cat("Mean simulated beta_hats:", mean(beta_hats), "\n")
+cat("SD simulated beta_hats:", sd(beta_hats), "\n")
+cat("P(beta_hat >= observed) approx:", p_ge, "\n")
+
+# Optional: quick histogram of simulated beta_hats
+hist(beta_hats, breaks = 30, col = "lightblue", main = "Simulated beta_hats",
+     xlab = expression(hat(beta)))
+abline(v = beta_hat_obs, col = "red", lwd = 2)
+
+```
