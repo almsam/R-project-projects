@@ -324,3 +324,22 @@ hist(beta_hats, breaks = 30, col = "lightblue", main = "Simulated beta_hats",
 abline(v = beta_hat_obs, col = "red", lwd = 2)
 
 ```
+
+
+##### R Output:
+
+```r
+
+Observed beta_hat: 3.5 
+Mean simulated beta_hats: 3.467059 
+SD simulated beta_hats: 1.421013 
+P(beta_hat >= observed) approx: 0.447 
+
+[Execution complete with exit code 0]
+```
+
+![1762928166190](image/data405assignment3/1762928166190.png)
+
+[//]: <> (https://www.mycompiler.io/new/r was used to generate the plot image above)
+
+The estimated probability ~= 0.47 - which indicates the observed MLE (3.5) is not unusually large under (a=2, beta=3.5)
