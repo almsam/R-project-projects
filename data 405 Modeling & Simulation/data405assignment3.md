@@ -169,7 +169,7 @@ thus: proven: X & Y are **not independent**.
 
 ---
 
-## 6:
+## Q6:
 
 ##### Lets use this R code:
 
