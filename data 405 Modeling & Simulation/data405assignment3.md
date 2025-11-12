@@ -210,3 +210,36 @@ head(cbind(X, Y), 10)
 there exist a couple very large Y values occasionally when X is very small — that’s expected because (E[Y| X=x] == 1/x) - thus such behavior is explianed
 
 ---
+
+## Q7:
+
+##### Lets use my R code again:
+
+```r
+
+# Setup from above:
+set.seed(2025)
+n <- 100
+X <- rexp(n, rate = 1)
+Y <- numeric(n)
+for (i in seq_len(n)) { Y[i] <- rexp(1, rate = X[i]) }
+head(cbind(X, Y), 10)
+
+# Assuming X and Y from above
+plot(X, Y, pch = 19, cex = 0.6,
+     xlab = "X", ylab = "Y",
+     main = "Scatterplot of Y vs X with conditional mean y = 1/x")
+xgrid <- seq(0.01, quantile(X, 0.99) + 1, length.out = 400)
+lines(xgrid, 1 / xgrid, lwd = 2)
+```
+
+![1762927467151](image/data405assignment3/1762927467151.png)
+
+[//]: <> (https://www.mycompiler.io/new/r was used to generate the plot image above)
+
+
+> The scatterplot shows the cloud of points roughly centered on the curve (y= 1/x ). This matches our earlier calculation of the conditional expectation (E[Y| X=x] = 1/x).
+
+---
+
+## Q8:
