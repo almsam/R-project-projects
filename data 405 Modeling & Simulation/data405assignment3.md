@@ -112,3 +112,30 @@ Thus
 \]
 
 ---
+
+## Q4:
+
+
+##### Lets compute the following:
+
+
+\[f_Y(y)=\int_{0}^{\infty} x e^{-x(1+y)},dx.\]
+
+If (a=1+y>0) -- -- our integral becomes
+
+\[\int_0^\infty x e^{-a x},dx.\]
+
+A standard integral (or integrate by parts) gives
+
+\[\int_0^\infty x e^{-a x},dx = \frac{1}{a^2}.\]
+
+Thus with (a=1+y),
+
+\[f_Y(y)=\frac{1}{(1+y)^2},\qquad y\ge0.\]
+
+So the correct marginal df is
+\[\boxed
+{f_Y(y)=\dfrac{1}{(1+y)^2},; y\ge0.}
+\]
+
+
