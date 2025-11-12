@@ -343,3 +343,7 @@ P(beta_hat >= observed) approx: 0.447
 [//]: <> (https://www.mycompiler.io/new/r was used to generate the plot image above)
 
 The estimated probability ~= 0.47 - which indicates the observed MLE (3.5) is not unusually large under (a=2, beta=3.5)
+
+---
+
+This was built with A MathJax extension for VS Code in a MarkDown doccument, Math was done specifically in MathJax format. This doccument was exported to HTML & then to PDF prior to submission.
