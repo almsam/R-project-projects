@@ -168,3 +168,45 @@ so (X) and (Y) cannot be independent
 thus: proven: X & Y are **not independent**.
 
 ---
+
+## 6:
+
+##### Lets use this R code:
+
+```r
+set.seed(2025)
+n <- 100
+
+# simulate X ~ Exp(1)
+X <- rexp(n, rate = 1)
+
+# simulate Y | X ~ Exp(rate = X)
+Y <- numeric(n)
+for (i in seq_len(n)) {
+  Y[i] <- rexp(1, rate = X[i])
+}
+
+# show first 10 pairs:
+head(cbind(X, Y), 10)
+```
+
+##### R output (first 10 pairs):
+
+```r
+                X           Y
+ [1,] 0.465240310   1.1200714
+ [2,] 1.038634094   1.6087953
+ [3,] 0.560569047   0.5113417
+ [4,] 0.008504318 183.8800281
+ [5,] 0.088620726  30.4930303
+ [6,] 0.139062109   4.9391748
+ [7,] 1.146713257   1.1622734
+ [8,] 3.991217797   0.1174850
+ [9,] 0.946187682   0.1338989
+[10,] 1.155446981   0.3215125
+
+```
+
+there exist a couple very large Y values occasionally when X is very small — that’s expected because (E[Y| X=x] == 1/x) - thus such behavior is explianed
+
+---
