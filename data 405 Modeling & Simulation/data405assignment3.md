@@ -139,3 +139,32 @@ So the correct marginal df is
 \]
 
 
+---
+
+## Q5:
+
+Recall the joint pdf
+
+\[f(x,y)=x e^{-x(1+y)},\qquad x\ge0,\ y\ge0.\]
+
+If (X) and (Y) were independent - we would have
+
+\[f(x,y)=f_X(x),f_Y(y) \]
+
+But from earlier work we found
+
+\[ f_X(x)=e^{-x},\quad f_Y(y)=\frac{1}{(1+y)^2}. \]
+
+So the product would be
+
+\[ f_X(x)f_Y(y)=e^{-x}\frac{1}{(1+y)^2} \]
+
+which is not equal to \[(x e^{-x(1+y)})\] in general
+
+Since (e^{-2}) is not equal  (e^{-1}/4), the equality fails
+
+so (X) and (Y) cannot be independent
+
+thus: proven: X & Y are **not independent**.
+
+---
