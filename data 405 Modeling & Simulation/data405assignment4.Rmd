@@ -1,0 +1,9 @@
+---
+title: "Data 405 Assignment 4 2025W"
+output:
+  pdf_document: default
+  html_document: default
+date: "2025-9-25"
+---
+
+
