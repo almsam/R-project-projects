@@ -58,3 +58,84 @@ cat("\nApproximate ARCH(2):\n")
 cat(sprintf("sigma_t^2 = %g + %g * y_{t-1}^2 + %g * y_{t-2}^2\n", xbar, phi[1], phi[2]))
 
 ```
+
+
+### Q1b
+
+Mean log-return (drift): `0.0006520417`
+
+### Q1c ACF of raw returns:
+
+No meaningful autocorrelation. All values are near 0. Conclusion: No linear dependence.
+
+### Q1d, ACF of squared returns:
+
+Clear positive autocorrelation at lag 1 (~0.079) and lag 2 (~0.171), and smaller positive values at later lags.
+Conclusion: Strong evidence of volatility clustering.
+
+### Q1e AR(2) fit:
+
+```
+y_t^2 = 0.000106487
++ 0.0658011 * y_{t-1}^2
++ 0.166083  * y_{t-2}^2
++ eps_t
+```
+
+### Q1f Approximate ARCH model:
+
+```
+σ_t^2 = 0.000106487
++ 0.166083  * y_{t-2}^2
++ 0.0658011 * y_{t-1}^2
+```
+
+### Q1g:
+
+``` {r}
+# (g) simulate a time series with same length and include drift
+n <- length(DAX)
+y <- numeric(n)
+# init first two values with actual first two log-returns
+y[1:2] <- DAXlogreturn[1:2]
+Z <- rnorm(n)
+
+for (i in 3:n) {
+  condvar <- xbar + phi[1]*y[i-1]^2 + phi[2]*y[i-2]^2
+  condvar <- ifelse(condvar > 0, condvar, 1e-8) # guard against tiny/negative
+  s <- sqrt(condvar) * Z[i]
+  y[i] <- s
+}
+
+# add drift & re-accumulate to prices
+y_with_drift <- c(log(DAX[1]), y + drift)
+DAXsim <- exp(cumsum(y_with_drift))
+
+# plot real vs simulated
+par(mfrow = c(1,2))
+ts.plot(DAX, main = "Original DAX", ylab = "Index")
+ts.plot(DAXsim, main = "Simulated DAX (ARCH(2) approx)", ylab = "Index")
+par(mfrow = c(1,1))
+
+# quick diagnostics: compare empirical acf of ^2 returns real vs simulated
+par(mfrow = c(1,2))
+acf(DAXlogreturn^2, main = "ACF ^2 (original)")
+acf((diff(log(DAXsim)))^2, main = "ACF ^2 (simulated)")
+par(mfrow = c(1,1))
+
+# prin summary outputs
+cat("\ndrift (mean log-return):", drift, "\n")
+cat("length of series N:", n)
+
+```
+
+output:
+
+```
+drift (mean log-return): 0.0006520417 
+length of series N: 1860
+```
+
+see data405assignment4q1ga.png and data405assignment4q1gb.png for plots 
+
+
