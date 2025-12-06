@@ -29,3 +29,32 @@ drift <- mean(DAXlogreturn)
 pdf(NULL)
 ansc <- acf(DAXlogreturn, main = "ACF of DAX log-returns")
 ansc
+
+# (d) acf of log-returns ^2 (prove of ARCH)
+ansd <- acf(DAXlogreturn^2, main = "ACF of ^2 DAX log-returns")
+ansd
+
+# (e) fit AR(2) to ^2 returns to obtain approx ARCH(2) parameters
+out <- arima(DAXlogreturn^2, order = c(2, 0, 0), include.mean=TRUE)
+print(out)
+
+# extract coef
+phi <- as.numeric(out$coef[1:2])     # phi1, phi2 from AR(2) on ^2 series
+xbar <- as.numeric(out$coef["intercept"]) # intercept (mean) from arima on ^2 series
+s2 <- out$sigma2
+cat("phi1 =", phi[1], " phi2 =", phi[2], " intercept =", xbar, " sigma2 =", s2, "\n")
+
+# write out fitted AR(2) model for ^2 returns:
+# y_t^2 = intercept + phi1 * y_{t-1}^2 + phi2 * y_{t-2}^2 + error_t
+cat("\nfitted AR(2) on ^2 returns:\n")
+cat(sprintf("y_t^2 = %g + (%g) y_{t-1}^2 + (%g) y_{t-2}^2 + eps_t\n",
+            xbar, phi[1], phi[2]))
+
+# (f) approximate ARCH(2) model using phi estimates:
+# conditional variance: a0 + a1*y_{t-1}^2 + a2*y_{t-2}^2
+# where a0 = intercept, a1 = phi1, a2 = phi2 (approx)
+
+cat("\nApproximate ARCH(2):\n")
+cat(sprintf("sigma_t^2 = %g + %g * y_{t-1}^2 + %g * y_{t-2}^2\n", xbar, phi[1], phi[2]))
+
+```
