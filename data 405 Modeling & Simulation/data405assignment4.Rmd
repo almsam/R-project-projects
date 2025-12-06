@@ -7,3 +7,25 @@ date: "2025-9-25"
 ---
 
 
+# Data 405 Assignment 4
+
+## Q1 code:
+
+```{r}
+
+set.seed(2025)
+
+# load data
+data(EuStockMarkets)
+DAX <- EuStockMarkets[, "DAX"]
+
+# (a) store dat in object
+DAXlogreturn <- diff(log(DAX))
+
+# (b) find drift (the mean of log-returns)
+drift <- mean(DAXlogreturn)
+
+# (c) acf of log-returns (the lin dependence)
+pdf(NULL)
+ansc <- acf(DAXlogreturn, main = "ACF of DAX log-returns")
+ansc
