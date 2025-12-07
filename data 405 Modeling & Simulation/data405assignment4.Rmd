@@ -447,3 +447,21 @@ space40_prob <- pi["40"]
 
 ```
 
+
+``` {R}
+
+# c E[ revenue per turn from hotels on spaces 17,19,20 ]
+revenue_per_turn <- pi["17"]*950 + pi["19"]*950 + pi["20"]*1000
+
+# print res
+cat("Most visited space:", most_space, "\n")
+cat("2nd-most visited space:", second_space, "\n")
+cat("Visit probability for space 40:", round(as.numeric(space40_prob), 6), "\n")
+cat("Expected revenue per turn from hotels:", round(as.numeric(revenue_per_turn), 6), "\n")
+
+```
+
+
+``` {R}
+
+# d&e:
