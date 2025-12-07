@@ -320,3 +320,26 @@ rownames(P) <- paste0("S",1:4); colnames(P) <- paste0("S",1:4)
 rownames(PE) <- paste0("S",1:4); colnames(PE) <- as.character(1:10)
 P
 PE
+
+# 4de
+# install.packages("HMM")
+library("HMM")
+
+# initialize HMM (states=1:4, symbols=1:10) and run Baum-Welch on first 1000 obs
+hmm0 <- initHMM(
+  States       = as.character(1:4),
+  Symbols      = as.character(1:10),
+  startProbs   = rep(1/4, 4),
+  transProbs   = P,
+  emissionProbs = PE
+)
+
+obsTrain <- as.character(as.numeric(logreturnsCut[1:1000]))
+bw <- baumWelch(hmm0, observation = obsTrain, maxIterations = 100, delta = 1e-6)
+hmmFit <- list(hmm = bw$hmm, logLik = bw$logProb)
+
+
+```
+
+
+
