@@ -527,3 +527,12 @@ cat("SD(Profit)   :", round(SD_profit, 6), "\n")
 ```
 
 
+**Interpretation:** With the hotels,  expected profit turns negative (~$15.66 loss per turn). The standard deviation of profit is large (~$656), so outcomes are highly volatile - occasional large gains or losses - high risk high reward. Perfect for a late game 'nothing to loose' senario but nowhere else
+
+
+
+
+
+
+```{R}
+
