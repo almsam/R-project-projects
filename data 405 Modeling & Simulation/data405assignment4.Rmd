@@ -139,3 +139,69 @@ length of series N: 1860
 see data405assignment4q1ga.png and data405assignment4q1gb.png for plots 
 
 
+## Q2:
+
+```{r}
+CAC <- EuStockMarkets[,3]
+
+# Log returns
+CAClogreturn <- diff(log(CAC))
+
+# Fit ARCH(2) by fitting AR(2) to 2 returns
+fit <- arima(CAClogreturn^2, order=c(2,0,0), include.mean=TRUE)
+
+phi1 <- fit$coef[1]
+phi2 <- fit$coef[2]
+a0   <- fit$coef[3]
+N    <- length(CAClogreturn)
+
+sim <- numeric(N)
+sim[1:2] <- CAClogreturn[1:2]
+Z <- rnorm(N)
+
+for(i in 3:N){
+  sigma2 <- a0 + phi1 * sim[i-1]^2 + phi2 * sim[i-2]^2
+  sim[i] <- sqrt(sigma2) * Z[i]
+}
+
+# Load CAC data (3rd column)
+CAC <- EuStockMarkets[,3]
+
+# Log returns
+CAClogreturn <- diff(log(CAC))
+
+# Fit ARCH(2) by fitting AR(2) to squared returns
+fit <- arima(CAClogreturn^2, order=c(2,0,0), include.mean=TRUE)
+
+phi1 <- fit$coef[1]
+phi2 <- fit$coef[2]
+a0   <- fit$coef[3]
+N    <- length(CAClogreturn)
+
+# Simulate ARCH(2)
+sim <- numeric(N)
+sim[1:2] <- CAClogreturn[1:2]
+Z <- rnorm(N)
+
+for(i in 3:N){
+  sigma2 <- a0 + phi1 * sim[i-1]^2 + phi2 * sim[i-2]^2
+  sim[i] <- sqrt(sigma2) * Z[i]
+}
+
+sim_prices <- exp(cumsum(c(log(CAC[1]), sim)))
+
+# plot time
+par(mfrow=c(1,2))
+ts.plot(CAC, main="Original CAC")
+ts.plot(sim_prices, main="Simulated ARCH(2) CAC")
+sim_prices <- exp(cumsum(c(log(CAC[1]), sim)))
+
+# Plots
+par(mfrow=c(1,2))
+ts.plot(CAC, main="Original CAC")
+ts.plot(sim_prices, main="Simulated ARCH(2) CAC")
+
+
+```
+
+
