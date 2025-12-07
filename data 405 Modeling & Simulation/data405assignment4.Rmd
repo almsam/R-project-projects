@@ -240,3 +240,45 @@ pi <- pi / sum(pi)
 costs <- 2 + 5 * pmax(0, 2 - states)      # weekly cost per state
 long_run_weekly_cost <- sum(pi * costs)
 
+# 3ef simulate 100000 weeks, compute annual (52-week) total costs,
+#         estimate P(annual cost > 250)
+nweeks <- 100000
+X <- integer(nweeks)
+X[1] <- 5
+for (t in 2:nweeks) {
+  after <- max(X[t-1] - 2, 0)
+  ydraw <- sample(0:4, 1, prob = p)
+  X[t] <- min(after + ydraw, 10)
+}
+
+weeks_per_year <- 52
+nyears <- floor(nweeks / weeks_per_year)
+annual_costs <- numeric(nyears)
+for (k in 1:nyears) {
+  block <- X[((k-1)*weeks_per_year + 1):(k*weeks_per_year)]
+  weekly <- 2 + 5 * pmax(0, 2 - block)
+  annual_costs[k] <- sum(weekly)
+}
+prob_exceed <- mean(annual_costs > 250)
+
+# print result
+print("Transition matrix P:")
+print(round(P, 3))
+cat("\nStationary distribution pi (length 11):\n")
+print(round(pi, 9))
+cat("\nLong-run weekly cost:", round(long_run_weekly_cost, 6), "\n")
+cat("Estimated P(annual cost > 250):", round(prob_exceed, 6), "\n")
+cat("Sample mean annual cost:", round(mean(annual_costs),4),
+    " sd:", round(sd(annual_costs),4), "\n")
+```
+
+
+**b Regularity:** The chain is irreducible and aperiodic (some power of P has all positive entries), so the transition matrix is regular.
+
+**d Long-run average weekly cost:**  
+`E[cost] = 3.563752058457253` units per week (where weekly cost = 2 + 5*max(0,2 - state)).
+
+**e-f Simulation (100000 weeks):**  
+- Sample mean annual cost ≈ `183.9298`, sd ≈ `42.07`.  
+- Estimated probability that annual cost > 250 (from simulation) ≈ **0.0598024** (≈ 5.98%).
+
