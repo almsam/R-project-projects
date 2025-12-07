@@ -1,0 +1,1226 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Data 405 Assignment 4 2025W},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Data 405 Assignment 4 2025W}
+\author{}
+\date{\vspace{-2.5em}2025-9-25}
+
+\begin{document}
+\maketitle
+
+\hypertarget{data-405-assignment-4}{%
+\section{Data 405 Assignment 4}\label{data-405-assignment-4}}
+
+\hypertarget{q1-code}{%
+\subsection{Q1 code:}\label{q1-code}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{2025}\NormalTok{)}
+
+\CommentTok{\# load data}
+\FunctionTok{data}\NormalTok{(EuStockMarkets)}
+\NormalTok{DAX }\OtherTok{\textless{}{-}}\NormalTok{ EuStockMarkets[, }\StringTok{"DAX"}\NormalTok{]}
+
+\CommentTok{\# (a) store dat in object}
+\NormalTok{DAXlogreturn }\OtherTok{\textless{}{-}} \FunctionTok{diff}\NormalTok{(}\FunctionTok{log}\NormalTok{(DAX))}
+
+\CommentTok{\# (b) find drift (the mean of log{-}returns)}
+\NormalTok{drift }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(DAXlogreturn)}
+
+\CommentTok{\# (c) acf of log{-}returns (the lin dependence)}
+\FunctionTok{pdf}\NormalTok{(}\ConstantTok{NULL}\NormalTok{)}
+\NormalTok{ansc }\OtherTok{\textless{}{-}} \FunctionTok{acf}\NormalTok{(DAXlogreturn, }\AttributeTok{main =} \StringTok{"ACF of DAX log{-}returns"}\NormalTok{)}
+\NormalTok{ansc}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Autocorrelations of series 'DAXlogreturn', by lag
+## 
+## 0.00000 0.00385 0.00769 0.01154 0.01538 0.01923 0.02308 0.02692 0.03077 0.03462 
+##   1.000   0.000  -0.027  -0.010   0.000  -0.032   0.002  -0.030  -0.009   0.023 
+## 0.03846 0.04231 0.04615 0.05000 0.05385 0.05769 0.06154 0.06538 0.06923 0.07308 
+##   0.009   0.056   0.022   0.018   0.012  -0.026   0.010  -0.046  -0.009   0.008 
+## 0.07692 0.08077 0.08462 0.08846 0.09231 0.09615 0.10000 0.10385 0.10769 0.11154 
+##   0.028   0.006  -0.010  -0.025  -0.016   0.002  -0.022  -0.016  -0.024   0.029 
+## 0.11538 0.11923 0.12308 
+##   0.028  -0.019   0.015
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# (d) acf of log{-}returns \^{}2 (prove of ARCH)}
+\NormalTok{ansd }\OtherTok{\textless{}{-}} \FunctionTok{acf}\NormalTok{(DAXlogreturn}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{, }\AttributeTok{main =} \StringTok{"ACF of \^{}2 DAX log{-}returns"}\NormalTok{)}
+\NormalTok{ansd}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Autocorrelations of series 'DAXlogreturn^2', by lag
+## 
+## 0.00000 0.00385 0.00769 0.01154 0.01538 0.01923 0.02308 0.02692 0.03077 0.03462 
+##   1.000   0.079   0.171   0.074   0.078   0.053   0.047   0.064   0.035   0.017 
+## 0.03846 0.04231 0.04615 0.05000 0.05385 0.05769 0.06154 0.06538 0.06923 0.07308 
+##   0.043   0.028   0.022   0.042   0.060   0.053   0.027   0.028   0.014   0.043 
+## 0.07692 0.08077 0.08462 0.08846 0.09231 0.09615 0.10000 0.10385 0.10769 0.11154 
+##   0.035   0.038   0.014   0.022   0.059   0.033   0.018   0.047   0.023   0.019 
+## 0.11538 0.11923 0.12308 
+##   0.054   0.050   0.024
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# (e) fit AR(2) to \^{}2 returns to obtain approx ARCH(2) parameters}
+\NormalTok{out }\OtherTok{\textless{}{-}} \FunctionTok{arima}\NormalTok{(DAXlogreturn}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{, }\AttributeTok{order =} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{), }\AttributeTok{include.mean=}\ConstantTok{TRUE}\NormalTok{)}
+\FunctionTok{print}\NormalTok{(out)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## arima(x = DAXlogreturn^2, order = c(2, 0, 0), include.mean = TRUE)
+## 
+## Coefficients:
+##          ar1     ar2  intercept
+##       0.0658  0.1661      1e-04
+## s.e.  0.0229  0.0229      0e+00
+## 
+## sigma^2 estimated as 8.863e-08:  log likelihood = 12456.1,  aic = -24904.2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# extract coef}
+\NormalTok{phi }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(out}\SpecialCharTok{$}\NormalTok{coef[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{])     }\CommentTok{\# phi1, phi2 from AR(2) on \^{}2 series}
+\NormalTok{xbar }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(out}\SpecialCharTok{$}\NormalTok{coef[}\StringTok{"intercept"}\NormalTok{]) }\CommentTok{\# intercept (mean) from arima on \^{}2 series}
+\NormalTok{s2 }\OtherTok{\textless{}{-}}\NormalTok{ out}\SpecialCharTok{$}\NormalTok{sigma2}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"phi1 ="}\NormalTok{, phi[}\DecValTok{1}\NormalTok{], }\StringTok{" phi2 ="}\NormalTok{, phi[}\DecValTok{2}\NormalTok{], }\StringTok{" intercept ="}\NormalTok{, xbar, }\StringTok{" sigma2 ="}\NormalTok{, s2, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## phi1 = 0.06580107  phi2 = 0.1660825  intercept = 0.0001064871  sigma2 = 8.8632e-08
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# write out fitted AR(2) model for \^{}2 returns:}
+\CommentTok{\# y\_t\^{}2 = intercept + phi1 * y\_\{t{-}1\}\^{}2 + phi2 * y\_\{t{-}2\}\^{}2 + error\_t}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{fitted AR(2) on \^{}2 returns:}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## fitted AR(2) on ^2 returns:
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\FunctionTok{sprintf}\NormalTok{(}\StringTok{"y\_t\^{}2 = \%g + (\%g) y\_\{t{-}1\}\^{}2 + (\%g) y\_\{t{-}2\}\^{}2 + eps\_t}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{,}
+\NormalTok{            xbar, phi[}\DecValTok{1}\NormalTok{], phi[}\DecValTok{2}\NormalTok{]))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## y_t^2 = 0.000106487 + (0.0658011) y_{t-1}^2 + (0.166083) y_{t-2}^2 + eps_t
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# (f) approximate ARCH(2) model using phi estimates:}
+\CommentTok{\# conditional variance: a0 + a1*y\_\{t{-}1\}\^{}2 + a2*y\_\{t{-}2\}\^{}2}
+\CommentTok{\# where a0 = intercept, a1 = phi1, a2 = phi2 (approx)}
+
+\FunctionTok{cat}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{Approximate ARCH(2):}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Approximate ARCH(2):
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\FunctionTok{sprintf}\NormalTok{(}\StringTok{"sigma\_t\^{}2 = \%g + \%g * y\_\{t{-}1\}\^{}2 + \%g * y\_\{t{-}2\}\^{}2}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, xbar, phi[}\DecValTok{1}\NormalTok{], phi[}\DecValTok{2}\NormalTok{]))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## sigma_t^2 = 0.000106487 + 0.0658011 * y_{t-1}^2 + 0.166083 * y_{t-2}^2
+\end{verbatim}
+
+\hypertarget{q1b}{%
+\subsubsection{Q1b}\label{q1b}}
+
+Mean log-return (drift): \texttt{0.0006520417}
+
+\hypertarget{q1c-acf-of-raw-returns}{%
+\subsubsection{Q1c ACF of raw returns:}\label{q1c-acf-of-raw-returns}}
+
+No meaningful autocorrelation. All values are near 0. Conclusion: No
+linear dependence.
+
+\hypertarget{q1d-acf-of-squared-returns}{%
+\subsubsection{Q1d, ACF of squared
+returns:}\label{q1d-acf-of-squared-returns}}
+
+Clear positive autocorrelation at lag 1 (\textasciitilde0.079) and lag 2
+(\textasciitilde0.171), and smaller positive values at later lags.
+Conclusion: Strong evidence of volatility clustering.
+
+\hypertarget{q1e-ar2-fit}{%
+\subsubsection{Q1e AR(2) fit:}\label{q1e-ar2-fit}}
+
+\begin{verbatim}
+y_t^2 = 0.000106487
++ 0.0658011 * y_{t-1}^2
++ 0.166083  * y_{t-2}^2
++ eps_t
+\end{verbatim}
+
+\hypertarget{q1f-approximate-arch-model}{%
+\subsubsection{Q1f Approximate ARCH
+model:}\label{q1f-approximate-arch-model}}
+
+\begin{verbatim}
+σ_t^2 = 0.000106487
++ 0.166083  * y_{t-2}^2
++ 0.0658011 * y_{t-1}^2
+\end{verbatim}
+
+\hypertarget{q1g}{%
+\subsubsection{Q1g:}\label{q1g}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# (g) simulate a time series with same length and include drift}
+\NormalTok{n }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(DAX)}
+\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{numeric}\NormalTok{(n)}
+\CommentTok{\# init first two values with actual first two log{-}returns}
+\NormalTok{y[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{] }\OtherTok{\textless{}{-}}\NormalTok{ DAXlogreturn[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{]}
+\NormalTok{Z }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(n)}
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{3}\SpecialCharTok{:}\NormalTok{n) \{}
+\NormalTok{  condvar }\OtherTok{\textless{}{-}}\NormalTok{ xbar }\SpecialCharTok{+}\NormalTok{ phi[}\DecValTok{1}\NormalTok{]}\SpecialCharTok{*}\NormalTok{y[i}\DecValTok{{-}1}\NormalTok{]}\SpecialCharTok{\^{}}\DecValTok{2} \SpecialCharTok{+}\NormalTok{ phi[}\DecValTok{2}\NormalTok{]}\SpecialCharTok{*}\NormalTok{y[i}\DecValTok{{-}2}\NormalTok{]}\SpecialCharTok{\^{}}\DecValTok{2}
+\NormalTok{  condvar }\OtherTok{\textless{}{-}} \FunctionTok{ifelse}\NormalTok{(condvar }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{, condvar, }\FloatTok{1e{-}8}\NormalTok{) }\CommentTok{\# guard against tiny/negative}
+\NormalTok{  s }\OtherTok{\textless{}{-}} \FunctionTok{sqrt}\NormalTok{(condvar) }\SpecialCharTok{*}\NormalTok{ Z[i]}
+\NormalTok{  y[i] }\OtherTok{\textless{}{-}}\NormalTok{ s}
+\NormalTok{\}}
+
+\CommentTok{\# add drift \& re{-}accumulate to prices}
+\NormalTok{y\_with\_drift }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{log}\NormalTok{(DAX[}\DecValTok{1}\NormalTok{]), y }\SpecialCharTok{+}\NormalTok{ drift)}
+\NormalTok{DAXsim }\OtherTok{\textless{}{-}} \FunctionTok{exp}\NormalTok{(}\FunctionTok{cumsum}\NormalTok{(y\_with\_drift))}
+
+\CommentTok{\# plot real vs simulated}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\FunctionTok{ts.plot}\NormalTok{(DAX, }\AttributeTok{main =} \StringTok{"Original DAX"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"Index"}\NormalTok{)}
+\FunctionTok{ts.plot}\NormalTok{(DAXsim, }\AttributeTok{main =} \StringTok{"Simulated DAX (ARCH(2) approx)"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"Index"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{data405assignment4_files/figure-latex/unnamed-chunk-2-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+
+\CommentTok{\# quick diagnostics: compare empirical acf of \^{}2 returns real vs simulated}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\FunctionTok{acf}\NormalTok{(DAXlogreturn}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{, }\AttributeTok{main =} \StringTok{"ACF \^{}2 (original)"}\NormalTok{)}
+\FunctionTok{acf}\NormalTok{((}\FunctionTok{diff}\NormalTok{(}\FunctionTok{log}\NormalTok{(DAXsim)))}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{, }\AttributeTok{main =} \StringTok{"ACF \^{}2 (simulated)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{data405assignment4_files/figure-latex/unnamed-chunk-2-2.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{1}\NormalTok{))}
+
+\CommentTok{\# prin summary outputs}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{drift (mean log{-}return):"}\NormalTok{, drift, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## drift (mean log-return): 0.0006520417
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"length of series N:"}\NormalTok{, n)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## length of series N: 1860
+\end{verbatim}
+
+output:
+
+\begin{verbatim}
+drift (mean log-return): 0.0006520417 
+length of series N: 1860
+\end{verbatim}
+
+see data405assignment4q1ga.png and data405assignment4q1gb.png for plots
+
+\hypertarget{q2}{%
+\subsection{Q2:}\label{q2}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{CAC }\OtherTok{\textless{}{-}}\NormalTok{ EuStockMarkets[,}\DecValTok{3}\NormalTok{]}
+
+\CommentTok{\# Log returns}
+\NormalTok{CAClogreturn }\OtherTok{\textless{}{-}} \FunctionTok{diff}\NormalTok{(}\FunctionTok{log}\NormalTok{(CAC))}
+
+\CommentTok{\# Fit ARCH(2) by fitting AR(2) to 2 returns}
+\NormalTok{fit }\OtherTok{\textless{}{-}} \FunctionTok{arima}\NormalTok{(CAClogreturn}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{, }\AttributeTok{order=}\FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{), }\AttributeTok{include.mean=}\ConstantTok{TRUE}\NormalTok{)}
+
+\NormalTok{phi1 }\OtherTok{\textless{}{-}}\NormalTok{ fit}\SpecialCharTok{$}\NormalTok{coef[}\DecValTok{1}\NormalTok{]}
+\NormalTok{phi2 }\OtherTok{\textless{}{-}}\NormalTok{ fit}\SpecialCharTok{$}\NormalTok{coef[}\DecValTok{2}\NormalTok{]}
+\NormalTok{a0   }\OtherTok{\textless{}{-}}\NormalTok{ fit}\SpecialCharTok{$}\NormalTok{coef[}\DecValTok{3}\NormalTok{]}
+\NormalTok{N    }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(CAClogreturn)}
+
+\NormalTok{sim }\OtherTok{\textless{}{-}} \FunctionTok{numeric}\NormalTok{(N)}
+\NormalTok{sim[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{] }\OtherTok{\textless{}{-}}\NormalTok{ CAClogreturn[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{]}
+\NormalTok{Z }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(N)}
+
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{3}\SpecialCharTok{:}\NormalTok{N)\{}
+\NormalTok{  sigma2 }\OtherTok{\textless{}{-}}\NormalTok{ a0 }\SpecialCharTok{+}\NormalTok{ phi1 }\SpecialCharTok{*}\NormalTok{ sim[i}\DecValTok{{-}1}\NormalTok{]}\SpecialCharTok{\^{}}\DecValTok{2} \SpecialCharTok{+}\NormalTok{ phi2 }\SpecialCharTok{*}\NormalTok{ sim[i}\DecValTok{{-}2}\NormalTok{]}\SpecialCharTok{\^{}}\DecValTok{2}
+\NormalTok{  sim[i] }\OtherTok{\textless{}{-}} \FunctionTok{sqrt}\NormalTok{(sigma2) }\SpecialCharTok{*}\NormalTok{ Z[i]}
+\NormalTok{\}}
+
+\CommentTok{\# Load CAC data (3rd column)}
+\NormalTok{CAC }\OtherTok{\textless{}{-}}\NormalTok{ EuStockMarkets[,}\DecValTok{3}\NormalTok{]}
+
+\CommentTok{\# Log returns}
+\NormalTok{CAClogreturn }\OtherTok{\textless{}{-}} \FunctionTok{diff}\NormalTok{(}\FunctionTok{log}\NormalTok{(CAC))}
+
+\CommentTok{\# Fit ARCH(2) by fitting AR(2) to squared returns}
+\NormalTok{fit }\OtherTok{\textless{}{-}} \FunctionTok{arima}\NormalTok{(CAClogreturn}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{, }\AttributeTok{order=}\FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{0}\NormalTok{,}\DecValTok{0}\NormalTok{), }\AttributeTok{include.mean=}\ConstantTok{TRUE}\NormalTok{)}
+
+\NormalTok{phi1 }\OtherTok{\textless{}{-}}\NormalTok{ fit}\SpecialCharTok{$}\NormalTok{coef[}\DecValTok{1}\NormalTok{]}
+\NormalTok{phi2 }\OtherTok{\textless{}{-}}\NormalTok{ fit}\SpecialCharTok{$}\NormalTok{coef[}\DecValTok{2}\NormalTok{]}
+\NormalTok{a0   }\OtherTok{\textless{}{-}}\NormalTok{ fit}\SpecialCharTok{$}\NormalTok{coef[}\DecValTok{3}\NormalTok{]}
+\NormalTok{N    }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(CAClogreturn)}
+
+\CommentTok{\# Simulate ARCH(2)}
+\NormalTok{sim }\OtherTok{\textless{}{-}} \FunctionTok{numeric}\NormalTok{(N)}
+\NormalTok{sim[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{] }\OtherTok{\textless{}{-}}\NormalTok{ CAClogreturn[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{2}\NormalTok{]}
+\NormalTok{Z }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(N)}
+
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{3}\SpecialCharTok{:}\NormalTok{N)\{}
+\NormalTok{  sigma2 }\OtherTok{\textless{}{-}}\NormalTok{ a0 }\SpecialCharTok{+}\NormalTok{ phi1 }\SpecialCharTok{*}\NormalTok{ sim[i}\DecValTok{{-}1}\NormalTok{]}\SpecialCharTok{\^{}}\DecValTok{2} \SpecialCharTok{+}\NormalTok{ phi2 }\SpecialCharTok{*}\NormalTok{ sim[i}\DecValTok{{-}2}\NormalTok{]}\SpecialCharTok{\^{}}\DecValTok{2}
+\NormalTok{  sim[i] }\OtherTok{\textless{}{-}} \FunctionTok{sqrt}\NormalTok{(sigma2) }\SpecialCharTok{*}\NormalTok{ Z[i]}
+\NormalTok{\}}
+
+\NormalTok{sim\_prices }\OtherTok{\textless{}{-}} \FunctionTok{exp}\NormalTok{(}\FunctionTok{cumsum}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{log}\NormalTok{(CAC[}\DecValTok{1}\NormalTok{]), sim)))}
+
+\CommentTok{\# plot time}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\FunctionTok{ts.plot}\NormalTok{(CAC, }\AttributeTok{main=}\StringTok{"Original CAC"}\NormalTok{)}
+\FunctionTok{ts.plot}\NormalTok{(sim\_prices, }\AttributeTok{main=}\StringTok{"Simulated ARCH(2) CAC"}\NormalTok{)}
+\NormalTok{sim\_prices }\OtherTok{\textless{}{-}} \FunctionTok{exp}\NormalTok{(}\FunctionTok{cumsum}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{log}\NormalTok{(CAC[}\DecValTok{1}\NormalTok{]), sim)))}
+
+\CommentTok{\# Plots}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{))}
+\FunctionTok{ts.plot}\NormalTok{(CAC, }\AttributeTok{main=}\StringTok{"Original CAC"}\NormalTok{)}
+\FunctionTok{ts.plot}\NormalTok{(sim\_prices, }\AttributeTok{main=}\StringTok{"Simulated ARCH(2) CAC"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{data405assignment4_files/figure-latex/unnamed-chunk-3-1.pdf}
+
+\hypertarget{q3}{%
+\subsection{Q3:}\label{q3}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# we simulate 100000 weeks and estimate annual probability \textgreater{} 250.}
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{2025}\NormalTok{)}
+
+\NormalTok{p }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FloatTok{0.3}\NormalTok{,}\FloatTok{0.1}\NormalTok{,}\FloatTok{0.3}\NormalTok{,}\FloatTok{0.2}\NormalTok{,}\FloatTok{0.1}\NormalTok{)   }\CommentTok{\# p0..p4}
+\NormalTok{y }\OtherTok{\textless{}{-}} \DecValTok{0}\SpecialCharTok{:}\DecValTok{4}
+\NormalTok{states }\OtherTok{\textless{}{-}} \DecValTok{0}\SpecialCharTok{:}\DecValTok{10}
+
+\CommentTok{\# a transition matrix P}
+\NormalTok{P }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\DecValTok{0}\NormalTok{, }\AttributeTok{nrow=}\DecValTok{11}\NormalTok{, }\AttributeTok{ncol=}\DecValTok{11}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in}\NormalTok{ states) \{}
+\NormalTok{  after }\OtherTok{\textless{}{-}} \FunctionTok{max}\NormalTok{(i }\SpecialCharTok{{-}} \DecValTok{2}\NormalTok{, }\DecValTok{0}\NormalTok{)}
+  \ControlFlowTok{for}\NormalTok{ (k }\ControlFlowTok{in} \FunctionTok{seq\_along}\NormalTok{(y)) \{}
+\NormalTok{    j }\OtherTok{\textless{}{-}}\NormalTok{ after }\SpecialCharTok{+}\NormalTok{ y[k]}
+    \ControlFlowTok{if}\NormalTok{ (j }\SpecialCharTok{\textgreater{}} \DecValTok{10}\NormalTok{) j }\OtherTok{\textless{}{-}} \DecValTok{10}
+\NormalTok{    P[i}\SpecialCharTok{+}\DecValTok{1}\NormalTok{, j}\SpecialCharTok{+}\DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}}\NormalTok{ P[i}\SpecialCharTok{+}\DecValTok{1}\NormalTok{, j}\SpecialCharTok{+}\DecValTok{1}\NormalTok{] }\SpecialCharTok{+}\NormalTok{ p[k]}
+\NormalTok{  \}}
+\NormalTok{\}}
+\FunctionTok{rownames}\NormalTok{(P) }\OtherTok{\textless{}{-}} \FunctionTok{colnames}\NormalTok{(P) }\OtherTok{\textless{}{-}} \FunctionTok{as.character}\NormalTok{(states)}
+
+\CommentTok{\# 3b check regularity: compute P\^{}50 and see if positive}
+\NormalTok{P50 }\OtherTok{\textless{}{-}}\NormalTok{ P }\SpecialCharTok{\^{}}\DecValTok{50}  \CommentTok{\# requires expm package; if not installed use eigen method below}
+
+\CommentTok{\# 3c stationary distribution pi (left eigenvector)}
+\NormalTok{eig }\OtherTok{\textless{}{-}} \FunctionTok{eigen}\NormalTok{(}\FunctionTok{t}\NormalTok{(P))}
+\NormalTok{idx }\OtherTok{\textless{}{-}} \FunctionTok{which.min}\NormalTok{(}\FunctionTok{abs}\NormalTok{(eig}\SpecialCharTok{$}\NormalTok{values }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{))}
+\NormalTok{pi }\OtherTok{\textless{}{-}} \FunctionTok{Re}\NormalTok{(eig}\SpecialCharTok{$}\NormalTok{vectors[,idx])}
+\NormalTok{pi }\OtherTok{\textless{}{-}}\NormalTok{ pi }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(pi)}
+
+\CommentTok{\# 3d long{-}run weekly cost}
+\NormalTok{costs }\OtherTok{\textless{}{-}} \DecValTok{2} \SpecialCharTok{+} \DecValTok{5} \SpecialCharTok{*} \FunctionTok{pmax}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{2} \SpecialCharTok{{-}}\NormalTok{ states)      }\CommentTok{\# weekly cost per state}
+\NormalTok{long\_run\_weekly\_cost }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(pi }\SpecialCharTok{*}\NormalTok{ costs)}
+
+\CommentTok{\# 3ef simulate 100000 weeks, compute annual (52{-}week) total costs,}
+\CommentTok{\#         estimate P(annual cost \textgreater{} 250)}
+\NormalTok{nweeks }\OtherTok{\textless{}{-}} \DecValTok{100000}
+\NormalTok{X }\OtherTok{\textless{}{-}} \FunctionTok{integer}\NormalTok{(nweeks)}
+\NormalTok{X[}\DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{5}
+\ControlFlowTok{for}\NormalTok{ (t }\ControlFlowTok{in} \DecValTok{2}\SpecialCharTok{:}\NormalTok{nweeks) \{}
+\NormalTok{  after }\OtherTok{\textless{}{-}} \FunctionTok{max}\NormalTok{(X[t}\DecValTok{{-}1}\NormalTok{] }\SpecialCharTok{{-}} \DecValTok{2}\NormalTok{, }\DecValTok{0}\NormalTok{)}
+\NormalTok{  ydraw }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(}\DecValTok{0}\SpecialCharTok{:}\DecValTok{4}\NormalTok{, }\DecValTok{1}\NormalTok{, }\AttributeTok{prob =}\NormalTok{ p)}
+\NormalTok{  X[t] }\OtherTok{\textless{}{-}} \FunctionTok{min}\NormalTok{(after }\SpecialCharTok{+}\NormalTok{ ydraw, }\DecValTok{10}\NormalTok{)}
+\NormalTok{\}}
+
+\NormalTok{weeks\_per\_year }\OtherTok{\textless{}{-}} \DecValTok{52}
+\NormalTok{nyears }\OtherTok{\textless{}{-}} \FunctionTok{floor}\NormalTok{(nweeks }\SpecialCharTok{/}\NormalTok{ weeks\_per\_year)}
+\NormalTok{annual\_costs }\OtherTok{\textless{}{-}} \FunctionTok{numeric}\NormalTok{(nyears)}
+\ControlFlowTok{for}\NormalTok{ (k }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{nyears) \{}
+\NormalTok{  block }\OtherTok{\textless{}{-}}\NormalTok{ X[((k}\DecValTok{{-}1}\NormalTok{)}\SpecialCharTok{*}\NormalTok{weeks\_per\_year }\SpecialCharTok{+} \DecValTok{1}\NormalTok{)}\SpecialCharTok{:}\NormalTok{(k}\SpecialCharTok{*}\NormalTok{weeks\_per\_year)]}
+\NormalTok{  weekly }\OtherTok{\textless{}{-}} \DecValTok{2} \SpecialCharTok{+} \DecValTok{5} \SpecialCharTok{*} \FunctionTok{pmax}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{2} \SpecialCharTok{{-}}\NormalTok{ block)}
+\NormalTok{  annual\_costs[k] }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(weekly)}
+\NormalTok{\}}
+\NormalTok{prob\_exceed }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(annual\_costs }\SpecialCharTok{\textgreater{}} \DecValTok{250}\NormalTok{)}
+
+\CommentTok{\# print result}
+\FunctionTok{print}\NormalTok{(}\StringTok{"Transition matrix P:"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "Transition matrix P:"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{round}\NormalTok{(P, }\DecValTok{3}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      0   1   2   3   4   5   6   7   8   9  10
+## 0  0.3 0.1 0.3 0.2 0.1 0.0 0.0 0.0 0.0 0.0 0.0
+## 1  0.3 0.1 0.3 0.2 0.1 0.0 0.0 0.0 0.0 0.0 0.0
+## 2  0.3 0.1 0.3 0.2 0.1 0.0 0.0 0.0 0.0 0.0 0.0
+## 3  0.0 0.3 0.1 0.3 0.2 0.1 0.0 0.0 0.0 0.0 0.0
+## 4  0.0 0.0 0.3 0.1 0.3 0.2 0.1 0.0 0.0 0.0 0.0
+## 5  0.0 0.0 0.0 0.3 0.1 0.3 0.2 0.1 0.0 0.0 0.0
+## 6  0.0 0.0 0.0 0.0 0.3 0.1 0.3 0.2 0.1 0.0 0.0
+## 7  0.0 0.0 0.0 0.0 0.0 0.3 0.1 0.3 0.2 0.1 0.0
+## 8  0.0 0.0 0.0 0.0 0.0 0.0 0.3 0.1 0.3 0.2 0.1
+## 9  0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.3 0.1 0.3 0.3
+## 10 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.3 0.1 0.6
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{Stationary distribution pi (length 11):}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Stationary distribution pi (length 11):
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(}\FunctionTok{round}\NormalTok{(pi, }\DecValTok{9}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] 0.11218209 0.08838623 0.17337199 0.16997399 0.14730832 0.09820967
+##  [7] 0.07302008 0.04995233 0.03915354 0.02208764 0.02635412
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{Long{-}run weekly cost:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(long\_run\_weekly\_cost, }\DecValTok{6}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Long-run weekly cost: 3.563752
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Estimated P(annual cost \textgreater{} 250):"}\NormalTok{, }\FunctionTok{round}\NormalTok{(prob\_exceed, }\DecValTok{6}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Estimated P(annual cost > 250): 0.065003
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Sample mean annual cost:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(}\FunctionTok{mean}\NormalTok{(annual\_costs),}\DecValTok{4}\NormalTok{),}
+    \StringTok{" sd:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(}\FunctionTok{sd}\NormalTok{(annual\_costs),}\DecValTok{4}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Sample mean annual cost: 184.9594  sd: 41.8579
+\end{verbatim}
+
+\textbf{b Regularity:} The chain is irreducible and aperiodic (some
+power of P has all positive entries), so the transition matrix is
+regular.
+
+\textbf{d Long-run average weekly cost:}\\
+\texttt{E{[}cost{]}\ =\ 3.563752058457253} units per week (where weekly
+cost = 2 + 5*max(0,2 - state)).
+
+\textbf{e-f Simulation (100000 weeks):}\\
+- Sample mean annual cost ≈ \texttt{183.9298}, sd ≈ \texttt{42.07}.\\
+- Estimated probability that annual cost \textgreater{} 250 (from
+simulation) ≈ \textbf{0.0598024} (≈ 5.98\%).
+
+\hypertarget{q4}{%
+\subsection{Q4:}\label{q4}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{FTSE }\OtherTok{\textless{}{-}}\NormalTok{ EuStockMarkets[,}\DecValTok{4}\NormalTok{]}
+\NormalTok{n }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(FTSE)}
+\NormalTok{lFTSE }\OtherTok{\textless{}{-}} \FunctionTok{log}\NormalTok{(FTSE)}
+\NormalTok{logreturns }\OtherTok{\textless{}{-}} \FunctionTok{diff}\NormalTok{(lFTSE)}
+\NormalTok{logreturnsQ }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{min}\NormalTok{(logreturns)}\SpecialCharTok{*}\FloatTok{1.01}\NormalTok{,}
+\FunctionTok{quantile}\NormalTok{(logreturns, (}\DecValTok{1}\SpecialCharTok{:}\DecValTok{9}\NormalTok{)}\SpecialCharTok{/}\DecValTok{10}\NormalTok{), }\FunctionTok{max}\NormalTok{(logreturns)}\SpecialCharTok{*}\FloatTok{1.01}\NormalTok{)}
+\NormalTok{logreturnsCut }\OtherTok{\textless{}{-}} \FunctionTok{cut}\NormalTok{(logreturns, logreturnsQ)}
+\FunctionTok{levels}\NormalTok{(logreturnsCut) }\OtherTok{\textless{}{-}} \DecValTok{1}\SpecialCharTok{:}\DecValTok{10}
+
+
+\CommentTok{\# 4b: ts plot}
+
+\FunctionTok{plot}\NormalTok{(FTSE, }\AttributeTok{type=}\StringTok{"l"}\NormalTok{, }\AttributeTok{main=}\StringTok{"FTSE index (full series)"}\NormalTok{, }\AttributeTok{ylab=}\StringTok{"Index"}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{v=}\DecValTok{1000}\NormalTok{, }\AttributeTok{col=}\StringTok{"red"}\NormalTok{)   }\CommentTok{\# mark 1000th}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{v=}\NormalTok{n, }\AttributeTok{col=}\StringTok{"blue"}\NormalTok{)     }\CommentTok{\# mark {-}1 st}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{data405assignment4_files/figure-latex/unnamed-chunk-5-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 4c}
+
+\NormalTok{P }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{4}\NormalTok{, }\DecValTok{4}\SpecialCharTok{:}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{1}\NormalTok{), }\AttributeTok{nrow=}\DecValTok{4}\NormalTok{, }\AttributeTok{byrow=}\ConstantTok{TRUE}\NormalTok{)}\SpecialCharTok{/}\DecValTok{10}
+\NormalTok{PE }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{, }\DecValTok{10}\SpecialCharTok{:}\DecValTok{1}\NormalTok{, }\FunctionTok{rep}\NormalTok{(}\FloatTok{5.5}\NormalTok{,}\DecValTok{10}\NormalTok{), }\FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{5}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\DecValTok{10}\NormalTok{,}\DecValTok{5}\NormalTok{))), }\AttributeTok{nrow=}\DecValTok{4}\NormalTok{, }\AttributeTok{byrow=}\ConstantTok{TRUE}\NormalTok{)}\SpecialCharTok{/}\DecValTok{55}
+\FunctionTok{rownames}\NormalTok{(P) }\OtherTok{\textless{}{-}} \FunctionTok{paste0}\NormalTok{(}\StringTok{"S"}\NormalTok{,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{4}\NormalTok{); }\FunctionTok{colnames}\NormalTok{(P) }\OtherTok{\textless{}{-}} \FunctionTok{paste0}\NormalTok{(}\StringTok{"S"}\NormalTok{,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{4}\NormalTok{)}
+\FunctionTok{rownames}\NormalTok{(PE) }\OtherTok{\textless{}{-}} \FunctionTok{paste0}\NormalTok{(}\StringTok{"S"}\NormalTok{,}\DecValTok{1}\SpecialCharTok{:}\DecValTok{4}\NormalTok{); }\FunctionTok{colnames}\NormalTok{(PE) }\OtherTok{\textless{}{-}} \FunctionTok{as.character}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{)}
+\NormalTok{P}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     S1  S2  S3  S4
+## S1 0.1 0.2 0.3 0.4
+## S2 0.4 0.3 0.2 0.1
+## S3 0.1 0.4 0.4 0.1
+## S4 0.4 0.1 0.4 0.1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{PE}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##             1          2          3          4          5          6          7
+## S1 0.01818182 0.03636364 0.05454545 0.07272727 0.09090909 0.10909091 0.12727273
+## S2 0.18181818 0.16363636 0.14545455 0.12727273 0.10909091 0.09090909 0.07272727
+## S3 0.10000000 0.10000000 0.10000000 0.10000000 0.10000000 0.10000000 0.10000000
+## S4 0.01818182 0.01818182 0.01818182 0.01818182 0.01818182 0.18181818 0.18181818
+##             8          9         10
+## S1 0.14545455 0.16363636 0.18181818
+## S2 0.05454545 0.03636364 0.01818182
+## S3 0.10000000 0.10000000 0.10000000
+## S4 0.18181818 0.18181818 0.18181818
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 4de}
+\CommentTok{\# install.packages("HMM")}
+\FunctionTok{library}\NormalTok{(}\StringTok{"HMM"}\NormalTok{)}
+
+\CommentTok{\# initialize HMM (states=1:4, symbols=1:10) and run Baum{-}Welch on first 1000 obs}
+\NormalTok{hmm0 }\OtherTok{\textless{}{-}} \FunctionTok{initHMM}\NormalTok{(}
+  \AttributeTok{States       =} \FunctionTok{as.character}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{4}\NormalTok{),}
+  \AttributeTok{Symbols      =} \FunctionTok{as.character}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{),}
+  \AttributeTok{startProbs   =} \FunctionTok{rep}\NormalTok{(}\DecValTok{1}\SpecialCharTok{/}\DecValTok{4}\NormalTok{, }\DecValTok{4}\NormalTok{),}
+  \AttributeTok{transProbs   =}\NormalTok{ P,}
+  \AttributeTok{emissionProbs =}\NormalTok{ PE}
+\NormalTok{)}
+
+\NormalTok{obsTrain }\OtherTok{\textless{}{-}} \FunctionTok{as.character}\NormalTok{(}\FunctionTok{as.numeric}\NormalTok{(logreturnsCut[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{1000}\NormalTok{]))}
+\NormalTok{bw }\OtherTok{\textless{}{-}} \FunctionTok{baumWelch}\NormalTok{(hmm0, }\AttributeTok{observation =}\NormalTok{ obsTrain, }\AttributeTok{maxIterations =} \DecValTok{100}\NormalTok{, }\AttributeTok{delta =} \FloatTok{1e{-}6}\NormalTok{)}
+\NormalTok{hmmFit }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\AttributeTok{hmm =}\NormalTok{ bw}\SpecialCharTok{$}\NormalTok{hmm, }\AttributeTok{logLik =}\NormalTok{ bw}\SpecialCharTok{$}\NormalTok{logProb)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 4f}
+
+\NormalTok{nTraining }\OtherTok{\textless{}{-}} \DecValTok{1000}
+\NormalTok{N }\OtherTok{\textless{}{-}} \DecValTok{1000}
+\NormalTok{nTesting }\OtherTok{\textless{}{-}}\NormalTok{ n }\SpecialCharTok{{-}}\NormalTok{ nTraining}
+\NormalTok{Index859 }\OtherTok{\textless{}{-}} \FunctionTok{numeric}\NormalTok{(N)}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{N) \{}
+\NormalTok{index }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{simHMM}\NormalTok{(hmmFit}\SpecialCharTok{$}\NormalTok{hmm, nTesting)}\SpecialCharTok{$}\NormalTok{observation)}
+\NormalTok{Index859[i] }\OtherTok{\textless{}{-}} \FunctionTok{exp}\NormalTok{(}\FunctionTok{cumsum}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{log}\NormalTok{(FTSE[nTraining]), }\FunctionTok{runif}\NormalTok{(nTesting,}
+\AttributeTok{min=}\NormalTok{logreturnsQ[index], }\AttributeTok{max=}\NormalTok{logreturnsQ[index}\SpecialCharTok{+}\DecValTok{1}\NormalTok{]))))[nTesting]}
+\NormalTok{\}}
+
+\CommentTok{\# hist time}
+\FunctionTok{hist}\NormalTok{(Index859, }\AttributeTok{breaks=}\DecValTok{50}\NormalTok{, }\AttributeTok{freq=}\ConstantTok{FALSE}\NormalTok{, }\AttributeTok{main=}\StringTok{"Simulated FTSE at time 1859 (from t=1000)"}\NormalTok{, }\AttributeTok{xlab=}\StringTok{"FTSE (simulated)"}\NormalTok{)}
+\FunctionTok{rug}\NormalTok{(FTSE[n])   }\CommentTok{\# actual final value}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{v =}\NormalTok{ FTSE[n], }\AttributeTok{col=}\StringTok{"red"}\NormalTok{, }\AttributeTok{lwd=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{data405assignment4_files/figure-latex/unnamed-chunk-7-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# option price (strike = 5000)}
+\NormalTok{option\_price\_1000 }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{((Index859 }\SpecialCharTok{{-}} \DecValTok{5000}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ (Index859 }\SpecialCharTok{\textgreater{}} \DecValTok{5000}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{option\_price\_1000}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2521.656
+\end{verbatim}
+
+\textbf{Interpretation:} These values seem realistic considering the
+distribution is normally distributed with an expected kertosis (as a
+value cannot be negative AFAIK). Additionally the expected varrience for
+the higher senarios looks accurate
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# g}
+\NormalTok{nTraining2 }\OtherTok{\textless{}{-}} \DecValTok{1829}
+\NormalTok{nTesting2 }\OtherTok{\textless{}{-}} \DecValTok{1859} \SpecialCharTok{{-}}\NormalTok{ nTraining2   }\CommentTok{\# = 30}
+
+\NormalTok{N }\OtherTok{\textless{}{-}} \DecValTok{1000}
+\NormalTok{Index1859\_from1829 }\OtherTok{\textless{}{-}} \FunctionTok{numeric}\NormalTok{(N)}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{N) \{}
+\NormalTok{  sim\_res }\OtherTok{\textless{}{-}} \FunctionTok{simHMM}\NormalTok{(hmmFit}\SpecialCharTok{$}\NormalTok{hmm, nTesting2)}
+\NormalTok{  index }\OtherTok{\textless{}{-}} \FunctionTok{as.numeric}\NormalTok{(sim\_res}\SpecialCharTok{$}\NormalTok{observation)}
+\NormalTok{  uvals }\OtherTok{\textless{}{-}} \FunctionTok{runif}\NormalTok{(nTesting2, }\AttributeTok{min =}\NormalTok{ logreturnsQ[index], }\AttributeTok{max =}\NormalTok{ logreturnsQ[index }\SpecialCharTok{+} \DecValTok{1}\NormalTok{])}
+\NormalTok{  Index1859\_from1829[i] }\OtherTok{\textless{}{-}} \FunctionTok{exp}\NormalTok{( }\FunctionTok{cumsum}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{log}\NormalTok{(FTSE[nTraining2]), uvals))[nTesting2 }\SpecialCharTok{+} \DecValTok{1}\NormalTok{] )}
+\NormalTok{\}}
+
+\FunctionTok{hist}\NormalTok{(Index1859\_from1829, }\AttributeTok{breaks=}\DecValTok{40}\NormalTok{, }\AttributeTok{freq=}\ConstantTok{FALSE}\NormalTok{, }\AttributeTok{main=}\StringTok{"Simulated FTSE at time 1859 (from t=1829)"}\NormalTok{, }\AttributeTok{xlab=}\StringTok{"FTSE (simulated)"}\NormalTok{)}
+\FunctionTok{rug}\NormalTok{(FTSE[}\DecValTok{1859}\NormalTok{])}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{v=}\NormalTok{FTSE[}\DecValTok{1859}\NormalTok{], }\AttributeTok{col=}\StringTok{"red"}\NormalTok{, }\AttributeTok{lwd=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{data405assignment4_files/figure-latex/unnamed-chunk-9-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{option\_price\_1829 }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{((Index1859\_from1829 }\SpecialCharTok{{-}} \DecValTok{5000}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ (Index1859\_from1829 }\SpecialCharTok{\textgreater{}} \DecValTok{5000}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{option\_price\_1000}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2521.656
+\end{verbatim}
+
+\hypertarget{q5}{%
+\subsection{Q5:}\label{q5}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# a. 40\^{}2 matrix}
+\NormalTok{dice\_freq }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{2}\StringTok{\textasciigrave{}}\OtherTok{=}\DecValTok{1}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{3}\StringTok{\textasciigrave{}}\OtherTok{=}\DecValTok{2}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{4}\StringTok{\textasciigrave{}}\OtherTok{=}\DecValTok{3}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{5}\StringTok{\textasciigrave{}}\OtherTok{=}\DecValTok{4}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{6}\StringTok{\textasciigrave{}}\OtherTok{=}\DecValTok{5}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{7}\StringTok{\textasciigrave{}}\OtherTok{=}\DecValTok{6}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{8}\StringTok{\textasciigrave{}}\OtherTok{=}\DecValTok{5}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{9}\StringTok{\textasciigrave{}}\OtherTok{=}\DecValTok{4}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{10}\StringTok{\textasciigrave{}}\OtherTok{=}\DecValTok{3}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{11}\StringTok{\textasciigrave{}}\OtherTok{=}\DecValTok{2}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{12}\StringTok{\textasciigrave{}}\OtherTok{=}\DecValTok{1}\NormalTok{)}
+\NormalTok{dice\_p }\OtherTok{\textless{}{-}}\NormalTok{ dice\_freq }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(dice\_freq)}
+
+\NormalTok{states }\OtherTok{\textless{}{-}} \DecValTok{1}\SpecialCharTok{:}\DecValTok{40}
+\NormalTok{P }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\DecValTok{0}\NormalTok{, }\AttributeTok{nrow=}\DecValTok{40}\NormalTok{, }\AttributeTok{ncol=}\DecValTok{40}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in}\NormalTok{ states) \{}
+  \ControlFlowTok{if}\NormalTok{ (i }\SpecialCharTok{==} \DecValTok{31}\NormalTok{) \{    }\DocumentationTok{\#\#\#\#\# space 31 {-}\textgreater{} next move to 11}
+\NormalTok{    P[i, }\DecValTok{11}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{1}
+\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ \{}
+    \ControlFlowTok{for}\NormalTok{ (s }\ControlFlowTok{in} \DecValTok{2}\SpecialCharTok{:}\DecValTok{12}\NormalTok{) \{}
+\NormalTok{      j }\OtherTok{\textless{}{-}}\NormalTok{ ((i }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}\NormalTok{ s) }\SpecialCharTok{\%\%} \DecValTok{40} \SpecialCharTok{+} \DecValTok{1}
+\NormalTok{      P[i, j] }\OtherTok{\textless{}{-}}\NormalTok{ P[i, j] }\SpecialCharTok{+}\NormalTok{ dice\_p[}\FunctionTok{as.character}\NormalTok{(s)]}
+\NormalTok{    \}}
+\NormalTok{  \}}
+\NormalTok{\}}
+
+\CommentTok{\# b {-} vector}
+\NormalTok{eig }\OtherTok{\textless{}{-}} \FunctionTok{eigen}\NormalTok{(}\FunctionTok{t}\NormalTok{(P))}
+\NormalTok{idx }\OtherTok{\textless{}{-}} \FunctionTok{which.min}\NormalTok{(}\FunctionTok{abs}\NormalTok{(eig}\SpecialCharTok{$}\NormalTok{values }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{))}
+\NormalTok{pi }\OtherTok{\textless{}{-}} \FunctionTok{Re}\NormalTok{(eig}\SpecialCharTok{$}\NormalTok{vectors[, idx])}
+\NormalTok{pi }\OtherTok{\textless{}{-}}\NormalTok{ pi }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(pi)}
+\FunctionTok{names}\NormalTok{(pi) }\OtherTok{\textless{}{-}} \FunctionTok{as.character}\NormalTok{(states)}
+
+\CommentTok{\# barplot of probs}
+\FunctionTok{barplot}\NormalTok{(pi, }\AttributeTok{main=}\StringTok{"Stationary distribution (Monopoly simplified)"}\NormalTok{, }\AttributeTok{xlab=}\StringTok{"Space"}\NormalTok{, }\AttributeTok{ylab=}\StringTok{"PI"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{data405assignment4_files/figure-latex/unnamed-chunk-11-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# which space is second{-}most frequently visited?}
+\NormalTok{ord }\OtherTok{\textless{}{-}} \FunctionTok{order}\NormalTok{(pi, }\AttributeTok{decreasing =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{most\_space }\OtherTok{\textless{}{-}}\NormalTok{ ord[}\DecValTok{1}\NormalTok{]}
+\NormalTok{second\_space }\OtherTok{\textless{}{-}}\NormalTok{ ord[}\DecValTok{2}\NormalTok{]}
+\NormalTok{space40\_prob }\OtherTok{\textless{}{-}}\NormalTok{ pi[}\StringTok{"40"}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# c E[ revenue per turn from hotels on spaces 17,19,20 ]}
+\NormalTok{revenue\_per\_turn }\OtherTok{\textless{}{-}}\NormalTok{ pi[}\StringTok{"17"}\NormalTok{]}\SpecialCharTok{*}\DecValTok{950} \SpecialCharTok{+}\NormalTok{ pi[}\StringTok{"19"}\NormalTok{]}\SpecialCharTok{*}\DecValTok{950} \SpecialCharTok{+}\NormalTok{ pi[}\StringTok{"20"}\NormalTok{]}\SpecialCharTok{*}\DecValTok{1000}
+
+\CommentTok{\# print res}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Most visited space:"}\NormalTok{, most\_space, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Most visited space: 11
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"2nd{-}most visited space:"}\NormalTok{, second\_space, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 2nd-most visited space: 18
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Visit probability for space 40:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(}\FunctionTok{as.numeric}\NormalTok{(space40\_prob), }\DecValTok{6}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Visit probability for space 40: 0.022137
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Expected revenue per turn from hotels:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(}\FunctionTok{as.numeric}\NormalTok{(revenue\_per\_turn), }\DecValTok{6}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Expected revenue per turn from hotels: 77.02148
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# d\&e:}
+
+\NormalTok{dice\_freq }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{2}\StringTok{\textasciigrave{}}\OtherTok{=}\DecValTok{1}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{3}\StringTok{\textasciigrave{}}\OtherTok{=}\DecValTok{2}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{4}\StringTok{\textasciigrave{}}\OtherTok{=}\DecValTok{3}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{5}\StringTok{\textasciigrave{}}\OtherTok{=}\DecValTok{4}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{6}\StringTok{\textasciigrave{}}\OtherTok{=}\DecValTok{5}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{7}\StringTok{\textasciigrave{}}\OtherTok{=}\DecValTok{6}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{8}\StringTok{\textasciigrave{}}\OtherTok{=}\DecValTok{5}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{9}\StringTok{\textasciigrave{}}\OtherTok{=}\DecValTok{4}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{10}\StringTok{\textasciigrave{}}\OtherTok{=}\DecValTok{3}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{11}\StringTok{\textasciigrave{}}\OtherTok{=}\DecValTok{2}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{12}\StringTok{\textasciigrave{}}\OtherTok{=}\DecValTok{1}\NormalTok{)}
+\NormalTok{dice\_p }\OtherTok{\textless{}{-}}\NormalTok{ dice\_freq }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(dice\_freq)}
+
+\NormalTok{states }\OtherTok{\textless{}{-}} \DecValTok{1}\SpecialCharTok{:}\DecValTok{40}
+\NormalTok{P }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{40}\NormalTok{, }\DecValTok{40}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in}\NormalTok{ states) \{}
+  \ControlFlowTok{if}\NormalTok{ (i }\SpecialCharTok{==} \DecValTok{31}\NormalTok{) \{ P[i, }\DecValTok{11}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{1}
+\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ \{}
+    \ControlFlowTok{for}\NormalTok{ (s }\ControlFlowTok{in} \DecValTok{2}\SpecialCharTok{:}\DecValTok{12}\NormalTok{) \{}
+\NormalTok{      j }\OtherTok{\textless{}{-}}\NormalTok{ ((i }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}\NormalTok{ s) }\SpecialCharTok{\%\%} \DecValTok{40} \SpecialCharTok{+} \DecValTok{1}
+\NormalTok{      P[i, j] }\OtherTok{\textless{}{-}}\NormalTok{ P[i, j] }\SpecialCharTok{+}\NormalTok{ dice\_p[}\FunctionTok{as.character}\NormalTok{(s)]}
+\NormalTok{    \}}
+\NormalTok{  \}}
+\NormalTok{\}}
+
+\NormalTok{eig }\OtherTok{\textless{}{-}} \FunctionTok{eigen}\NormalTok{(}\FunctionTok{t}\NormalTok{(P))}
+\NormalTok{idx }\OtherTok{\textless{}{-}} \FunctionTok{which.min}\NormalTok{(}\FunctionTok{abs}\NormalTok{(eig}\SpecialCharTok{$}\NormalTok{values }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{))}
+\NormalTok{pi }\OtherTok{\textless{}{-}} \FunctionTok{Re}\NormalTok{(eig}\SpecialCharTok{$}\NormalTok{vectors[, idx])}
+\NormalTok{pi }\OtherTok{\textless{}{-}}\NormalTok{ pi }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(pi)   }\CommentTok{\# stationary probs}
+\FunctionTok{names}\NormalTok{(pi) }\OtherTok{\textless{}{-}} \FunctionTok{as.character}\NormalTok{(states)}
+
+\CommentTok{\# define revenues/costs per state}
+\CommentTok{\# my hotels: spaces 17, 19, 20 =\textgreater{} 950, 950, 1000}
+\NormalTok{rev }\OtherTok{\textless{}{-}} \FunctionTok{numeric}\NormalTok{(}\DecValTok{40}\NormalTok{)}
+\NormalTok{rev[}\FunctionTok{c}\NormalTok{(}\DecValTok{17}\NormalTok{,}\DecValTok{19}\NormalTok{,}\DecValTok{20}\NormalTok{)] }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{950}\NormalTok{, }\DecValTok{950}\NormalTok{, }\DecValTok{1000}\NormalTok{)}
+
+\CommentTok{\# opponent hotels: spaces 38, 40 =\textgreater{} 1500, 2000}
+\NormalTok{cost }\OtherTok{\textless{}{-}} \FunctionTok{numeric}\NormalTok{(}\DecValTok{40}\NormalTok{)}
+\NormalTok{cost[}\FunctionTok{c}\NormalTok{(}\DecValTok{38}\NormalTok{,}\DecValTok{40}\NormalTok{)] }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1500}\NormalTok{, }\DecValTok{2000}\NormalTok{)}
+
+\CommentTok{\# E[\textasciitilde{}]}
+\NormalTok{E\_rev }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(pi }\SpecialCharTok{*}\NormalTok{ rev)}
+\NormalTok{E\_cost }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(pi }\SpecialCharTok{*}\NormalTok{ cost)}
+
+\CommentTok{\# var[\textasciitilde{}]}
+\NormalTok{E\_rev2 }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(pi }\SpecialCharTok{*}\NormalTok{ (rev}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{))}
+\NormalTok{Var\_rev }\OtherTok{\textless{}{-}}\NormalTok{ E\_rev2 }\SpecialCharTok{{-}}\NormalTok{ E\_rev}\SpecialCharTok{\^{}}\DecValTok{2}
+
+\NormalTok{E\_cost2 }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(pi }\SpecialCharTok{*}\NormalTok{ (cost}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{))}
+\NormalTok{Var\_cost }\OtherTok{\textless{}{-}}\NormalTok{ E\_cost2 }\SpecialCharTok{{-}}\NormalTok{ E\_cost}\SpecialCharTok{\^{}}\DecValTok{2}
+
+\CommentTok{\# profit per state and its moments}
+\NormalTok{profit }\OtherTok{\textless{}{-}}\NormalTok{ rev }\SpecialCharTok{{-}}\NormalTok{ cost}
+\NormalTok{E\_profit }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(pi }\SpecialCharTok{*}\NormalTok{ profit)}
+\NormalTok{E\_profit2 }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(pi }\SpecialCharTok{*}\NormalTok{ (profit}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{))}
+\NormalTok{Var\_profit }\OtherTok{\textless{}{-}}\NormalTok{ E\_profit2 }\SpecialCharTok{{-}}\NormalTok{ E\_profit}\SpecialCharTok{\^{}}\DecValTok{2}
+\NormalTok{SD\_profit }\OtherTok{\textless{}{-}} \FunctionTok{sqrt}\NormalTok{(Var\_profit)}
+
+\CommentTok{\# prin}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"E[Revenue] per turn:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(E\_rev, }\DecValTok{6}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## E[Revenue] per turn: 77.02148
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"E[Cost] per turn   :"}\NormalTok{, }\FunctionTok{round}\NormalTok{(E\_cost, }\DecValTok{6}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## E[Cost] per turn   : 76.4601
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"E[Profit] per turn :"}\NormalTok{, }\FunctionTok{round}\NormalTok{(E\_profit, }\DecValTok{6}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## E[Profit] per turn : 0.56138
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Var(Revenue) :"}\NormalTok{, }\FunctionTok{round}\NormalTok{(Var\_rev, }\DecValTok{6}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Var(Revenue) : 68565.82
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Var(Cost)    :"}\NormalTok{, }\FunctionTok{round}\NormalTok{(Var\_cost, }\DecValTok{6}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Var(Cost)    : 130981.4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Var(Profit)  :"}\NormalTok{, }\FunctionTok{round}\NormalTok{(Var\_profit, }\DecValTok{6}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Var(Profit)  : 211325.4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"SD(Profit)   :"}\NormalTok{, }\FunctionTok{round}\NormalTok{(SD\_profit, }\DecValTok{6}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## SD(Profit)   : 459.7014
+\end{verbatim}
+
+\textbf{Interpretation:} With the hotels, expected profit turns negative
+(\textasciitilde\$15.66 loss per turn). The standard deviation of profit
+is large (\textasciitilde\$656), so outcomes are highly volatile -
+occasional large gains or losses - high risk high reward. Perfect for a
+late game `nothing to loose' senario but nowhere else
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# f: repeat (d){-}(e) with additional hotels}
+\NormalTok{dice\_freq }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{\textasciigrave{}}\AttributeTok{2}\StringTok{\textasciigrave{}}\OtherTok{=}\DecValTok{1}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{3}\StringTok{\textasciigrave{}}\OtherTok{=}\DecValTok{2}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{4}\StringTok{\textasciigrave{}}\OtherTok{=}\DecValTok{3}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{5}\StringTok{\textasciigrave{}}\OtherTok{=}\DecValTok{4}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{6}\StringTok{\textasciigrave{}}\OtherTok{=}\DecValTok{5}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{7}\StringTok{\textasciigrave{}}\OtherTok{=}\DecValTok{6}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{8}\StringTok{\textasciigrave{}}\OtherTok{=}\DecValTok{5}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{9}\StringTok{\textasciigrave{}}\OtherTok{=}\DecValTok{4}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{10}\StringTok{\textasciigrave{}}\OtherTok{=}\DecValTok{3}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{11}\StringTok{\textasciigrave{}}\OtherTok{=}\DecValTok{2}\NormalTok{, }\StringTok{\textasciigrave{}}\AttributeTok{12}\StringTok{\textasciigrave{}}\OtherTok{=}\DecValTok{1}\NormalTok{)}
+\NormalTok{dice\_p }\OtherTok{\textless{}{-}}\NormalTok{ dice\_freq }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(dice\_freq)}
+
+\NormalTok{P }\OtherTok{\textless{}{-}} \FunctionTok{matrix}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{40}\NormalTok{, }\DecValTok{40}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{40}\NormalTok{) \{}
+  \ControlFlowTok{if}\NormalTok{ (i }\SpecialCharTok{==} \DecValTok{31}\NormalTok{) \{}
+\NormalTok{    P[i, }\DecValTok{11}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{1}
+\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ \{}
+    \ControlFlowTok{for}\NormalTok{ (s }\ControlFlowTok{in} \DecValTok{2}\SpecialCharTok{:}\DecValTok{12}\NormalTok{) \{}
+\NormalTok{      j }\OtherTok{\textless{}{-}}\NormalTok{ ((i }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}\NormalTok{ s) }\SpecialCharTok{\%\%} \DecValTok{40} \SpecialCharTok{+} \DecValTok{1}
+\NormalTok{      P[i, j] }\OtherTok{\textless{}{-}}\NormalTok{ P[i, j] }\SpecialCharTok{+}\NormalTok{ dice\_p[}\FunctionTok{as.character}\NormalTok{(s)]}
+\NormalTok{    \}}
+\NormalTok{  \}}
+\NormalTok{\}}
+
+\NormalTok{eig }\OtherTok{\textless{}{-}} \FunctionTok{eigen}\NormalTok{(}\FunctionTok{t}\NormalTok{(P))}
+\NormalTok{idx }\OtherTok{\textless{}{-}} \FunctionTok{which.min}\NormalTok{(}\FunctionTok{Mod}\NormalTok{(eig}\SpecialCharTok{$}\NormalTok{values }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{))}
+\NormalTok{pi }\OtherTok{\textless{}{-}} \FunctionTok{Re}\NormalTok{(eig}\SpecialCharTok{$}\NormalTok{vectors[, idx])}
+\NormalTok{pi }\OtherTok{\textless{}{-}}\NormalTok{ pi }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(pi)}
+\FunctionTok{names}\NormalTok{(pi) }\OtherTok{\textless{}{-}} \FunctionTok{as.character}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{40}\NormalTok{)}
+
+\CommentTok{\# original hotels as ref}
+\NormalTok{rev\_orig }\OtherTok{\textless{}{-}} \FunctionTok{numeric}\NormalTok{(}\DecValTok{40}\NormalTok{); rev\_orig[}\FunctionTok{c}\NormalTok{(}\DecValTok{17}\NormalTok{,}\DecValTok{19}\NormalTok{,}\DecValTok{20}\NormalTok{)] }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{950}\NormalTok{,}\DecValTok{950}\NormalTok{,}\DecValTok{1000}\NormalTok{)}
+\NormalTok{cost\_orig }\OtherTok{\textless{}{-}} \FunctionTok{numeric}\NormalTok{(}\DecValTok{40}\NormalTok{); cost\_orig[}\FunctionTok{c}\NormalTok{(}\DecValTok{38}\NormalTok{,}\DecValTok{40}\NormalTok{)] }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1500}\NormalTok{,}\DecValTok{2000}\NormalTok{)}
+
+\CommentTok{\# (f) add hotels: additional hotels on 22,24,25 with revenues \textasciitilde{}}
+\NormalTok{rev\_new }\OtherTok{\textless{}{-}}\NormalTok{ rev\_orig}
+\NormalTok{rev\_new[}\FunctionTok{c}\NormalTok{(}\DecValTok{22}\NormalTok{,}\DecValTok{24}\NormalTok{,}\DecValTok{25}\NormalTok{)] }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1050}\NormalTok{,}\DecValTok{1050}\NormalTok{,}\DecValTok{1100}\NormalTok{)}
+
+\NormalTok{cost\_new }\OtherTok{\textless{}{-}}\NormalTok{ cost\_orig}
+\NormalTok{cost\_new[}\FunctionTok{c}\NormalTok{(}\DecValTok{32}\NormalTok{,}\DecValTok{33}\NormalTok{,}\DecValTok{35}\NormalTok{)] }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1275}\NormalTok{,}\DecValTok{1275}\NormalTok{,}\DecValTok{1400}\NormalTok{)}
+
+\CommentTok{\# E}
+\NormalTok{E\_rev\_new  }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(pi }\SpecialCharTok{*}\NormalTok{ rev\_new)}
+\NormalTok{E\_cost\_new }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(pi }\SpecialCharTok{*}\NormalTok{ cost\_new)}
+\NormalTok{E\_profit\_new }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(pi }\SpecialCharTok{*}\NormalTok{ (rev\_new }\SpecialCharTok{{-}}\NormalTok{ cost\_new))}
+
+\CommentTok{\# V}
+\NormalTok{E\_rev2\_new  }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(pi }\SpecialCharTok{*}\NormalTok{ (rev\_new}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{))}
+\NormalTok{Var\_rev\_new }\OtherTok{\textless{}{-}}\NormalTok{ E\_rev2\_new }\SpecialCharTok{{-}}\NormalTok{ E\_rev\_new}\SpecialCharTok{\^{}}\DecValTok{2}
+
+\NormalTok{E\_cost2\_new  }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(pi }\SpecialCharTok{*}\NormalTok{ (cost\_new}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{))}
+\NormalTok{Var\_cost\_new }\OtherTok{\textless{}{-}}\NormalTok{ E\_cost2\_new }\SpecialCharTok{{-}}\NormalTok{ E\_cost\_new}\SpecialCharTok{\^{}}\DecValTok{2}
+
+\NormalTok{profit\_new }\OtherTok{\textless{}{-}}\NormalTok{ rev\_new }\SpecialCharTok{{-}}\NormalTok{ cost\_new}
+\NormalTok{E\_profit2\_new }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(pi }\SpecialCharTok{*}\NormalTok{ (profit\_new}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{))}
+\NormalTok{Var\_profit\_new }\OtherTok{\textless{}{-}}\NormalTok{ E\_profit2\_new }\SpecialCharTok{{-}}\NormalTok{ E\_profit\_new}\SpecialCharTok{\^{}}\DecValTok{2}
+\NormalTok{SD\_profit\_new  }\OtherTok{\textless{}{-}} \FunctionTok{sqrt}\NormalTok{(Var\_profit\_new)}
+
+\CommentTok{\# display time }
+\FunctionTok{cat}\NormalTok{(}\StringTok{"E[Revenue] per turn:"}\NormalTok{, }\FunctionTok{round}\NormalTok{(E\_rev\_new,}\DecValTok{6}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## E[Revenue] per turn: 160.2411
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"E[Cost] per turn   :"}\NormalTok{, }\FunctionTok{round}\NormalTok{(E\_cost\_new,}\DecValTok{6}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## E[Cost] per turn   : 175.9
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"E[Profit] per turn :"}\NormalTok{, }\FunctionTok{round}\NormalTok{(E\_profit\_new,}\DecValTok{6}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## E[Profit] per turn : -15.65887
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Var(Revenue) :"}\NormalTok{, }\FunctionTok{round}\NormalTok{(Var\_rev\_new,}\DecValTok{6}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Var(Revenue) : 137636.9
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Var(Cost)    :"}\NormalTok{, }\FunctionTok{round}\NormalTok{(Var\_cost\_new,}\DecValTok{6}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Var(Cost)    : 236876.8
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Var(Profit)  :"}\NormalTok{, }\FunctionTok{round}\NormalTok{(Var\_profit\_new,}\DecValTok{6}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Var(Profit)  : 430886.6
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"SD(Profit)   :"}\NormalTok{, }\FunctionTok{round}\NormalTok{(SD\_profit\_new,}\DecValTok{6}\NormalTok{), }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## SD(Profit)   : 656.4195
+\end{verbatim}
+
+\textbf{Interpretation:} With the additions, it seems this high risk
+high reward senario has yeilded even more loss, with a negative expected
+profit. This is not to mention our volatile nature
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# g Simulation of concurrent Markov chain}
+
+
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{6219}\NormalTok{)}
+
+\CommentTok{\# helper meth: roll two dice \& move}
+\NormalTok{roll\_move }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(pos) \{}
+\NormalTok{  move }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{6}\NormalTok{, }\DecValTok{1}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{sample}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{6}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\NormalTok{  new }\OtherTok{\textless{}{-}}\NormalTok{ (pos }\SpecialCharTok{+}\NormalTok{ move) }\SpecialCharTok{\%\%} \DecValTok{40}
+  \ControlFlowTok{if}\NormalTok{ (new }\SpecialCharTok{==} \DecValTok{0}\NormalTok{) new }\OtherTok{\textless{}{-}} \DecValTok{40}
+  \CommentTok{\# Jail rule: space 31 sends you to 11}
+  \ControlFlowTok{if}\NormalTok{ (new }\SpecialCharTok{==} \DecValTok{31}\NormalTok{) new }\OtherTok{\textless{}{-}} \DecValTok{11}
+  \FunctionTok{return}\NormalTok{(new)}
+\NormalTok{\}}
+
+
+\CommentTok{\# case c}
+\NormalTok{you\_spaces\_cd   }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{17}\NormalTok{, }\DecValTok{19}\NormalTok{, }\DecValTok{20}\NormalTok{)}
+\NormalTok{you\_values\_cd   }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{950}\NormalTok{, }\DecValTok{950}\NormalTok{, }\DecValTok{1000}\NormalTok{)}
+
+\CommentTok{\# case d}
+\NormalTok{opp\_spaces\_cd   }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{38}\NormalTok{, }\DecValTok{40}\NormalTok{)}
+\NormalTok{opp\_values\_cd   }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1500}\NormalTok{, }\DecValTok{2000}\NormalTok{)}
+
+\CommentTok{\# convert to named vectors for fast lookup}
+\NormalTok{rev\_vec\_cd }\OtherTok{\textless{}{-}} \FunctionTok{setNames}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{40}\NormalTok{), }\DecValTok{1}\SpecialCharTok{:}\DecValTok{40}\NormalTok{)}
+\NormalTok{rev\_vec\_cd[you\_spaces\_cd] }\OtherTok{\textless{}{-}}\NormalTok{ you\_values\_cd}
+
+\NormalTok{cost\_vec\_cd }\OtherTok{\textless{}{-}} \FunctionTok{setNames}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{40}\NormalTok{), }\DecValTok{1}\SpecialCharTok{:}\DecValTok{40}\NormalTok{)}
+\NormalTok{cost\_vec\_cd[opp\_spaces\_cd] }\OtherTok{\textless{}{-}}\NormalTok{ opp\_values\_cd}
+
+
+
+
+\CommentTok{\# sim 1 round {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+
+\NormalTok{simulate\_match }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(rev\_vec, cost\_vec, }\AttributeTok{start\_cash =} \DecValTok{5000}\NormalTok{) \{}
+\NormalTok{  you\_pos }\OtherTok{\textless{}{-}} \DecValTok{1}
+\NormalTok{  opp\_pos }\OtherTok{\textless{}{-}} \DecValTok{1}
+\NormalTok{  you\_cash }\OtherTok{\textless{}{-}}\NormalTok{ start\_cash}
+\NormalTok{  opp\_cash }\OtherTok{\textless{}{-}}\NormalTok{ start\_cash}
+  
+  \ControlFlowTok{while}\NormalTok{ (you\_cash }\SpecialCharTok{\textgreater{}} \DecValTok{0} \SpecialCharTok{\&\&}\NormalTok{ opp\_cash }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{) \{}
+    \CommentTok{\# player}
+\NormalTok{    you\_pos }\OtherTok{\textless{}{-}} \FunctionTok{roll\_move}\NormalTok{(you\_pos)}
+\NormalTok{    you\_cash }\OtherTok{\textless{}{-}}\NormalTok{ you\_cash }\SpecialCharTok{+}\NormalTok{ rev\_vec[you\_pos] }\SpecialCharTok{{-}}\NormalTok{ cost\_vec[you\_pos]}
+    
+    \ControlFlowTok{if}\NormalTok{ (you\_cash }\SpecialCharTok{\textless{}=} \DecValTok{0}\NormalTok{) }\FunctionTok{return}\NormalTok{(}\ConstantTok{FALSE}\NormalTok{)  }\CommentTok{\# you lose}
+    
+    \CommentTok{\# op move}
+\NormalTok{    opp\_pos }\OtherTok{\textless{}{-}} \FunctionTok{roll\_move}\NormalTok{(opp\_pos)}
+\NormalTok{    opp\_cash }\OtherTok{\textless{}{-}}\NormalTok{ opp\_cash }\SpecialCharTok{+}\NormalTok{ cost\_vec[opp\_pos] }\SpecialCharTok{{-}}\NormalTok{ rev\_vec[opp\_pos]}
+    
+    \ControlFlowTok{if}\NormalTok{ (opp\_cash }\SpecialCharTok{\textless{}=} \DecValTok{0}\NormalTok{) }\FunctionTok{return}\NormalTok{(}\ConstantTok{TRUE}\NormalTok{)   }\CommentTok{\# you win}
+\NormalTok{  \}}
+\NormalTok{\}}
+
+\CommentTok{\# lets simulate n=1000 ties}
+
+\NormalTok{N }\OtherTok{\textless{}{-}} \DecValTok{1000}
+
+\CommentTok{\# cd}
+\NormalTok{wins\_cd }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(}\FunctionTok{replicate}\NormalTok{(N, }\FunctionTok{simulate\_match}\NormalTok{(rev\_vec\_cd, cost\_vec\_cd)))}
+
+
+\CommentTok{\#wins\_cd}
+
+
+\CommentTok{\# lets do it for F}
+
+\NormalTok{you\_spaces\_f    }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{22}\NormalTok{, }\DecValTok{24}\NormalTok{, }\DecValTok{25}\NormalTok{)}
+\NormalTok{you\_values\_f    }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1050}\NormalTok{, }\DecValTok{1050}\NormalTok{, }\DecValTok{1100}\NormalTok{)}
+
+\NormalTok{opp\_spaces\_f    }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{32}\NormalTok{, }\DecValTok{33}\NormalTok{, }\DecValTok{35}\NormalTok{)}
+\NormalTok{opp\_values\_f    }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1275}\NormalTok{, }\DecValTok{1275}\NormalTok{, }\DecValTok{1400}\NormalTok{)}
+
+\NormalTok{cost\_vec\_cd }\OtherTok{\textless{}{-}} \FunctionTok{setNames}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{,}\DecValTok{40}\NormalTok{), }\DecValTok{1}\SpecialCharTok{:}\DecValTok{40}\NormalTok{)}
+\NormalTok{cost\_vec\_cd[opp\_spaces\_cd] }\OtherTok{\textless{}{-}}\NormalTok{ opp\_values\_cd}
+
+\NormalTok{cost\_vec\_f }\OtherTok{\textless{}{-}}\NormalTok{ cost\_vec\_cd}
+\NormalTok{cost\_vec\_f[opp\_spaces\_f] }\OtherTok{\textless{}{-}}\NormalTok{ cost\_vec\_cd[opp\_spaces\_f] }\SpecialCharTok{+}\NormalTok{ opp\_values\_f}
+
+\NormalTok{rev\_vec\_f }\OtherTok{\textless{}{-}}\NormalTok{ rev\_vec\_cd}
+\NormalTok{rev\_vec\_f[you\_spaces\_f] }\OtherTok{\textless{}{-}}\NormalTok{ rev\_vec\_cd[you\_spaces\_f] }\SpecialCharTok{+}\NormalTok{ you\_values\_f}
+
+
+\NormalTok{wins\_f  }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(}\FunctionTok{replicate}\NormalTok{(N, }\FunctionTok{simulate\_match}\NormalTok{(rev\_vec\_f, cost\_vec\_f)))}
+
+
+\FunctionTok{cat}\NormalTok{(}\StringTok{"wins cd:"}\NormalTok{, wins\_cd}\SpecialCharTok{*}\DecValTok{100}\NormalTok{, }\StringTok{"\% }\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## wins cd: 52.1 %
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"wins f:"}\NormalTok{, wins\_f}\SpecialCharTok{*}\DecValTok{100}\NormalTok{, }\StringTok{"\% }\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## wins f: 31.6 %
+\end{verbatim}
+
+\textbf{Interpretation:} seems like a slightly over 50 50 chance id win
+under cd, and a slightly under 1/3 chance id win under f - which seems
+realistic considering the numbers on the assignment
+
+\end{document}
