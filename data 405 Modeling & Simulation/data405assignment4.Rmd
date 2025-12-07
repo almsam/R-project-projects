@@ -605,3 +605,98 @@ cat("SD(Profit)   :", round(SD_profit_new,6), "\n")
 ```{R}
 
 # g Simulation of concurrent Markov chain
+
+
+set.seed(6219)
+
+# helper meth: roll two dice & move
+roll_move <- function(pos) {
+  move <- sample(1:6, 1) + sample(1:6, 1)
+  new <- (pos + move) %% 40
+  if (new == 0) new <- 40
+  # Jail rule: space 31 sends you to 11
+  if (new == 31) new <- 11
+  return(new)
+}
+
+
+# case c
+you_spaces_cd   <- c(17, 19, 20)
+you_values_cd   <- c(950, 950, 1000)
+
+# case d
+opp_spaces_cd   <- c(38, 40)
+opp_values_cd   <- c(1500, 2000)
+
+# convert to named vectors for fast lookup
+rev_vec_cd <- setNames(rep(0,40), 1:40)
+rev_vec_cd[you_spaces_cd] <- you_values_cd
+
+cost_vec_cd <- setNames(rep(0,40), 1:40)
+cost_vec_cd[opp_spaces_cd] <- opp_values_cd
+
+
+
+
+# sim 1 round ----------------------
+
+simulate_match <- function(rev_vec, cost_vec, start_cash = 5000) {
+  you_pos <- 1
+  opp_pos <- 1
+  you_cash <- start_cash
+  opp_cash <- start_cash
+  
+  while (you_cash > 0 && opp_cash > 0) {
+    # player
+    you_pos <- roll_move(you_pos)
+    you_cash <- you_cash + rev_vec[you_pos] - cost_vec[you_pos]
+    
+    if (you_cash <= 0) return(FALSE)  # you lose
+    
+    # op move
+    opp_pos <- roll_move(opp_pos)
+    opp_cash <- opp_cash + cost_vec[opp_pos] - rev_vec[opp_pos]
+    
+    if (opp_cash <= 0) return(TRUE)   # you win
+  }
+}
+
+# lets simulate n=1000 ties
+
+N <- 1000
+
+# cd
+wins_cd <- mean(replicate(N, simulate_match(rev_vec_cd, cost_vec_cd)))
+
+
+#wins_cd
+
+
+# lets do it for F
+
+you_spaces_f    <- c(22, 24, 25)
+you_values_f    <- c(1050, 1050, 1100)
+
+opp_spaces_f    <- c(32, 33, 35)
+opp_values_f    <- c(1275, 1275, 1400)
+
+cost_vec_cd <- setNames(rep(0,40), 1:40)
+cost_vec_cd[opp_spaces_cd] <- opp_values_cd
+
+cost_vec_f <- cost_vec_cd
+cost_vec_f[opp_spaces_f] <- cost_vec_cd[opp_spaces_f] + opp_values_f
+
+rev_vec_f <- rev_vec_cd
+rev_vec_f[you_spaces_f] <- rev_vec_cd[you_spaces_f] + you_values_f
+
+
+wins_f  <- mean(replicate(N, simulate_match(rev_vec_f, cost_vec_f)))
+
+
+cat("wins cd:", wins_cd*100, "% \n")
+cat("wins f:", wins_f*100, "% \n")
+
+
+
+```
+
