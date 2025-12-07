@@ -311,3 +311,12 @@ abline(v=n, col="blue")     # mark -1 st
 
 
 ``` {R}
+
+# 4c
+
+P <- matrix(c(1:4, 4:1, 1,4,4,1,4,1,4,1), nrow=4, byrow=TRUE)/10
+PE <- matrix(c(1:10, 10:1, rep(5.5,10), c(rep(1,5), rep(10,5))), nrow=4, byrow=TRUE)/55
+rownames(P) <- paste0("S",1:4); colnames(P) <- paste0("S",1:4)
+rownames(PE) <- paste0("S",1:4); colnames(PE) <- as.character(1:10)
+P
+PE
