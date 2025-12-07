@@ -403,3 +403,47 @@ option_price_1000
 
 
 
+## Q5:
+
+
+``` {R}
+
+# a. 40^2 matrix
+dice_freq <- c(`2`=1, `3`=2, `4`=3, `5`=4, `6`=5, `7`=6, `8`=5, `9`=4, `10`=3, `11`=2, `12`=1)
+dice_p <- dice_freq / sum(dice_freq)
+
+states <- 1:40
+P <- matrix(0, nrow=40, ncol=40)
+for (i in states) {
+  if (i == 31) {    ##### space 31 -> next move to 11
+    P[i, 11] <- 1
+  } else {
+    for (s in 2:12) {
+      j <- ((i - 1) + s) %% 40 + 1
+      P[i, j] <- P[i, j] + dice_p[as.character(s)]
+    }
+  }
+}
+
+# b - vector
+eig <- eigen(t(P))
+idx <- which.min(abs(eig$values - 1))
+pi <- Re(eig$vectors[, idx])
+pi <- pi / sum(pi)
+names(pi) <- as.character(states)
+
+# barplot of probs
+barplot(pi, main="Stationary distribution (Monopoly simplified)", xlab="Space", ylab="PI")
+
+# which space is second-most frequently visited?
+ord <- order(pi, decreasing = TRUE)
+most_space <- ord[1]
+second_space <- ord[2]
+space40_prob <- pi["40"]
+
+
+
+
+
+```
+
