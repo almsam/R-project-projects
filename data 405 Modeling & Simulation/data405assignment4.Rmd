@@ -205,3 +205,38 @@ ts.plot(sim_prices, main="Simulated ARCH(2) CAC")
 ```
 
 
+## Q3:
+
+``` {r}
+# we simulate 100000 weeks and estimate annual probability > 250.
+set.seed(2025)
+
+p <- c(0.3,0.1,0.3,0.2,0.1)   # p0..p4
+y <- 0:4
+states <- 0:10
+
+# a transition matrix P
+P <- matrix(0, nrow=11, ncol=11)
+for (i in states) {
+  after <- max(i - 2, 0)
+  for (k in seq_along(y)) {
+    j <- after + y[k]
+    if (j > 10) j <- 10
+    P[i+1, j+1] <- P[i+1, j+1] + p[k]
+  }
+}
+rownames(P) <- colnames(P) <- as.character(states)
+
+# 3b check regularity: compute P^50 and see if positive
+P50 <- P ^50  # requires expm package; if not installed use eigen method below
+
+# 3c stationary distribution pi (left eigenvector)
+eig <- eigen(t(P))
+idx <- which.min(abs(eig$values - 1))
+pi <- Re(eig$vectors[,idx])
+pi <- pi / sum(pi)
+
+# 3d long-run weekly cost
+costs <- 2 + 5 * pmax(0, 2 - states)      # weekly cost per state
+long_run_weekly_cost <- sum(pi * costs)
+
