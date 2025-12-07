@@ -282,3 +282,32 @@ cat("Sample mean annual cost:", round(mean(annual_costs),4),
 - Sample mean annual cost ≈ `183.9298`, sd ≈ `42.07`.  
 - Estimated probability that annual cost > 250 (from simulation) ≈ **0.0598024** (≈ 5.98%).
 
+
+## Q4:
+
+``` {r}
+FTSE <- EuStockMarkets[,4]
+n <- length(FTSE)
+lFTSE <- log(FTSE)
+logreturns <- diff(lFTSE)
+logreturnsQ <- c(min(logreturns)*1.01,
+quantile(logreturns, (1:9)/10), max(logreturns)*1.01)
+logreturnsCut <- cut(logreturns, logreturnsQ)
+levels(logreturnsCut) <- 1:10
+
+
+# 4b: ts plot
+
+plot(FTSE, type="l", main="FTSE index (full series)", ylab="Index")
+abline(v=1000, col="red")   # mark 1000th
+abline(v=n, col="blue")     # mark -1 st
+
+
+
+
+```
+
+
+
+
+``` {R}
