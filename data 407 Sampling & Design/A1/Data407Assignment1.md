@@ -1,4 +1,9 @@
 # Data 407 - Assignment 1:
+
+### Samira Almuallim, 62197256, Data 407 2025WT2
+
+---
+
 ### 1. (2 marks) Regarding measurement error, which of the following types are true?
 
 **Answers: a, b, c, & d**
@@ -244,3 +249,4 @@ N(0,1)
 
 Therefore, proven
 
+---
