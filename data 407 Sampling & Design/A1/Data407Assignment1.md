@@ -144,3 +144,103 @@ So the error margin at 95% CI is
 
 
 ---
+
+### 8. (3 marks)
+
+We consider random variables \( X_1, \dots, X_n \) with dependence structure
+\[
+\operatorname{Cov}(X_i, X_j) =
+\begin{cases}
+\sigma^2, & i = j, \\
+0.5\,\sigma^2, & |i - j| = 1, \\
+0, & \text{otherwise}.
+\end{cases}
+\]
+
+References used: https://en.wikipedia.org/wiki/Central_limit_theorem#CLT_under_weak_dependence
+
+---
+
+### A. Verify that  
+\[
+Var\!\left(\sum_{i=a+1}^{a+n} X_i\right) \approx nA^2
+\quad \text{uniformly in } a \; (n \to \infty), \; A^2 > 0
+\]
+
+First lets take the Var of whats inside the sum
+\[
+Var\!\left(\sum_{i=a+1}^{a+n} X_i\right)
+= \sum_{i=a+1}^{a+n} Var(X_i) + 2 \sum_{a+1 \le i < j \le a+n}
+Cov(X_i, X_j)
+\]
+
+##### Then Lets split this into two parts:
+
+- **Diagonal terms:**
+\[
+\sum_{i=a+1}^{a+n} Var(X_i) = n\sigma^2
+\]
+
+- **Off-diagonal terms:**  
+//Only adjacent indices contribute
+\[
+\sum_{a+1 \le i < j \le a+n} Cov(X_i, X_j)
+= \sum_{i=a+1}^{a+n-1} 0.5\sigma^2
+= (n-1)\,0.5\sigma^2.
+\]
+
+Including the factor of 2
+\[ 2 \times (n-1)\,0.5\sigma^2 = (n-1)\sigma^2. \]
+
+Thus,
+\[
+Var\!\left(\sum_{i=a+1}^{a+n} X_i\right)
+= n\sigma^2 + (n-1)\sigma^2
+= (2n - 1)\sigma^2
+\]
+
+As \( n \to \infty \),
+\[ Var\!\left(\sum_{i=a+1}^{a+n} X_i\right) \sim 2n\sigma^2 \]
+
+Hence,
+\[ A^2 = 2\sigma^2 > 0, \]
+and the approximation holds **uniformly in `` a ``**.
+
+---
+
+### b. Suppose \( E(X_i) = 0 \). Use Serfling’s Theorem to show that
+\[
+\frac{\sum_{i=1}^n X_i}{\sqrt{2n\sigma^2}}
+\;\xrightarrow{d}\; N(0,1)
+\]
+
+From part A
+\[ Var\!\left(\sum_{i=1}^n X_i\right) \sim 2n\sigma^2. \]
+
+The sequence \( \{X_i\} \) is **stationary**, **short-range dependent**, and has:
+- finite second moments,
+- absolutely summable covariances:
+\[
+\sum_{k=-\infty}^{\infty} |Cov(X_0, X_k)|
+= \sigma^2 + 2(0.5\sigma^2) < \infty
+\]
+
+Therefore, the conditions of **Serfling’s CLT for dependent sequences** are satisfied.
+
+Hence,
+\[
+\frac{\sum_{i=1}^n X_i - E\!\left(\sum_{i=1}^n X_i\right)}
+{\sqrt{Var\!\left(\sum_{i=1}^n X_i\right)}}
+\;\xrightarrow{d}\;
+N(0,1)
+\]
+
+Since \( E(X_i) = 0 \),
+\[
+\frac{\sum_{i=1}^n X_i}{\sqrt{2n\sigma^2}}
+\;\xrightarrow{d}\;
+N(0,1)
+\]
+
+Therefore, proven
+
