@@ -95,3 +95,52 @@ Thus
 **Ans: \( b. Var(\bar{y}) = \left(1 - \frac{n}{N}\right)\frac{S_U^2}{n} \)**
 
 ---
+
+### 7. (3 marks) In SRS, \( N = 1000 \), \( n = 100 \), \( \bar{y} = 1 \), \( s = 0.5 \)
+
+
+### a. Find an approximate 95% CI for \( \bar{y}_U \) using the normal approximation:
+
+For SRS without replacement, the SE of sample mean is
+\[ SE(\bar{y}) = \sqrt{\left(1 - \frac{n}{N}\right)\frac{s^2}{n}} \]
+
+We Substitute the given values:
+\[
+SE(\bar{y}) = \sqrt{\left(1 - \frac{100}{1000}\right)\frac{(0.5)^2}{100}}
+= \sqrt{0.9 \cdot \frac{0.25}{100}}
+= \sqrt{0.00225}
+\approx 0.0474
+\]
+
+95% CI implies `0.95+0.025+0.025`
+Using the normal approximation with \( z_{0.95 + 0.025} = z_{0.975} = 1.96 \),
+\( \text{Margin of error} = 1.96 \times 0.0474 \approx 0.093 \)
+(3sf)
+
+**95% CI for \( \bar{y}_U \):**
+\( 1 \pm 0.093 = (0.907,\; 1.093) \)
+
+**Ans: \((0.907,\; 1.093) \)**
+
+
+### b. Find an approximate 95% CI for \( N\bar{y}_U \) using the normal approximation
+
+The estimator of the population total is
+\[ \widehat{Y}_U = N\bar{y} \]
+
+The standard error scales by \( N \):
+\[
+SE(N\bar{y}) = N \cdot SE(\bar{y}) = 1000 \times 0.0474 = 47.4
+\]
+
+So the error margin at 95% CI is
+\[ 1.96 \times 47.4 \approx 93.0 \]
+
+**95% CI for \( N\bar{y}_U \):**
+\( 1000 \pm 93 = (907,\; 1093) \)
+
+
+**Ans: \((907,\; 1093) \)**
+
+
+---
