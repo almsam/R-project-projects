@@ -45,3 +45,53 @@ The phrase “first unit” does not change this probability
 And the replacement component is irrelevant here since we are only considering the 1 case
 
 
+
+
+---
+
+### 4. (2 marks) Regarding simple random sampling without replacement (SRS) from a population of \( N \) units, what is the probability that the first two units will appear in the sample of size \( n \)?
+
+**Answer: e. \( \dfrac{n(n - 1)}{N(N - 1)} \)**
+
+**Explanation:**  
+- Probability first unit is included
+  \[ \frac{n}{N} \]
+- Given that, the probability the second unit is also included
+  \[ \frac{n - 1}{N - 1} \]
+- the joint prob is
+  \[ \frac{n}{N} \cdot \frac{n - 1}{N - 1} = \frac{n(n - 1)}{N(N - 1)} \]
+- Thus, the Answer is
+  \[ \dfrac{n(n - 1)}{N(N - 1)} \]
+
+---
+
+### 5. (2 marks) In SRS, is the sample mean  _ an unbiased estimate
+ \[ \bar{y} = \frac{1}{n} \sum_{i \in S} y_i \]
+
+
+**Answer: Yes**
+
+Under simple random sampling without replacement \( E(\bar{y}) = \bar{Y} \)
+
+And since \( E(\bar{y}) = avg(y_i) \)
+
+The sample mean is an unbiased estimator of the population mean
+
+Thus: **Ans: a. Yes**
+
+---
+
+### 6. (2 marks) Regarding SRS from a population of \( N \) units with population variance \( S_U^2 \), what is the variance of the sample mean \( \bar{y} = \frac{1}{n} \sum_{i \in S} y_i \)?
+
+**Answer: b. \( \left(1 - \frac{n}{N}\right)\frac{S_U^2}{n} \)**
+
+For SRS without replacement, the variance of the sample mean includes the finite population correction:
+\( B. Var(\bar{y}) = \left(1 - \frac{n}{N}\right)\frac{S_U^2}{n} \)
+\( D. Var(\bar{y}) = \left(1 - \frac{n}{N}\right)\frac{S_U^2}{N} \)
+
+And we know the denominator is \( n \) not \( N \)
+
+Thus
+**Ans: \( b. Var(\bar{y}) = \left(1 - \frac{n}{N}\right)\frac{S_U^2}{n} \)**
+
+---
