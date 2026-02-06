@@ -90,4 +90,101 @@ Thus: **Ans: d.** \(
 \frac{\hat{p}_h(1 - \hat{p}_h)}{n_h}
 \)
 
+---
+
+### 7. (3 marks) Stratified sample of NYC food stores (Hayes, 2000)
+
+Given strata information:
+
+| Stratum | Income level | \(N_h\) | \(n_h\) | \(\bar{y}_h\) | \(s_h^2\) |
+|-------|-------------|---------|---------|---------------|-----------|
+| 1 | Low income | 190 | 21 | 3.925 | 0.0372 |
+| 2 | Middle income | 407 | 14 | 3.938 | 0.0522 |
+| 3 | Upper income | 811 | 22 | 3.942 | 0.0702 |
+
+Total population size = \( N = 190 + 407 + 811 = 1408 \)
+
+## a. (1.5 marks) 95% CI for the population total \( t \)
+
+The stratified estimator of the population total is \( \hat{t}_{\text{str}} = \sum_{h=1}^3 N_h \bar{y}_h \)
+
+Compute each contribution:
+\[
+\begin{aligned}
+190(3.925) &= 745.75 \\
+407(3.938) &= 1602.77 \\
+811(3.942) &= 3196.96
+\end{aligned}
+\]
+
+thus: \( \hat{t}_{\text{str}} = 745.75 + 1602.77 + 3196.96 = 5545.48 \)
+
+### Variance of \( \hat{t}_{\text{str}} \)
+
+For stratified sampling,
+\[
+Var(\hat{t}_{\text{str}})
+= \sum_{h=1}^3 N_h^2 \left(1 - \frac{n_h}{N_h}\right)\frac{s_h^2}{n_h}
+\]
+
+Now lets compute each stratum’s variance term:
+
+- **Stratum 1:** \( 190^2 \left(1 - \frac{21}{190}\right)\frac{0.0372}{21} \approx 56.9 \)
+
+- **Stratum 2:** \( 407^2 \left(1 - \frac{14}{407}\right)\frac{0.0522}{14} \approx 596.4 \)
+
+- **Stratum 3:** \( 811^2 \left(1 - \frac{22}{811}\right)\frac{0.0702}{22} \approx 2093.6 \)
+
+Total variance: \( Var(\hat{t}_{\text{str}}) \approx sum of stratum 1:3 \approx 2746.9 \)
+
+Standard error:
+\(
+SE(\hat{t}_{\text{str}}) = \sqrt{2746.9} \approx 52.4
+\)
+
+Using the normal approximation (\(z_{0.975} = 1.96\)):
+
+\(
+\text{ME} = 1.96 \times 52.4 \approx 102.7
+\)
+
+### **95% CI for \( t \):**
+\(
+5545.48 \pm 102.7 = (5443.4,\; 5647.6)
+\)
+
+---
+
+## b. (1.5 marks) 95% CI for the population mean \( \bar{y}_U \)
+
+The stratified mean estimator is \(
+\bar{y}_{\text{str}} = \frac{\hat{t}_{\text{str}}}{N}
+= \frac{5545.48}{1408} \approx 3.939
+\)
+
+### Var of \( \bar{y}_{\text{str}} \)
+
+\(
+Var(\bar{y}_{\text{str}})
+= \frac{1}{N^2}\operatorname{Var}(\hat{t}_{\text{str}})
+= \frac{2746.9}{1408^2}
+\approx 0.00139
+\)
+
+St error: \( SE(\bar{y}_{\text{str}}) \approx \sqrt{0.00139} \approx 0.0373 \)
+
+Margin of error: \( 1.96 \times 0.037 \approx 0.0731 \)
+
+### **95% CI for \( \bar{y}_U \):**
+\( 3.939 \pm 0.0731 = (3.8659,\; 4.0121) \)
+
+---
+
+## Final Answers Summary
+
+- **(a)** 95% CI for \( t \):  
+\( (5443.4,\; 5647.6) \)
+
+- **(b)** 95% CI for \( \bar{y}_U \):  
+\( (3.8659,\; 4.0121) \)
 
