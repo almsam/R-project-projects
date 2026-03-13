@@ -60,33 +60,49 @@ Thus: **Ans: b. No**
 
 ---
 
-### 5. (2 marks) In stratified sampling, is \(\bar{y}_{\text{str}}\) an unbiased estimate of \( \bar{y}_U \)?
+### 5. (2 marks) Regarding two-stage cluster sampling, what is the approximate variance of \( \hat{\bar{y}}_r \)?
 
+**Answer: B**
 
-**Answer: Yes**
+\[
+\frac{1}{\bar{M}_U^2}
+\frac{1}{n}\left(1-\frac{n}{N}\right)
+\sum_{i=1}^{N}
+\frac{(M_i\bar{y}_{iU}-\bar{y}_U M_i)^2}{N-1}
++
+\frac{1}{\bar{M}_U^2}
+\frac{1}{n}
+\sum_{i=1}^{N}
+\frac{M_i^2 V(\bar{y}_i|S)}{N}
+\]
 
-Each stratum sample mean \( \bar{y}_h \) is an unbiased estimator of the stratum mean, and the stratified mean is a weighted average of these unbiased estimators: \(E(\bar{y}_{\text{str}}) = \bar{y}_U.\)
+**Explanation:**
 
-Thus: **Ans: a. Yes**
+The approximate var for the ratio estimator in **two-stage cluster sampling** contains **2 components**:
+
+1. **Between-cluster variance** (variation among PSU totals), which includes the **finite population correction** \(1-\frac{n}{N}\).
+2. **Within-cluster sampling variance**, reflecting the variability from sampling SSUs inside selected PSUs.
+
+Thus the correct expression is **option B**.
+
+So: **Our ans is b**
 
 ---
 
-### 6. (2 marks) Regarding stratified sampling, what is the variance of   \( \hat{p}_{\text{str}} = \sum_{h=1}^H \frac{N_h}{N}\,\hat{p}_h ? \)
+### 6. (2 marks) Which are major issues for designing a cluster sample?
 
-**Answer: C** \(
-\sum_{h=1}^H \left(1 - \frac{n_h}{N_h}\right)\frac{N_h^2}{N^2}
-\frac{\hat{p}_h(1 - \hat{p}_h)}{n_h-1}
-\)
+**Answers: a, b, c, & d**
 
-Within each stratum, the variance of \( \hat{p}_h \) under SRS without replacement is \(
-\left(1 - \frac{n_h}{N_h}\right)\frac{\hat{p}_h(1-\hat{p}_h)}{n_h-1}. \)
-Weighting by \( (N_h/N)^2 \) and summing across strata gives the result.
+- **a. What overall precision is needed?** – determines the required sample size.
+- **b. What size should the PSUs be?** – cluster size affects variance and cost.
+- **c. How many SSUs should be sampled in each selected PSU?** – determines the second-stage sampling design.
+- **d. How many PSUs should be sampled?** – determines the first-stage sampling design.
 
+All of these are **key design decisions** in cluster sampling.
 
-Thus: **Ans: c.** \(
-\sum_{h=1}^H \left(1 - \frac{n_h}{N_h}\right)\frac{N_h^2}{N^2}
-\frac{\hat{p}_h(1 - \hat{p}_h)}{n_h-1}
-\)
+Thus: the answers are **A, B, C, n D**
+
+**Answers: a, b, c, & d**
 
  - See lec 7 notes p 10 for why its \({n_h-1}\) and not \({n_h}\)
 
