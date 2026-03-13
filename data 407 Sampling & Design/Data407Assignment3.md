@@ -108,99 +108,116 @@ Thus: the answers are **A, B, C, n D**
 
 ---
 
-### 7. (3 marks) Stratified sample of NYC food stores (Hayes, 2000)
+### 7. (3 marks) Smoking prevalence among female high school students
 
-Given strata information:
+We have an **SRS of \(n=4\) schools** (PSUs) from a population of **\(N=29\) schools**.  
+Within each selected school, a sample of female students was interviewed.
 
-| Stratum | Income level | \(N_h\) | \(n_h\) | \(\bar{y}_h\) | \(s_h^2\) |
-|-------|-------------|---------|---------|---------------|-----------|
-| 1 | Low income | 190 | 21 | 3.925 | 0.037^2 |
-| 2 | Middle income | 407 | 14 | 3.938 | 0.052^2 |
-| 3 | Upper income | 811 | 22 | 3.942 | 0.070^2 |
+From the table:
 
-Total population size = \( N = 190 + 407 + 811 = 1408 \)
+- \( \sum M_i = 2550 \)
+- \( \sum m_i = 100 \)
+- \( \sum \hat{t}_i = 1099.5 \)
+- \( \sum ( \hat{t}_i - M_i \hat{\bar{y}}_r )^2 = 17943 \)
 
-## a. (1.5 marks) 95% CI for the population total \( t \)
+## 1. Estimate of smoking proportion
 
-The stratified estimator of the population total is \( \hat{t}_{\text{str}} = \sum_{h=1}^3 N_h \bar{y}_h \)
+The **ratio estimator for the population mean** is
 
-Compute each contribution:
 \[
-\begin{aligned}
-190(3.925) &= 745.75 \\
-407(3.938) &= 1602.77 \\
-811(3.942) &= 3196.96
-\end{aligned}
+\hat{\bar{y}}_r = \frac{\sum \hat{t}_i}{\sum M_i}
 \]
 
-thus: \( \hat{t}_{\text{str}} = 745.75 + 1602.77 + 3196.96 = 5545.48 \)
-
-### Variance of \( \hat{t}_{\text{str}} \)
-
-For stratified sampling,
 \[
-Var(\hat{t}_{\text{str}})
-= \sum_{h=1}^3 N_h^2 \left(1 - \frac{n_h}{N_h}\right)\frac{s_h^2}{n_h}
+\hat{\bar{y}}_r =
+\frac{1099.5}{2550}
+\approx 0.431
 \]
 
-Now lets compute each stratum’s variance term:
-
-- **Stratum 1:** \( 190^2 \left(1 - \frac{21}{190}\right)\frac{0.037^2}{21} \approx 2.093 \)
-
-- **Stratum 2:** \( 407^2 \left(1 - \frac{14}{407}\right)\frac{0.052^2}{14} \approx 30.893 \)
-
-- **Stratum 3:** \( 811^2 \left(1 - \frac{22}{811}\right)\frac{0.070^2}{22} \approx 142.519 \)
-
-Total variance: \( Var(\hat{t}_{\text{str}}) \approx sum of stratum 1:3 \approx 175.505 \)
-
-Standard error:
-\(
-SE(\hat{t}_{\text{str}}) = \sqrt{175.505} \approx 13.25
-\)
-
-Using the normal approximation (\(z_{0.975} = 1.96\)):
-
-\(
-\text{ME} = 1.96 \times 13.25 \approx 25.97
-\)
-
-### **95% CI for \( t \):**
-\(
-5545.48 \pm 25.97 = (5519.51,\; 5571.45)
-\)
+Thus the **estimated smoking percentage** is **43.1%**
 
 ---
 
-## b. (1.5 marks) 95% CI for the population mean \( \bar{y}_U \)
+## 2. Variance of the ratio estimator
 
-The stratified mean estimator is \(
-\bar{y}_{\text{str}} = \frac{\hat{t}_{\text{str}}}{N}
-= \frac{5545.48}{1408} \approx 3.939
-\)
-
-### Var of \( \bar{y}_{\text{str}} \)
+For one-stage cluster sampling with SRS of PSUs:
 
 \(
-Var(\bar{y}_{\text{str}})
-= \frac{1}{N^2}\operatorname{Var}(\hat{t}_{\text{str}})
-= \frac{175.505}{1408^2}
-\approx 0.0000885
+\widehat{Var}(\hat{\bar{y}}_r) =
+\frac{1}{\bar{M}_U^2}
+\frac{1}{n}
+\left(1-\frac{n}{N}\right)
+\frac{\sum(\hat{t}_i-M_i\hat{\bar{y}}_r)^2}{n-1}
 \)
 
-St error: \( SE(\bar{y}_{\text{str}}) \approx \sqrt{0.0000885} \approx 0.0094 \)
+where
 
-Margin of error: \( 1.96 \times 0.0094 \approx 0.0184 \)
+\[
+\bar{M}_U = \frac{\sum M_i}{n} = \frac{2550}{4} = 637.5
+\]
 
-### **95% CI for \( \bar{y}_U \):**
-\( 3.939 \pm 0.0184 = (3.9206,\; 3.9574) \)
+Finite population correction:
+
+\(
+1-\frac{n}{N} =
+1-\frac{4}{29} =
+0.8621
+\)
+
+Now compute:
+
+\[
+\widehat{Var}(\hat{\bar{y}}_r) =
+\frac{1}{637.5^2}
+\cdot
+\frac{1}{4}
+\cdot
+0.8621
+\cdot
+\frac{17943}{3}
+\]
+
+\[
+\widehat{Var}(\hat{\bar{y}}_r)
+\approx 0.00317
+\]
+
+St err:
+
+\[
+SE(\hat{\bar{y}}_r) =
+\sqrt{0.00317}
+\approx 0.056
+\]
 
 ---
 
-## Final Answers Summary
+## 3. 95% Conf Int
 
-- **(a)** 95% CI for \( t \):  
-\( (5519.51,\; 5571.45) \)
+Using the normal approximation:
 
-- **(b)** 95% CI for \( \bar{y}_U \):  
-\( (3.9206,\; 3.9574) \)
+\[
+\hat{\bar{y}}_r \pm 1.96 \times SE
+\]
 
+Margin of error:
+
+\[
+1.96 \times 0.056 \approx 0.10976 \approx 0.11
+\]
+
+Thus
+
+\[
+0.431 \pm 0.11
+\]
+
+**Our 95% CI for smoking proportion** \( (0.321,\;0.541) \)
+
+---
+
+### Final ns for 7
+
+- **Estimated smoking percentage:** **43.1%**
+
+- **95% CI: \(0.431 \pm 0.11\) , or \( (0.321,\;0.541) \)**
