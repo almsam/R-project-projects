@@ -216,7 +216,7 @@ Thus
 
 ---
 
-### Final ns for 7
+### Final ans for 7
 
 - **Estimated smoking percentage:** **43.1%**
 
