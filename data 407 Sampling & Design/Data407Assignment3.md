@@ -85,7 +85,7 @@ The approximate var for the ratio estimator in **two-stage cluster sampling** co
 
 Thus the correct expression is **option B**.
 
-So: **Our ans is b**
+So: **Our ans is b or d** (as both seem identical at time of reading)
 
 ---
 
@@ -164,30 +164,45 @@ Finite population correction:
 0.8621
 \)
 
+Find var t:
+
+\(
+\widehat{Var}(\hat{t}) =
+\frac{1}{n}
+\cdot
+s^2_i
++\frac{1}{n*N}\sum_{}^{}M_i^2(1-m_i/M_i)(s_i^2/m_i)
+\)
+
+\(
+\frac{1}{4}(1-\frac{4}{29})
+\cdot 17943+\frac{614}{4*29}
+\)
+
+\(
+\approx 3872.3
+\)
+
 Now compute:
 
 \[
 \widehat{Var}(\hat{\bar{y}}_r) =
-\frac{1}{637.5^2}
-\cdot
-\frac{1}{4}
-\cdot
-0.8621
-\cdot
-\frac{17943}{3}
+\frac{var(\hat{t})}{{M}^2} = 
+\frac{3872.3}{2550^2}
 \]
 
 \[
 \widehat{Var}(\hat{\bar{y}}_r)
-\approx 0.00317
+\approx 0.000595
 \]
 
 St err:
 
 \[
 SE(\hat{\bar{y}}_r) =
-\sqrt{0.00317}
-\approx 0.056
+\sqrt{\widehat{Var}(\hat{\bar{y}}_r)} =
+\sqrt{0.000595}
+\approx 0.0244
 \]
 
 ---
@@ -203,16 +218,16 @@ Using the normal approximation:
 Margin of error:
 
 \[
-1.96 \times 0.056 \approx 0.10976 \approx 0.11
+1.96 \times 0.0244 \approx 0.047824 \approx 0.048
 \]
 
 Thus
 
 \[
-0.431 \pm 0.11
+0.431 \pm 0.048
 \]
 
-**Our 95% CI for smoking proportion** \( (0.321,\;0.541) \)
+**Our 95% CI for smoking proportion** \( (0.383,\;0.479) \)
 
 ---
 
@@ -220,4 +235,5 @@ Thus
 
 - **Estimated smoking percentage:** **43.1%**
 
-- **95% CI: \(0.431 \pm 0.11\) , or \( (0.321,\;0.541) \)**
+- **95% CI: \(0.431 \pm 0.048\) , or \( (0.383,\;0.479) \)**
+
