@@ -1,4 +1,4 @@
-# Data 407 - Assignment 3:
+# Data 407 - Assignment 4:
 
 ### Samira Almuallim, 62197256, Data 407 2025WT2
 
@@ -95,9 +95,6 @@ Thus: **Our ans is: d**
 ---
 
 ### 7. Jackknife derivation
----
-
-### 7. Jackknife derivation
 
 Let
 \[
@@ -120,17 +117,15 @@ t'_n = n t_n - (n-1)\bar{t}_{(\cdot)}, \quad
 \bar{t}_{(\cdot)} = \frac{1}{n}\sum_{i=1}^n t_{(i)}.
 \]
 
-so:
-
 \[
 t'_n =
-n \frac{n-1}{s} -
+n \frac{n-1}{S} -
 (n-1)\frac{1}{n}
 \sum_{i=1}^n
 \frac{n-2}{S - \frac{n}{n-1}(x_i - \bar{x})^2}.
 \]
 
-so the jackknife estimator must be:
+So the jackknife estimator must be:
 
 \[
 n \frac{n-1}{S} -
