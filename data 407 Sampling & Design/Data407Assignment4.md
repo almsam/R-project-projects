@@ -95,3 +95,46 @@ Thus: **Our ans is: d**
 ---
 
 ### 7. Jackknife derivation
+---
+
+### 7. Jackknife derivation
+
+Let
+\[
+S = \sum_{i=1}^n (x_i - \bar{x})^2, \quad
+t_n = \frac{S}{n-1}.
+\]
+
+The leave-one-out estimator is
+\[
+t_{(i)} =
+\frac{1}{n-2}
+\left(
+S - \frac{n}{n-1}(x_i - \bar{x})^2
+\right).
+\]
+
+The jackknife estimator is
+\[
+t'_n = n t_n - (n-1)\bar{t}_{(\cdot)}, \quad
+\bar{t}_{(\cdot)} = \frac{1}{n}\sum_{i=1}^n t_{(i)}.
+\]
+
+so:
+
+\[
+t'_n =
+n \frac{n-1}{s} -
+(n-1)\frac{1}{n}
+\sum_{i=1}^n
+\frac{n-2}{S - \frac{n}{n-1}(x_i - \bar{x})^2}.
+\]
+
+so the jackknife estimator must be:
+
+\[
+n \frac{n-1}{S} -
+\frac{(n-1)(n-2)}{n}
+\sum_{i=1}^n
+\frac{1}{S - \frac{n}{n-1}(x_i - \bar{x})^2}.
+\]
